@@ -1,0 +1,11 @@
+
+.appHeader {
+    grid-area: head;
+    background-color: aqua;
+}
+
+
+.appHeader img {
+    width: 110px;
+    height: 60px;
+}

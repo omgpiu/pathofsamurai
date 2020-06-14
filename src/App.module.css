@@ -1,0 +1,18 @@
+.appWrapper {
+    margin: 0 auto;
+    width: 1200px;
+    display: grid;
+    grid-template-areas:
+    "head head"
+    "nav main";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 10fr;
+    grid-gap: 5px;
+}
+
+
+
+.wrapperMainContent {
+    grid-area: main;
+    background-color: blueviolet;
+}

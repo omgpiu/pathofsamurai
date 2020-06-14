@@ -1,0 +1,17 @@
+.appNav {
+    grid-area: nav;
+    background-color: burlywood;
+    padding: 10px;
+}
+
+.item a {
+    color: white;
+    text-decoration: none;
+
+}
+
+.item .active {
+    color: gold;
+    text-decoration: none;
+
+}
