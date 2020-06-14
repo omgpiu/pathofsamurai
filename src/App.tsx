@@ -11,26 +11,25 @@ import Music from "./components/Music/Music";
 import News from "./components/News/News";
 
 function App() {
-    return (<BrowserRouter>
+    return (
+        <BrowserRouter>
+            <div className={st.appWrapper}>
+                <Header/>
+                <Nav/>
+                <div className={st.wrapperMainContent}>
+                    <Route path={'/profile'} component={Profile}/>
+                    <Route path={'/dialogs'} component={Dialogs}/>
+                    <Route path={'/news'} component={News}/>
+                    <Route path={'/music'} component={Music}/>
+                    <Route path={'/settings'} component={Settings}/>
 
-        <div className={st.appWrapper}>
-            <Header/>
-            <Nav/>
-            <div className={st.wrapperMainContent}>
 
-
-                <Route path={'/profile'} component={Profile}/>
-                <Route path={'/dialogs'} component={Dialogs}/>
-                <Route path={'/news'} component={News}/>
-                <Route path={'/music'} component={Music}/>
-                <Route path={'/settings'} component={Settings}/>
+                </div>
 
 
             </div>
-
-
-        </div>
-    </BrowserRouter>)
+        </BrowserRouter>
+    )
 }
 
 export default App;
