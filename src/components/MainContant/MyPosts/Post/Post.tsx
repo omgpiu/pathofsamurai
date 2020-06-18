@@ -12,9 +12,6 @@ type PostDataType={
 }
 
 
-
-
-
 function Post(props:PostDataType) {
     return (
         <div className={st.wrapper}>

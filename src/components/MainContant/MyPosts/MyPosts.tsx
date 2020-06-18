@@ -6,15 +6,15 @@ import {v1} from "uuid";
 
 
 
-
-
-
 function MyPosts() {
 
     let postData = [
         {id: v1(), message: 'Hello man', likesCount:12},
         {id: v1(), message: 'Hello woman', likesCount:10}
     ]
+
+    let postsData = postData.map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>)
+
 
 
     return (
@@ -23,8 +23,7 @@ function MyPosts() {
             <div className={st.item} > Posts
                 <div>New posts</div>
                 <div>
-                    <Post message={postData[0].message} id={postData[0].id} likesCount={postData[0].likesCount}/>
-                    <Post message={postData[1].message} id={postData[1].id} likesCount={postData[1].likesCount}/>
+                    {postsData}
 
                 </div>
 
