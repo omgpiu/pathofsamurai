@@ -2,25 +2,22 @@ import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {v1} from "uuid";
 
 
+import {ProfilePageType} from "../../../index";
 
-function MyPosts() {
 
-    let postData = [
-        {id: v1(), message: 'Hello man', likesCount:12},
-        {id: v1(), message: 'Hello woman', likesCount:10}
-    ]
+function MyPosts(props: ProfilePageType) {
 
-    let postsData = postData.map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>)
 
+    let postsData = postData
+        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>)
 
 
     return (
         <div>
 
-            <div className={st.item} > Posts
+            <div className={st.item}> Posts
                 <div>New posts</div>
                 <div>
                     {postsData}
