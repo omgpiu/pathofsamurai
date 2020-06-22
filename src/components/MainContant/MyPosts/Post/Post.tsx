@@ -1,18 +1,13 @@
 import React from 'react';
 import '../../../../App.module.css';
 import st from './Post.module.css'
+import {PostType} from "../../../../index";
 
 
 
-type PostDataType={
-    id: string
-    message: string
-    likesCount: number
-
-}
 
 
-function Post(props:PostDataType) {
+const  Post: React.FC<PostType> = (props) => {
     return (
         <div className={st.wrapper}>
             <div className={`${st.item} ${st.img}`}>

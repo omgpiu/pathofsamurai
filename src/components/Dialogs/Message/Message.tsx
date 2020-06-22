@@ -1,11 +1,9 @@
 import React from 'react';
 import st from './../Dialogs.module.css'
+import {MessageType} from "../../../index";
 
 
-type MessageType = {
-    message: string
-    id: string
-}
+
 
 const Message: React.FC<MessageType> = (props) => {
     return (

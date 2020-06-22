@@ -2,12 +2,16 @@ import React from 'react';
 import '../../App.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {v1} from "uuid";
 
-function MainContent() {
+
+
+
+function Profile() {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts postData={postData} />
 
 
         </div>
@@ -16,4 +20,4 @@ function MainContent() {
 }
 
 
-export default MainContent;
+export default Profile;
