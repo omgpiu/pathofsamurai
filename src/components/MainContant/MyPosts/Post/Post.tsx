@@ -22,6 +22,7 @@ function Post(props:PostDataType) {
                     <div><span>Like</span> <span>{props.likesCount}</span></div>
                 </div>
 
+
                
 
 
