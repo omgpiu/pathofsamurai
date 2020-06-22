@@ -4,13 +4,13 @@ import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import st from './App.module.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import state, {RootStateType} from './Rdux/State';
+import state from './Rdux/State';
 
 import Dialogs from './components/Dialogs/Dialogs';
 import Profile from './components/MainContant/MainContent';
 
 
-function App(props:RootStateType) {
+function App() {
     return (
         <BrowserRouter>
             <div className={st.appWrapper}>
@@ -22,7 +22,7 @@ function App(props:RootStateType) {
                     <Route path='/profile' render={() => <Profile postData={state.profilePage.postData}/>}/>
 
                     <Route path={'/dialogs'} render={() => <Dialogs messageData={state.dialogsPage.messageData}
-                                                                    dialogsData={state.dialogsPage.dialogsData} />}/>
+                                                                    dialogsData={state.dialogsPage.dialogsData}/>}/>
 
 
                     {/*<Route path={'/news'} component={News}/>*/}
