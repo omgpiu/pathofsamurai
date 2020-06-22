@@ -1,5 +1,7 @@
 
 import {v1} from 'uuid';
+import {render} from 'react-dom';
+import {renderTree} from '../Render';
 
 export type DialogItemType = {
     name: string
@@ -53,5 +55,5 @@ export let state:RootStateType = {
         ]
     }
 };
-
+renderTree(state);
 export default state;
