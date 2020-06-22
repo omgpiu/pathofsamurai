@@ -2,15 +2,16 @@ import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css'
 import Post from "./Post/Post";
+import {ProfilePageType} from '../../../Rdux/State';
 
 
-import {ProfilePageType} from "../../../index";
+
 
 
 function MyPosts(props: ProfilePageType) {
 
 
-    let postsData = postData
+    let postsData = props.postData
         .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>)
 
 

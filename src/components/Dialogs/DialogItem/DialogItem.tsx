@@ -1,7 +1,8 @@
 import React from 'react';
 import st from './../Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
-import {DialogItemType} from "../../../index";
+import {DialogItemType} from '../../../Rdux/State';
+
 
 
 

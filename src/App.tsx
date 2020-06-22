@@ -1,26 +1,30 @@
 import React from 'react';
 import './App.module.css';
-import Header from "./components/Header/Header";
-import Nav from "./components/Nav/Nav";
-import st from './App.module.css'
-import Dialogs from "./components/Dialogs/Dialogs";
+import Header from './components/Header/Header';
+import Nav from './components/Nav/Nav';
+import st from './App.module.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Profile from '../src/components/MainContant/MainContent'
+import state, {RootStateType} from './Rdux/State';
 
-import state, {RootStateType} from './index'
+import Dialogs from './components/Dialogs/Dialogs';
+import Profile from './components/MainContant/MainContent';
 
 
-function App(props: RootStateType) {
+function App(props:RootStateType) {
     return (
         <BrowserRouter>
             <div className={st.appWrapper}>
                 <Header/>
                 <Nav/>
                 <div className={st.wrapperMainContent}>
-                    <Route path={'/profile'} render={() => {
-                        <Profile/>
-                    }}/>
-                    <Route path={'/dialogs'} render={()=>{<Dialogs dialog={} message={}}/>
+
+
+                    <Route path='/profile' render={() => <Profile postData={state.profilePage.postData}/>}/>
+
+                    <Route path={'/dialogs'} render={() => <Dialogs messageData={state.dialogsPage.messageData}
+                                                                    dialogsData={state.dialogsPage.dialogsData} />}/>
+
+
                     {/*<Route path={'/news'} component={News}/>*/}
                     {/*<Route path={'/music'} component={Music}/>*/}
                     {/*<Route path={'/settings'} component={Settings}/>*/}
@@ -31,7 +35,7 @@ function App(props: RootStateType) {
 
             </div>
         </BrowserRouter>
-    )
+    );
 }
 
 export default App;

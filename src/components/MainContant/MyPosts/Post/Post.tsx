@@ -1,7 +1,8 @@
 import React from 'react';
 import '../../../../App.module.css';
 import st from './Post.module.css'
-import {PostType} from "../../../../index";
+import {PostType} from '../../../../Rdux/State';
+
 
 
 

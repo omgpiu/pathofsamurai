@@ -1,19 +1,18 @@
 import React from 'react';
-import st from './Dialogs.module.css'
-import {v1} from 'uuid';
-import Message, {MessageType} from './Message/Message';
-import DialogItem, {DialogItemType} from './DialogItem/DialogItem'
-import {DialogPageType} from "../../index";
+import st from './Dialogs.module.css';
 
 
 
+import Message from './Message/Message';
+import {DialogPageType} from '../../Rdux/State';
+import DialogItem from './DialogItem/DialogItem';
 
 
 function Dialogs(props: DialogPageType) {
 
-    let dialogsElements = dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
+    let dialogsElements = props.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
 
-    let messageElements = messageData.map(message => <Message message={message.message} id={message.id}/>)
+    let messageElements = props.messageData.map(message => <Message message={message.message} id={message.id}/>);
 
     return (
 
@@ -28,8 +27,8 @@ function Dialogs(props: DialogPageType) {
 
 
         </div>
-    )
+    );
 }
 
 
-export default Dialogs
+export default Dialogs;

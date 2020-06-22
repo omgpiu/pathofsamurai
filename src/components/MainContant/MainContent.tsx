@@ -1,21 +1,20 @@
 import React from 'react';
 import '../../App.module.css';
-import MyPosts from "./MyPosts/MyPosts";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {v1} from "uuid";
+import MyPosts from './MyPosts/MyPosts';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import {ProfilePageType} from '../../Rdux/State';
 
 
 
-
-function Profile() {
+function Profile(props: ProfilePageType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts postData={postData} />
+            <MyPosts postData={props.postData}/>
 
 
         </div>
-    )
+    );
 
 }
 
