@@ -22,7 +22,7 @@ function App() {
 
                     <Route path='/profile' render={() => <Profile postData={state.profilePage.postData}/>}/>
 
-                    <Route path={'/dialogs'} render={() => <Dialogs messageData={state.dialogsPage.messageData}
+                    <Route path='/dialogs' render={() => <Dialogs messageData={state.dialogsPage.messageData}
                                                                     dialogsData={state.dialogsPage.dialogsData}/>}/>
 
 
