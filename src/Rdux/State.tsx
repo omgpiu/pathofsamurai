@@ -62,7 +62,8 @@ let state: RootStateType = {
             {id: v1(), message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend', likesCount: 14},
             {id: v1(), message: 'Hello friend', likesCount: 14},
             {id: v1(), message: 'Hello friend', likesCount: 14},
-            {id: v1(), message: 'Hello ', likesCount: 10}],
+            {id: v1(), message: 'Hello ', likesCount: 10},
+            {id: v1(), message: 'Hello ', likesCount: 10}]
     },
     dialogsPage: {
         messageData: [
