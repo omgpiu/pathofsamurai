@@ -18,15 +18,20 @@ export type PostType = {
 
 export type ProfilePageType = {
     postData: Array<PostType>
-
+    newPostText: string
 }
 export type ProfileType = {
     postData: Array<PostType>
-    addPostCallBack: (postText: string) => void
+    addPostCallBack: () => void
+    newPostText: string
+    updateNewPostText: (newText:string)=>void
 }
 export type MyPostsType = {
     postData: Array<PostType>
-    addPostCallBack: (postText: string) => void
+    addPostCallBack: () => void
+    newPostText: string
+    updateNewPostText: (newText:string)=>void
+
 }
 
 export type DialogPageType = {
@@ -42,29 +47,44 @@ export type RootStateType = {
     sidebar: Object
 }
 
-export const addPost = (postText: string) => {
+export const addPost = () => {
 
     const newPost: PostType = {
         id: v1(),
-        message: postText,
+        message: state.profilePage.newPostText,
         likesCount: 0
     };
     state.profilePage.postData.push(newPost);
+    updateNewPostText('');
     renderTree(state);
 
 };
 
-const a = 10;
-const b=10;
 
-let state: RootStateType = {
+export const updateNewPostText = (newText:string) => {
+    state.profilePage.newPostText = newText;
+
+    renderTree(state);
+}
+
+
+
+
+
+
+
+
+
+
+const state: RootStateType = {
     profilePage: {
         postData: [
             {id: v1(), message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend', likesCount: 14},
             {id: v1(), message: 'Hello friend', likesCount: 14},
             {id: v1(), message: 'Hello friend', likesCount: 14},
             {id: v1(), message: 'Hello ', likesCount: 10},
-            {id: v1(), message: 'Hello ', likesCount: 10}]
+            {id: v1(), message: 'Hello ', likesCount: 10}],
+        newPostText: ''
     },
     dialogsPage: {
         messageData: [

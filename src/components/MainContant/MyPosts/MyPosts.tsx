@@ -5,53 +5,60 @@ import Post from './Post/Post';
 import {MyPostsType} from '../../../Rdux/State';
 
 
-
-
-
 function MyPosts(props: MyPostsType) {
 
 
-    let postsData = props.postData
+    const postsData = props.postData
         .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
 
-    let newPostElementRef = React.createRef<HTMLTextAreaElement>();
+    const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
+        props.addPostCallBack();
+    };
 
-        if (newPostElementRef.current) {
-            props.addPostCallBack(newPostElementRef.current.value);
-            newPostElementRef.current.value='';
+
+    const onPostChange = () => {
+        if (newPostElement.current) {
+
+            const text = newPostElement.current.value;
+            props.updateNewPostText(text);
+
         }
+
     };
 
 
     return (
 
         <div className={st.item}> Posts
-                <div>New posts</div>
-                <textarea className={st.text} ref={newPostElementRef}></textarea>
+            <div>New posts</div>
+            <textarea className={st.text}
+                      onChange={onPostChange}
+                      ref={newPostElement}
+                      value={props.newPostText}/>
 
 
-                <div onClick={addPost} className={st.body}>
-                    <div className={st.button}>
-                        <span className={`${st.button_line} ${st.button_line_top}`}></span>
-                        <span className={`${st.button_line} ${st.button_line_right}`}></span>
-                        <span className={`${st.button_line} ${st.button_line_bottom}`}></span>
-                        <span className={`${st.button_line} ${st.button_line_left}`}></span>
+            <div onClick={addPost} className={st.body}>
+                <div className={st.button}>
+                    <span className={`${st.button_line} ${st.button_line_top}`}></span>
+                    <span className={`${st.button_line} ${st.button_line_right}`}></span>
+                    <span className={`${st.button_line} ${st.button_line_bottom}`}></span>
+                    <span className={`${st.button_line} ${st.button_line_left}`}></span>
 
-                        Add Me
-                    </div>
-
-
+                    Add Me
                 </div>
 
-                <div>
-                    {postsData}
-
-                </div>
 
             </div>
+
+            <div>
+                {postsData}
+
+            </div>
+
+        </div>
 
     );
 
