@@ -1,6 +1,4 @@
-
 import {v1} from 'uuid';
-import {render} from 'react-dom';
 import {renderTree} from '../Render';
 
 export type DialogItemType = {
@@ -20,24 +18,51 @@ export type PostType = {
 
 export type ProfilePageType = {
     postData: Array<PostType>
+
 }
+export type ProfileType = {
+    postData: Array<PostType>
+    addPostCallBack: (postText: string) => void
+}
+export type MyPostsType = {
+    postData: Array<PostType>
+    addPostCallBack: (postText: string) => void
+}
+
 export type DialogPageType = {
     messageData: Array<MessageType>
     dialogsData: Array<DialogItemType>
+
 }
 
 
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
+    sidebar: Object
 }
 
+export const addPost = (postText: string) => {
 
-export let state:RootStateType = {
+    const newPost: PostType = {
+        id: v1(),
+        message: postText,
+        likesCount: 0
+    };
+    state.profilePage.postData.push(newPost);
+    renderTree(state);
+
+};
+
+
+
+let state: RootStateType = {
     profilePage: {
         postData: [
-            {id: v1(), message: 'Hello man', likesCount: 12},
-            {id: v1(), message: 'Hello woman', likesCount: 10}]
+            {id: v1(), message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend', likesCount: 14},
+            {id: v1(), message: 'Hello friend', likesCount: 14},
+            {id: v1(), message: 'Hello friend', likesCount: 14},
+            {id: v1(), message: 'Hello ', likesCount: 10}],
     },
     dialogsPage: {
         messageData: [
@@ -53,7 +78,9 @@ export let state:RootStateType = {
             {id: v1(), name: 'Masha'},
             {id: v1(), name: 'Egor'}
         ]
-    }
+    },
+    sidebar: {}
 };
-renderTree(state);
+
+
 export default state;
