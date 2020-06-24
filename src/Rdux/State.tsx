@@ -54,7 +54,7 @@ export const addPost = (postText: string) => {
 
 };
 
-
+const a = 10;
 
 let state: RootStateType = {
     profilePage: {
