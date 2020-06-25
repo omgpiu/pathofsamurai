@@ -10,11 +10,12 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import state, {addPost, updateNewPostText} from './Rdux/State';
+import {RootStoreType} from './State2';
 
 
-function App() {
+function App(props:RootStoreType) {
     return (
-        <BrowserRouter>
+
             <div className={st.appWrapper}>
                 <Header/>
                 <Nav/>
@@ -41,7 +42,7 @@ function App() {
 
 
             </div>
-        </BrowserRouter>
+
     );
 }
 
