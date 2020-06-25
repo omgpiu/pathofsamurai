@@ -1,8 +1,66 @@
 import {v1} from 'uuid';
 
-let renderTree = () => {
-    console.log('state has changed')
-}
+
+let store = {
+    _state: {
+        profilePage: {
+            postData: [
+                {
+                    id: v1(),
+                    message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend',
+                    likesCount: 14
+                },
+                {id: v1(), message: 'Hello friend', likesCount: 14},
+                {id: v1(), message: 'Hello friend', likesCount: 14},
+                {id: v1(), message: 'Hello ', likesCount: 10},
+                {id: v1(), message: 'Hello ', likesCount: 10}],
+            newPostText: ''
+        },
+        dialogsPage: {
+            messageData: [
+                {id: v1(), message: 'Hello'},
+                {id: v1(), message: 'My name'},
+                {id: v1(), message: 'My name is'},
+                {id: v1(), message: 'My name is Sasha'}
+            ],
+            dialogsData: [
+                {id: v1(), name: 'Artem'},
+                {id: v1(), name: 'Vova'},
+                {id: v1(), name: 'Dima'},
+                {id: v1(), name: 'Masha'},
+                {id: v1(), name: 'Egor'}
+            ]
+        },
+        sidebar: {}
+    },
+    getState() {
+        return this._state;
+    },
+    _callSubscriber() {
+        console.log('state has changed');
+    },
+    addPost() {
+        const newPost: PostType = {
+            id: v1(),
+            message: this._state.profilePage.newPostText,
+            likesCount: 0
+        };
+        this._state.profilePage.postData.push(newPost);
+        this._state.updateNewPostText('');
+        this._state._callSubscriber();
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText;
+        this._state._callSubscriber();
+    },
+
+    subscribe(observer: any) {
+        this._state._callSubscriber = observer;
+    }
+
+
+};
+
 
 export type DialogItemType = {
     name: string
@@ -50,65 +108,14 @@ export type RootStateType = {
     sidebar: Object
 }
 
-export const addPost = () => {
-
-    const newPost: PostType = {
-        id: v1(),
-        message: state.profilePage.newPostText,
-        likesCount: 0
-    };
-    state.profilePage.postData.push(newPost);
-    updateNewPostText('');
-    renderTree();
-
-};
+export type RootStoreType = {
+    state: RootStateType
+    getState: ()=>void
+    addPost: ()=>void
 
 
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText;
 
-    renderTree();
 }
 
 
-const state: RootStateType = {
-    profilePage: {
-        postData: [
-            {
-                id: v1(),
-                message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend',
-                likesCount: 14
-            },
-            {id: v1(), message: 'Hello friend', likesCount: 14},
-            {id: v1(), message: 'Hello friend', likesCount: 14},
-            {id: v1(), message: 'Hello ', likesCount: 10},
-            {id: v1(), message: 'Hello ', likesCount: 10}],
-        newPostText: ''
-    },
-    dialogsPage: {
-        messageData: [
-            {id: v1(), message: 'Hello'},
-            {id: v1(), message: 'My name'},
-            {id: v1(), message: 'My name is'},
-            {id: v1(), message: 'My name is Sasha'}
-        ],
-        dialogsData: [
-            {id: v1(), name: 'Artem'},
-            {id: v1(), name: 'Vova'},
-            {id: v1(), name: 'Dima'},
-            {id: v1(), name: 'Masha'},
-            {id: v1(), name: 'Egor'}
-        ]
-    },
-    sidebar: {}
-};
-
-export const subscribe = (observer: any)=> {
-renderTree=observer
-}
-
-
-
-
-
-export default state;
+export default store;
