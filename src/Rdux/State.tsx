@@ -18,6 +18,8 @@ export type PostType = {
 export type ProfilePageType = {
     postData: Array<PostType>
     newPostText: string
+
+
 }
 
 export type MyPostsType = {
@@ -25,6 +27,7 @@ export type MyPostsType = {
     addPostCallBack: () => void
     newPostText: string
     updateNewPostText: (newText: string) => void
+
 
 }
 
@@ -60,13 +63,14 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
+    addPost: () => void
+    updateNewPostText:  (newText: string)=> void
+
+
+
+
+
 }
-export type RootStoreType = {
-    _state: RootStateType
-}
-
-
-
 
 
 
@@ -139,11 +143,6 @@ let store = {
 
 
 }
-
-
-
-
-
 
 
 export default store;

@@ -7,7 +7,7 @@ import {PostType} from '../../../../Rdux/State';
 export type PostTypeOne = {
     id: string
     message: string
-    likeCount:number
+    likesCount: number
 
 }
 

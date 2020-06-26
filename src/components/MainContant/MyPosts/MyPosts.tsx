@@ -2,18 +2,20 @@ import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {MyPostsType} from '../../../Rdux/State';
+import {MyPostsType, PostType} from '../../../Rdux/State';
 
-type MyPostsTypeOne = {
-
-
+export type MyPostsTypeOne = {
+    postData: Array<PostType>
+    newPostText: string
+    addPostCallBack: () => void
+    updateNewPostText: (newText:string) => void
 }
 
-function MyPosts(props: MyPostsType) {
+function MyPosts(props: MyPostsTypeOne) {
 
 
     const postsData = props.postData
-        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount} key={post.id}/>);
+        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount} />);
 
 
     const newPostElement = React.createRef<HTMLTextAreaElement>();

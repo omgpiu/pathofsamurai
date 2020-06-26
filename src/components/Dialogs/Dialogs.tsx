@@ -1,11 +1,11 @@
 import React from 'react';
 import st from './Dialogs.module.css';
 import Message from './Message/Message';
-import {DialogPageType} from '../../Rdux/State';
 import DialogItem from './DialogItem/DialogItem';
+import {DialogsPageType} from '../../Rdux/State';
 
 
-function Dialogs(props: DialogPageType) {
+function Dialogs(props: DialogsPageType) {
 
     const dialogsElements = props.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
 
