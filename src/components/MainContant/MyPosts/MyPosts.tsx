@@ -4,12 +4,16 @@ import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import {MyPostsType} from '../../../Rdux/State';
 
+type MyPostsTypeOne = {
+
+
+}
 
 function MyPosts(props: MyPostsType) {
 
 
     const postsData = props.postData
-        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>);
+        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount} key={post.id}/>);
 
 
     const newPostElement = React.createRef<HTMLTextAreaElement>();

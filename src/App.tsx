@@ -9,8 +9,9 @@ import Profile from './components/MainContant/ProfileContent';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import state, {addPost, updateNewPostText} from './Rdux/State';
-import {RootStoreType} from './State2';
+import state, {addPost, RootStoreType, updateNewPostText} from './Rdux/State';
+import store from "./Rdux/State";
+
 
 
 function App(props:RootStoreType) {
@@ -22,12 +23,7 @@ function App(props:RootStoreType) {
                 <div className={st.wrapperMainContent}>
 
 
-                    <Route path='/profile' render={() => <Profile postData={state.profilePage.postData}
-                                                                  addPostCallBack={addPost}
-                                                                  newPostText={state.profilePage.newPostText}
-                                                                  updateNewPostText={updateNewPostText}
-
-                    />}/>
+                    <Route path='/profile' render={() => <Profile myPosts={props._state.profilePage.postData}/>}/>
 
                     <Route path='/dialogs' render={() => <Dialogs messageData={state.dialogsPage.messageData}
                                                                   dialogsData={state.dialogsPage.dialogsData}/>}/>

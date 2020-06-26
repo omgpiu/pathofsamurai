@@ -2,17 +2,17 @@ import React from 'react';
 import '../../App.module.css';
 import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {ProfileType, updateNewPostText} from '../../Rdux/State';
+import {ProfileType} from '../../Rdux/State';
 
 
 function Profile(props: ProfileType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts postData={props.postData}
-                     addPostCallBack={props.addPostCallBack}
-                     newPostText={props.newPostText}
-                     updateNewPostText={props.updateNewPostText}/>
+            <MyPosts postData={props.myPosts.postData}
+                     addPostCallBack={props.myPosts.addPostCallBack}
+                     newPostText={props.myPosts.newPostText}
+                     updateNewPostText={props.myPosts.updateNewPostText}/>
         </div>
     );
 
