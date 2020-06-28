@@ -12,9 +12,8 @@ const renderTree = (state: RootStateType) => {
         <BrowserRouter>
 
             <App state={state}
-                 addPostCallBack={store.addPost}
-                 updateNewPostText={store.updateNewPostText}
-                                   />
+                 addPostCallBack={store.addPost.bind(store)}
+                 updateNewPostText={store.updateNewPostText.bind(store)}                                   />
 
         </BrowserRouter>, document.getElementById('root'));
 };

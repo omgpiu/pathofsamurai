@@ -36,22 +36,6 @@ export type ProfileType = {
 }
 
 
-
-
-// export type ProfileType = {
-//     postData: Array<PostType>
-//     addPostCallBack: () => void
-//     newPostText: string
-//     updateNewPostText: (newText: string) => void
-// }
-// export type MyPostsType = {
-//     postData: Array<PostType>
-//     addPostCallBack: () => void
-//     newPostText: string
-//     updateNewPostText: (newText: string) => void
-//
-// }
-
 export type DialogsPageType = {
     messageData: Array<MessageType>
     dialogsData: Array<DialogItemType>
@@ -63,24 +47,11 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
-    addPost: () => void
-    updateNewPostText:  (newText: string)=> void
-
-
-
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
 
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 let store = {
@@ -115,11 +86,12 @@ let store = {
         },
         sidebar: {}
     },
-    _callSubscriber() {
-        console.log('state has changed')
+    _callSubscriber(state: RootStateType) {
+        console.log('state has changed');
     },
-    getState(){
-        return this._state
+    getState() {
+
+        return this._state;
     },
     addPost() {
 
@@ -130,16 +102,23 @@ let store = {
         };
         this._state.profilePage.postData.push(newPost);
         this.updateNewPostText('');
-       this._callSubscriber();
+        this._callSubscriber(this._state);
 
     },
     updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText;
-       this._callSubscriber();
+        this._callSubscriber(this._state);
     },
     subscribe(observer: any) {
-        this._callSubscriber = observer
+        this._callSubscriber = observer;
     }
+
+
+};
+
+
+type StoreType = {
+
 
 
 }
