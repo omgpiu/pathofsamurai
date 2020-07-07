@@ -2,13 +2,17 @@ import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {DispatchType, PostType} from '../../../Rdux/State';
+import {addPostActionCreator, DispatchType, PostType, updateNewPostTextActionCreator} from '../../../Rdux/State';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
-    dispatch: (action:DispatchType) => void
+    dispatch: (action: DispatchType) => void
 }
+
+
+
+
 
 function MyPosts(props: MyPostsTypeOne) {
 
@@ -20,7 +24,7 @@ function MyPosts(props: MyPostsTypeOne) {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.dispatch({type: 'ADD-POST' });
+        props.dispatch(addPostActionCreator());
     };
 
 
@@ -28,7 +32,7 @@ function MyPosts(props: MyPostsTypeOne) {
         if (newPostElement.current) {
 
             const text = newPostElement.current.value;
-            let action = {type:'UPDATE-NEW-POST-TEXT', newText: text};
+            let action = updateNewPostTextActionCreator(text);
             props.dispatch(action);
 
         }
