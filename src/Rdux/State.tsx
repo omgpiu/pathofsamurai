@@ -27,7 +27,7 @@ export type MyPostsType = {
     addPostCallBack: () => void
     newPostText: string
     updateNewPostText: (newText: string) => void
-    dispatch: ()=> void
+    dispatch: () => void
 
 
 }
@@ -98,25 +98,8 @@ let store = {
     subscribe(observer: any) {
         this._callSubscriber = observer;
     },
-    addPost() {
-
-        const newPost: PostType = {
-            id: v1(),
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.postData.push(newPost);
-        this.updateNewPostText('');
-        this._callSubscriber(this._state);
-
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
-
-    },
-    dispatch (action:any){
-        if(action.type === 'ADD-POST'){
+    dispatch(action: any) {
+        if (action.type === 'ADD-POST') {
 
             const newPost: PostType = {
                 id: v1(),
@@ -126,10 +109,9 @@ let store = {
             this._state.profilePage.postData.push(newPost);
             this.updateNewPostText('');
             this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT'){
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
-
 
 
         }

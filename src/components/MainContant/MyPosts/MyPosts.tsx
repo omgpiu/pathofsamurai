@@ -7,8 +7,9 @@ import {MyPostsType, PostType} from '../../../Rdux/State';
 export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
-    addPostCallBack: () => void
-    updateNewPostText: (newText: string) => void
+    // addPostCallBack: () => void
+    // updateNewPostText: (newText: string) => void
+    dispatch: (Array<type:string>) => void
 }
 
 function MyPosts(props: MyPostsTypeOne) {
@@ -21,7 +22,7 @@ function MyPosts(props: MyPostsTypeOne) {
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.addPostCallBack();
+        props.dispatch({type: 'ADD-POST' });
     };
 
 
@@ -29,7 +30,8 @@ function MyPosts(props: MyPostsTypeOne) {
         if (newPostElement.current) {
 
             const text = newPostElement.current.value;
-            props.updateNewPostText(text);
+            let action = {type:'UPDATE-NEW-POST-TEXT', newText: text};
+            props.dispatch(action);
 
         }
 
