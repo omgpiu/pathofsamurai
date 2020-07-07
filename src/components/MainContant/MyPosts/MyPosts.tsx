@@ -8,14 +8,14 @@ export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
     addPostCallBack: () => void
-    updateNewPostText: (newText:string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 function MyPosts(props: MyPostsTypeOne) {
 
 
     const postsData = props.postData
-        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount} />);
+        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
 
     const newPostElement = React.createRef<HTMLTextAreaElement>();

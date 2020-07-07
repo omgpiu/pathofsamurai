@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.module.css';
 import MyPosts, {MyPostsTypeOne} from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import { MyPostsType } from '../../Rdux/State';
+import {MyPostsType} from '../../Rdux/State';
 
 
 // export type ProfileTypeOne = {
@@ -15,9 +15,9 @@ function Profile(props: MyPostsType) {
         <div>
             <ProfileInfo/>
             <MyPosts postData={props.postData}
-                     addPostCallBack={props.addPostCallBack}
+                     dispatch={props.dispatch}
                      newPostText={props.newPostText}
-                     updateNewPostText={props.updateNewPostText}/>
+            />
             {/*<MyPosts postData={props.myPosts.postData}*/}
             {/*        addPostCallBack={props.myPosts.addPostCallBack}*/}
             {/*        newPostText={props.myPosts.newPostText}*/}

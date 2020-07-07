@@ -32,9 +32,9 @@ function App(props:AppType) {
                     <Route path='/profile' render={() =>
                         <Profile
                         postData={props.state.profilePage.postData}
-                        addPostCallBack={props.addPostCallBack}
+                        dispatch={props.dispatch}
                         newPostText={props.state.profilePage.newPostText}
-                        updateNewPostText={props.updateNewPostText}
+
 
 
                     />}/>
