@@ -9,12 +9,11 @@ import Profile from './components/MainContant/ProfileContent';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {RootStateType} from './Rdux/State';
+import {DispatchType, RootStateType} from './Rdux/State';
 
 export type AppType = {
     state: RootStateType
-    addPostCallBack: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: DispatchType) => void
 
 
 }
@@ -27,21 +26,14 @@ function App(props:AppType) {
                 <Header/>
                 <Nav/>
                 <div className={st.wrapperMainContent}>
-
-
                     <Route path='/profile' render={() =>
                         <Profile
                         postData={props.state.profilePage.postData}
                         dispatch={props.dispatch}
                         newPostText={props.state.profilePage.newPostText}
-
-
-
                     />}/>
-
                     <Route path='/dialogs' render={() => <Dialogs messageData={props.state.dialogsPage.messageData}
                                                                   dialogsData={props.state.dialogsPage.dialogsData}/>}/>
-
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>

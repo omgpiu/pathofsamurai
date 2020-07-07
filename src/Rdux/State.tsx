@@ -22,37 +22,30 @@ export type ProfilePageType = {
 
 }
 
-export type MyPostsType = {
+export type MyProfileType = {
     postData: Array<PostType>
-    addPostCallBack: () => void
     newPostText: string
-    updateNewPostText: (newText: string) => void
-    dispatch: () => void
+    dispatch: (action :DispatchType) => void
 
 
 }
-
-export type ProfileType = {
-    myPosts: MyPostsType
-}
-
-
 export type DialogsPageType = {
     messageData: Array<MessageType>
     dialogsData: Array<DialogItemType>
 
 }
 
-
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
+    dispatch: (action :DispatchType) => void
+}
 
-    // addPost: () => void
-    // updateNewPostText: (newText: string) => void
-
-
+export type DispatchType = {
+    newText?: string
+    type?: string
+    message?: string
 }
 
 
@@ -95,12 +88,11 @@ let store = {
 
         return this._state;
     },
-    subscribe(observer: any) {
+    subscribe(observer:(state: RootStateType) => void) {
         this._callSubscriber = observer;
     },
-    dispatch(action: any) {
+    dispatch(action:any) {
         if (action.type === 'ADD-POST') {
-
             const newPost: PostType = {
                 id: v1(),
                 message: this._state.profilePage.newPostText,

@@ -2,14 +2,12 @@ import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {MyPostsType, PostType} from '../../../Rdux/State';
+import {DispatchType, PostType} from '../../../Rdux/State';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
-    // addPostCallBack: () => void
-    // updateNewPostText: (newText: string) => void
-    dispatch: (Array<type:string>) => void
+    dispatch: (action:DispatchType) => void
 }
 
 function MyPosts(props: MyPostsTypeOne) {
