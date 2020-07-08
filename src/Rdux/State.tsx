@@ -32,6 +32,7 @@ export type MyProfileType = {
 export type DialogsPageType = {
     messageData: Array<MessageType>
     dialogsData: Array<DialogItemType>
+    newMessageText:string
 
 }
 
@@ -45,11 +46,13 @@ export type RootStateType = {
 export type DispatchType = {
     newText?: string
     type?: string
-    message?: string
+    dialogMessage?: string
 }
 
 const ADD_POST: string = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_TEXT:string = 'UPDATE-NEW-MESSAGE-TEXT;'
+const SEND_NEW_MESSAGE_TEXT:string = 'SEND-NEW-MESSAGE-TEXT;'
 
 
 let store = {
@@ -80,7 +83,8 @@ let store = {
                 {id: v1(), name: 'Dima'},
                 {id: v1(), name: 'Masha'},
                 {id: v1(), name: 'Egor'}
-            ]
+            ],
+            newMessageText:""
         },
         sidebar: {}
     },
@@ -107,15 +111,31 @@ let store = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
-
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT){
+            this._state.dialogsPage.newMessageText =action.dialogMessage;
+            this._callSubscriber(this._state);
+        } else if (action.type === SEND_NEW_MESSAGE_TEXT){
+           let dialogMessage =  this._state.dialogsPage.newMessageText;
+            this._state.dialogsPage.newMessageText = '';
+            this._state.dialogsPage.messageData.push({id:v1(),message: dialogMessage})
+            this._callSubscriber(this._state);
 
         }
+
     }
 };
-export const addPostActionCreator = () => ({type: 'ADD-POST'})
+export const addPostActionCreator = () => ({type: ADD_POST})
 
 export const updateNewPostTextActionCreator = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text})
+
+export const sendMessageCreator = ()=> ({type:SEND_NEW_MESSAGE_TEXT})
+
+export const updateNewMessageCreator = (text: string) =>
+    ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text})
+
+
+
 
 
 export default store;
