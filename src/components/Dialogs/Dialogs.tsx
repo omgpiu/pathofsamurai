@@ -20,12 +20,12 @@ function Dialogs(props: DialogsPageType) {
 
     const newMessageElement = React.createRef<HTMLTextAreaElement>();
 
-    const addNewDialogMessage = () => {
+    const onSendMessageClick = () => {
         props.dispatch(sendMessageCreator());
     };
 
 
-    const onMessageChange = () => {
+    const onSendMessageChange = () => {
         if (newMessageElement.current) {
 
             const text = newMessageElement.current.value;
@@ -46,13 +46,18 @@ function Dialogs(props: DialogsPageType) {
             </div>
             <div className={st.messages}>
                 {messageElements} </div>
-                <textarea
-                    onChange={onMessageChange}
-                    ref={newMessageElement}
-                    value={props.newMessageText}
 
-                ></textarea>
-                <button onClick={addNewDialogMessage}></button>
+            <div><textarea
+                onChange={onSendMessageChange}
+                ref={newMessageElement}
+                value={props.d}
+                placeholder={'Enter your message'}
+
+            ></textarea></div>
+            <div><button onClick={ onSendMessageClick}></button></div>
+
+
+
 
 
 

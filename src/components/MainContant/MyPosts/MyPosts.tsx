@@ -8,6 +8,7 @@ export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
     dispatch: (action: DispatchType) => void
+    newMessageText: string
 }
 
 
@@ -47,7 +48,7 @@ function MyPosts(props: MyPostsTypeOne) {
             <textarea className={st.text}
                       onChange={onPostChange}
                       ref={newPostElement}
-                      value={props.newPostText}/>
+                      value={props.newMessageText}/>
 
 
             <div onClick={addPost} className={st.body}>
