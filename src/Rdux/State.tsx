@@ -25,7 +25,7 @@ export type ProfilePageType = {
 export type MyProfileType = {
     postData: Array<PostType>
     newPostText: string
-    dispatch: (action :DispatchType) => void
+    dispatch: (action: DispatchType) => void
 
 
 }
@@ -39,7 +39,7 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
-    dispatch: (action :DispatchType) => void
+    dispatch: (action: DispatchType) => void
 }
 
 export type DispatchType = {
@@ -47,6 +47,9 @@ export type DispatchType = {
     type?: string
     message?: string
 }
+
+const ADD_POST: string = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
 
 
 let store = {
@@ -88,11 +91,11 @@ let store = {
 
         return this._state;
     },
-    subscribe(observer:(state: RootStateType) => void) {
+    subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer;
     },
-    dispatch(action:any) {
-        if (action.type === 'ADD-POST') {
+    dispatch(action: DispatchType) {
+        if (action.type === ADD_POST) {
             const newPost: PostType = {
                 id: v1(),
                 message: this._state.profilePage.newPostText,
@@ -101,7 +104,7 @@ let store = {
             this._state.profilePage.postData.push(newPost);
             this.updateNewPostText('');
             this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
 
@@ -109,17 +112,10 @@ let store = {
         }
     }
 };
-export const addPostActionCreator = () => {
-    return {
-        type: 'ADD-POST'
-    }
-}
+export const addPostActionCreator = () => ({type: 'ADD-POST'})
 
-export const updateNewPostTextActionCreator = (text: string) => {
-    return {type: 'UPDATE-NEW-POST-TEXT', newText: text}
-
-
-}
+export const updateNewPostTextActionCreator = (text: string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: text})
 
 
 export default store;
