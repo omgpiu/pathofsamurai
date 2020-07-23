@@ -2,8 +2,8 @@ import React from 'react';
 import {v1} from 'uuid';
 import {ActionType, PostType} from './State';
 
-const ADD_POST: string = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
+const ADD_POST= 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 export type AddPostActionCreatorType = {
     type: typeof ADD_POST

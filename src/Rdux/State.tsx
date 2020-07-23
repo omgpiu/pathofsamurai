@@ -1,7 +1,6 @@
 import {v1} from 'uuid';
-import profileReducer, {AddPostActionCreatorType, ChangeNewTextActionCreatorType} from './profile-reducer';
+import profileReducer, {AddPostActionCreatorType, updateNewPostTextActionCreatorType,} from './profile-reducer';
 import dialogsReducer, {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
-import sidebarReducer from './sidebar-reducer';
 
 export type DialogItemType = {
     name: string
@@ -25,10 +24,7 @@ export type ProfilePageType = {
 
 }
 
-export type MyProfileType = {
-    postData: Array<PostType>
-    newPostText: string
-   }
+
 export type DialogsPageType = {
     messageData: Array<MessageType>
     dialogsData: Array<DialogItemType>
@@ -43,22 +39,20 @@ export type RootStateType = {
     sidebar: Object
 }
 
-export type ActionType = AddPostActionCreatorType | ChangeNewTextActionCreatorType
-    |  SendMessageCreatorType | UpdateNewMessageBodyCreatorType
+export type ActionType = AddPostActionCreatorType | updateNewPostTextActionCreatorType
+    | SendMessageCreatorType | UpdateNewMessageBodyCreatorType
 
 export type StoreType = {
     _state: RootStateType
-    _callSubscriber: (state: RootStateType)=> void
+    _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
-    subscribe: (observer: (state:RootStateType) => void) => void
+    subscribe: (observer: (state: RootStateType) => void) => void
     dispatch: (action: ActionType) => void
 
 }
 
 
-
-
-let store:StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             postData: [

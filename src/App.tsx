@@ -28,7 +28,7 @@ function App(props:PropsType) {
                 <div className={st.wrapperMainContent}>
                     <Route path='/profile' render={() =>
                         <Profile
-                        postData={props.store._state.profilePage.postData}
+                            profilePage={props.store._state.profilePage}
                         dispatch={props.dispatch}
 
                     />}/>

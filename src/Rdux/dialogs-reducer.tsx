@@ -2,8 +2,8 @@ import React from 'react';
 import {v1} from 'uuid';
 import {ActionType} from './State';
 
-const UPDATE_NEW_MESSAGE_TEXT: string = 'UPDATE-NEW-MESSAGE-TEXT';
-const SEND_NEW_MESSAGE_TEXT: string = 'SEND-NEW-MESSAGE-TEXT';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+const SEND_NEW_MESSAGE_TEXT = 'SEND-NEW-MESSAGE-TEXT';
 
 export type UpdateNewMessageBodyCreatorType = {
     type: typeof UPDATE_NEW_MESSAGE_TEXT
