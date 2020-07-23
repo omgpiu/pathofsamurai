@@ -32,8 +32,10 @@ function App(props:AppType) {
                         dispatch={props.dispatch}
                         newPostText={props.state.profilePage.newPostText}
                     />}/>
-                    <Route path='/dialogs' render={() => <Dialogs messageData={props.state.dialogsPage.messageData}
-                                                                  dialogsData={props.state.dialogsPage.dialogsData}/>}/>
+                    <Route path='/dialogs' render={() => <Dialogs store={props.store}
+                                                                  dispatch={props.dispatch}
+
+                    />}/>
 
                     <Route path={'/news'} component={News}/>
                     <Route path={'/music'} component={Music}/>

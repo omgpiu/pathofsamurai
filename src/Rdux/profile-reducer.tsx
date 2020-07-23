@@ -1,17 +1,29 @@
 import React from 'react';
 import {v1} from 'uuid';
-import {PostType} from './State';
+import {ActionType, PostType} from './State';
 
 const ADD_POST: string = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
 
+export type AddPostActionCreatorType = {
+    type: typeof ADD_POST
+}
+export type ChangeNewTextActionCreatorType = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    newText: string
+}
 
-const profileReducer = (state: any, action: any) => {
+let initialState = {
+    postData: [] as Array<PostType>,
+    newPostText: '',
+};
+
+type StateProfile = typeof initialState
+const profileReducer = (state: StateProfile = initialState, action: ActionType):StateProfile => {
 
     switch (action.type) {
 
-        case
-        ADD_POST:
+        case ADD_POST:
             const newPost: PostType = {
                 id: v1(),
                 message: state.newPostText,
@@ -21,19 +33,16 @@ const profileReducer = (state: any, action: any) => {
             state.newPostText = '';
             return state;
 
-        case
-        UPDATE_NEW_POST_TEXT:
+        case UPDATE_NEW_POST_TEXT:
             state.newPostText = action.newText;
             return state;
         default :
             return state;
     }
 
-
-    return state;
 };
-export const addPostActionCreator = () => ({type: ADD_POST});
+export const addPostActionCreator = (): AddPostActionCreatorType => ({type: ADD_POST});
 
-export const updateNewPostTextActionCreator = (text: string) =>
+export const updateNewPostTextActionCreator = (text: string): ChangeNewTextActionCreatorType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export default profileReducer;

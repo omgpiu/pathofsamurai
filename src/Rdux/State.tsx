@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
-import profileReducer from './profile-reducer';
-import dialogsReducer from './dialogs-reducer';
+import profileReducer, {AddPostActionCreatorType, ChangeNewTextActionCreatorType} from './profile-reducer';
+import dialogsReducer, {UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 
 export type DialogItemType = {
@@ -28,15 +28,12 @@ export type ProfilePageType = {
 export type MyProfileType = {
     postData: Array<PostType>
     newPostText: string
-    dispatch: (action: DispatchType) => void
-
-
-}
+   }
 export type DialogsPageType = {
     messageData: Array<MessageType>
     dialogsData: Array<DialogItemType>
     newMessageText: string
-    dispatch: (action: DispatchType) => void
+
 
 }
 
@@ -44,22 +41,24 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
-    dispatch: (action: DispatchType) => void
+}
 
+export type ActionType = AddPostActionCreatorType | ChangeNewTextActionCreatorType
+    |  SendMessageCreatorType | UpdateNewMessageBodyCreatorType
+
+export type StoreType = {
+    _state: RootStateType
+    _callSubscriber: (state: RootStateType)=> void
+    getState: () => RootStateType
+    subscribe: (observer: (state:RootStateType) => void) => void
+    dispatch: (action: ActionType) => void
 
 }
 
-export type DispatchType = {
-    newText?: string
-    type: string
-    dialogMessage?: string
-
-}
 
 
 
-
-let store = {
+let store:StoreType = {
     _state: {
         profilePage: {
             postData: [
@@ -92,7 +91,7 @@ let store = {
         },
         sidebar: {}
     },
-    _callSubscriber(state: any) {
+    _callSubscriber(state: RootStateType) {
         console.log('state has changed');
     },
     getState() {
@@ -102,16 +101,13 @@ let store = {
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer;
     },
-    dispatch(action: DispatchType) {
+    dispatch(action: ActionType) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sidebar = sidebarReducer(this._state.sidebar, action);
         this._callSubscriber(this._state);
     }
 };
-
-
-
 
 
 export default store;
