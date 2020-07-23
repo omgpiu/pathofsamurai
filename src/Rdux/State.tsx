@@ -46,18 +46,17 @@ export type RootStateType = {
     sidebar: Object
     dispatch: (action: DispatchType) => void
 
+
 }
 
 export type DispatchType = {
     newText?: string
-    type?: string
+    type: string
     dialogMessage?: string
+
 }
 
-const ADD_POST: string = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_TEXT: string = 'UPDATE-NEW-MESSAGE-TEXT';
-const SEND_NEW_MESSAGE_TEXT: string = 'SEND-NEW-MESSAGE-TEXT';
+
 
 
 let store = {
@@ -93,7 +92,7 @@ let store = {
         },
         sidebar: {}
     },
-    _callSubscriber(state: RootStateType) {
+    _callSubscriber(state: any) {
         console.log('state has changed');
     },
     getState() {
@@ -110,15 +109,9 @@ let store = {
         this._callSubscriber(this._state);
     }
 };
-export const addPostActionCreator = () => ({type: ADD_POST});
 
-export const updateNewPostTextActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
-export const sendMessageCreator = () => ({type: SEND_NEW_MESSAGE_TEXT});
 
-export const updateNewMessageCreator = (text: string) =>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text});
 
 
 export default store;

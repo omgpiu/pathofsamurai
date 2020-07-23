@@ -2,7 +2,8 @@ import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {addPostActionCreator, DispatchType, PostType, updateNewPostTextActionCreator} from '../../../Rdux/State';
+import {DispatchType, PostType} from '../../../Rdux/State';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../Rdux/profile-reducer';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>

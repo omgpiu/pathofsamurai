@@ -2,7 +2,8 @@ import React from 'react';
 import st from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
-import {DialogsPageType, sendMessageCreator, updateNewMessageCreator} from '../../Rdux/State';
+import {DialogsPageType} from '../../Rdux/State';
+import {sendMessageCreator, updateNewMessageCreator} from '../../Rdux/dialogs-reducer';
 
 
 function Dialogs(props: DialogsPageType) {
