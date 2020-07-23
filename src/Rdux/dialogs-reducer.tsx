@@ -15,10 +15,24 @@ export  type SendMessageCreatorType = {
 
 let initialState = {
 
+        messageData: [
+            {id: v1(), message: 'Hello'},
+            {id: v1(), message: 'My name'},
+            {id: v1(), message: 'My name is'},
+            {id: v1(), message: 'My name is Sasha'}
+        ],
+        dialogsData: [
+            {id: v1(), name: 'Artem'},
+            {id: v1(), name: 'Vova'},
+            {id: v1(), name: 'Dima'},
+            {id: v1(), name: 'Masha'},
+            {id: v1(), name: 'Egor'}
+        ],
+        newMessageText: ''
 }
 type StateDialogs = typeof initialState
 
-export const dialogsReducer = (state: StateDialogs = initialState, action: ActionType) => {
+export const dialogsReducer = (state: StateDialogs = initialState, action: ActionType):StateDialogs => {
 
 
     switch (action.type) {
@@ -27,7 +41,7 @@ export const dialogsReducer = (state: StateDialogs = initialState, action: Actio
             return state;
 
         case SEND_NEW_MESSAGE_TEXT:
-            (action.type);
+
             let dialogMessage = state.newMessageText;
             state.newMessageText = '';
             state.messageData.push({id: v1(), message: dialogMessage});

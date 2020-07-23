@@ -1,19 +1,15 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {DispatchType, PostType} from '../../../Rdux/State';
+import {ActionType, PostType} from '../../../Rdux/State';
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../Rdux/profile-reducer';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
-    dispatch: (action: DispatchType) => void
-    newMessageText: string
+    dispatch: (action: ActionType) => void
 }
-
-
-
 
 
 function MyPosts(props: MyPostsTypeOne) {
@@ -23,7 +19,8 @@ function MyPosts(props: MyPostsTypeOne) {
         .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
 
-    const newPostElement = React.createRef<HTMLTextAreaElement>();
+    type  newPostType = RefObject<any>;
+    const newPostElement: newPostType = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
         props.dispatch(addPostActionCreator());
@@ -31,13 +28,10 @@ function MyPosts(props: MyPostsTypeOne) {
 
 
     const onPostChange = () => {
-        if (newPostElement.current) {
+        let text = newPostElement.current.value;
+        let action = updateNewPostTextActionCreator(text);
+        props.dispatch(action);
 
-            const text = newPostElement.current.value;
-            let action = updateNewPostTextActionCreator(text);
-            props.dispatch(action);
-
-        }
 
     };
 
@@ -49,7 +43,7 @@ function MyPosts(props: MyPostsTypeOne) {
             <textarea className={st.text}
                       onChange={onPostChange}
                       ref={newPostElement}
-                      value={props.newMessageText}/>
+                      value={props.newPostText}/>
 
 
             <div onClick={addPost} className={st.body}>

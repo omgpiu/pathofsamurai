@@ -1,6 +1,6 @@
 import {v1} from 'uuid';
 import profileReducer, {AddPostActionCreatorType, ChangeNewTextActionCreatorType} from './profile-reducer';
-import dialogsReducer, {UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
+import dialogsReducer, {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 
 export type DialogItemType = {
@@ -104,7 +104,7 @@ let store:StoreType = {
     dispatch(action: ActionType) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        // this._state.sidebar = sidebarReducer(this._state.sidebar, action);
         this._callSubscriber(this._state);
     }
 };

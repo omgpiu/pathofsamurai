@@ -8,14 +8,14 @@ const UPDATE_NEW_POST_TEXT: string = 'UPDATE-NEW-POST-TEXT';
 export type AddPostActionCreatorType = {
     type: typeof ADD_POST
 }
-export type ChangeNewTextActionCreatorType = {
+export type updateNewPostTextActionCreatorType = {
     type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
 
 let initialState = {
     postData: [] as Array<PostType>,
-    newPostText: '',
+    newPostText:''
 };
 
 type StateProfile = typeof initialState
@@ -43,6 +43,6 @@ const profileReducer = (state: StateProfile = initialState, action: ActionType):
 };
 export const addPostActionCreator = (): AddPostActionCreatorType => ({type: ADD_POST});
 
-export const updateNewPostTextActionCreator = (text: string): ChangeNewTextActionCreatorType =>
+export const updateNewPostTextActionCreator = (text: string): updateNewPostTextActionCreatorType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export default profileReducer;

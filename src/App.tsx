@@ -9,17 +9,17 @@ import Profile from './components/MainContant/ProfileContent';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {DispatchType, RootStateType} from './Rdux/State';
+import {ActionType,  StoreType} from './Rdux/State';
 
-export type AppType = {
-    state: RootStateType
-    dispatch: (action: DispatchType) => void
+export type PropsType = {
+    store: StoreType
+    dispatch: (action: ActionType) => void
 
 
 }
 
 
-function App(props:AppType) {
+function App(props:PropsType) {
     return (
 
             <div className={st.appWrapper}>
@@ -28,9 +28,9 @@ function App(props:AppType) {
                 <div className={st.wrapperMainContent}>
                     <Route path='/profile' render={() =>
                         <Profile
-                        postData={props.state.profilePage.postData}
+                        postData={props.store._state.profilePage.postData}
                         dispatch={props.dispatch}
-                        newPostText={props.state.profilePage.newPostText}
+
                     />}/>
                     <Route path='/dialogs' render={() => <Dialogs store={props.store}
                                                                   dispatch={props.dispatch}
