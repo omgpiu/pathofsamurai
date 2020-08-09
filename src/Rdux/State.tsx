@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
 import profileReducer, {AddPostActionCreatorType, updateNewPostTextActionCreatorType,} from './profile-reducer';
 import dialogsReducer, {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
+import sidebarReducer from './sidebar-reducer';
 
 export type DialogItemType = {
     name: string
@@ -52,7 +53,7 @@ export type StoreType = {
 }
 
 
-let store: StoreType = {
+let state: StoreType = {
     _state: {
         profilePage: {
             postData: [
@@ -98,10 +99,10 @@ let store: StoreType = {
     dispatch(action: ActionType) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        // this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
         this._callSubscriber(this._state);
     }
 };
 
 
-export default store;
+export default state;

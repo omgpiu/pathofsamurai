@@ -2,7 +2,7 @@ import React from 'react';
 import {v1} from 'uuid';
 import {ActionType, PostType} from './State';
 
-const ADD_POST= 'ADD-POST';
+const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 export type AddPostActionCreatorType = {
@@ -13,14 +13,28 @@ export type updateNewPostTextActionCreatorType = {
     newText: string
 }
 
+// let initialState = {
+//     postData: [] as Array<PostType>,
+//     newPostText:''
+// };
+
+
 let initialState = {
-    postData: [] as Array<PostType>,
-    newPostText:''
+    postData: [
+        {
+            id: v1(),
+            message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend',
+            likesCount: 14
+        },
+        {id: v1(), message: 'Hello friend', likesCount: 14},
+        {id: v1(), message: 'Hello friend', likesCount: 14},
+        {id: v1(), message: 'Hello ', likesCount: 10},
+        {id: v1(), message: 'Hello ', likesCount: 10}],
+    newPostText: ''
 };
-
 type StateProfile = typeof initialState
-const profileReducer = (state: StateProfile = initialState, action: ActionType):StateProfile => {
-
+const profileReducer = (state: StateProfile = initialState, action: ActionType): StateProfile => {
+        debugger
     switch (action.type) {
 
         case ADD_POST:

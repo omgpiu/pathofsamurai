@@ -2,13 +2,13 @@ import React, {RefObject} from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {ActionType, PostType} from '../../../Rdux/State';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../Rdux/profile-reducer';
+import {PostType} from '../../../Rdux/State';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionType) => void
+    updateNewPostText: (text: string) => void
+    addPost: () => void
 }
 
 
@@ -22,15 +22,15 @@ function MyPosts(props: MyPostsTypeOne) {
     type  newPostType = RefObject<any>;
     const newPostElement: newPostType = React.createRef<HTMLTextAreaElement>();
 
-    const addPost = () => {
-        props.dispatch(addPostActionCreator());
+    const onAddPost = () => {
+        props.addPost();
+
     };
 
 
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        let action = updateNewPostTextActionCreator(text);
-        props.dispatch(action);
+        props.updateNewPostText(text);
 
 
     };
@@ -46,7 +46,7 @@ function MyPosts(props: MyPostsTypeOne) {
                       value={props.newPostText}/>
 
 
-            <div onClick={addPost} className={st.body}>
+            <div onClick={onAddPost} className={st.body}>
                 <div className={st.button}>
                     <span className={`${st.button_line} ${st.button_line_top}`}></span>
                     <span className={`${st.button_line} ${st.button_line_right}`}></span>

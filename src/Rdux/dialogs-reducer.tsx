@@ -33,7 +33,7 @@ let initialState = {
 type StateDialogs = typeof initialState
 
 export const dialogsReducer = (state: StateDialogs = initialState, action: ActionType):StateDialogs => {
-
+debugger
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:

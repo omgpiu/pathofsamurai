@@ -4,14 +4,18 @@ import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 import {sendMessageCreator, updateNewMessageCreator} from '../../Rdux/dialogs-reducer';
 import {PropsType} from '../../App';
+import {Button, TextField} from '@material-ui/core';
+import {DialogItemType, MessageType} from '../../Rdux/State';
 
 
 function Dialogs(props: PropsType) {
 
     let state = props.store.getState().dialogsPage;
-    const dialogsElements = state.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
+    const dialogsElements = state.dialogsData.map((dialog: DialogItemType) => <DialogItem name={dialog.name}
+                                                                                          id={dialog.id}/>);
 
-    const messageElements = state.messageData.map(message => <Message message={message.message} id={message.id}/>);
+    const messageElements = state.messageData.map((message: MessageType) => <Message message={message.message}
+                                                                                     id={message.id}/>);
 
 
     const newMessageBody = state.newMessageText;
@@ -36,15 +40,23 @@ function Dialogs(props: PropsType) {
             </div>
             <div className={st.messages}>
                 {messageElements} </div>
-
-            <div><textarea
-                onChange={onSendMessageChange}
-                value={newMessageBody}
-                placeholder={'Enter your message'}
-            /></div>
             <div>
-                <button onClick={onSendMessageClick}>Send</button>
+                <TextField id="outlined-basic" label="Filled" variant="filled" color={'primary'}
+                           onChange={onSendMessageChange}
+                           value={newMessageBody}
+                           placeholder={'Enter your message'}/>
+
+
             </div>
+            <div><Button
+                variant="contained"
+                color="primary"
+                onClick={onSendMessageClick}
+
+
+            >
+                Send
+            </Button></div>
 
 
         </div>
