@@ -2,15 +2,21 @@ import React, {ChangeEvent} from 'react';
 import st from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
-import {sendMessageCreator, updateNewMessageCreator} from '../../Rdux/dialogs-reducer';
-import {PropsType} from '../../App';
 import {Button, TextField} from '@material-ui/core';
-import {DialogItemType, MessageType} from '../../Rdux/State';
+import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/State';
+
+type DialogsPropType = {
+    updateNewMessage: (message: string) => void
+    sendMessage: () => void
+    dialogsPage: DialogsPageType
+}
 
 
-function Dialogs(props: PropsType) {
+function Dialogs(props: DialogsPropType) {
 
-    let state = props.store.getState().dialogsPage;
+    let state = props.dialogsPage;
+
+
     const dialogsElements = state.dialogsData.map((dialog: DialogItemType) => <DialogItem name={dialog.name}
                                                                                           id={dialog.id}/>);
 
@@ -21,13 +27,12 @@ function Dialogs(props: PropsType) {
     const newMessageBody = state.newMessageText;
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator());
+        props.sendMessage();
     };
 
-
-    const onSendMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let message = e.target.value;
-        props.dispatch(updateNewMessageCreator(message));
+        props.updateNewMessage(message);
     };
 
 
@@ -42,7 +47,7 @@ function Dialogs(props: PropsType) {
                 {messageElements} </div>
             <div>
                 <TextField id="outlined-basic" label="Filled" variant="filled" color={'primary'}
-                           onChange={onSendMessageChange}
+                           onChange={onNewMessageChange}
                            value={newMessageBody}
                            placeholder={'Enter your message'}/>
 

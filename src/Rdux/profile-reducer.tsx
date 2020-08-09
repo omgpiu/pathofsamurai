@@ -13,12 +13,6 @@ export type updateNewPostTextActionCreatorType = {
     newText: string
 }
 
-// let initialState = {
-//     postData: [] as Array<PostType>,
-//     newPostText:''
-// };
-
-
 let initialState = {
     postData: [
         {

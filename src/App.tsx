@@ -9,21 +9,21 @@ import Profile from './components/MainContant/ProfileContent';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {ActionType, RootStateType, StoreType} from './Rdux/State';
+import {ActionType, RootStateType} from './Rdux/State';
 import {Store} from 'redux';
+import DialogsComtainer from './components/Dialogs/DialogsContainer';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 export type PropsType = {
-
-    dispatch: (action: ActionType) => void
-    store: any
-    state?:RootStateType
-
+    store: Store
+    state?: RootStateType
+    dispatch: (action:ActionType)=>void
 
 }
 
 
 function App(props: PropsType) {
-   const state = props.store.getState()
+
     return (
 
         <div className={st.appWrapper}>
@@ -32,17 +32,13 @@ function App(props: PropsType) {
             <div className={st.wrapperMainContent}>
                 <Route path='/profile' render={() =>
                     <Profile
-
-                        profilePage={state.profilePage}
-                        dispatch={props.dispatch}
-
+                        store={props.store}
                     />}/>
                 <Route path='/dialogs' render={() =>
-                    <Dialogs store={props.store}
-                             dispatch={props.dispatch}
+                    <DialogsContainer store={props.store}/>
 
-
-                    />}/>
+                }
+                />
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>

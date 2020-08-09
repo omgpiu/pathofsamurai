@@ -16,7 +16,7 @@ function MyPosts(props: MyPostsTypeOne) {
 
 
     const postsData = props.postData
-        .map(post => <Post message={post.message} id={post.id} likesCount={post.likesCount}/>);
+        .map(post => <Post key={post.id} message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
 
     type  newPostType = RefObject<any>;
