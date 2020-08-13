@@ -12,8 +12,6 @@ const renderTree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
 <Provider store={store}>
-
-
             <App />
 </Provider>
         </BrowserRouter>,

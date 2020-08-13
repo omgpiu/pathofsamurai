@@ -1,27 +1,31 @@
 import React from 'react';
 import {sendMessageCreator, updateNewMessageCreator} from '../../Rdux/dialogs-reducer';
-import {ContainersType} from '../MainContant/MyPosts/MyPostsContainer';
 import Dialogs, {DialogsPropType} from './Dialogs';
 import {connect} from 'react-redux';
-import {ActionType} from '../../Rdux/State';
+import {ActionType, RootStateType} from '../../Rdux/State';
 
-let mapStateToProps=(state:DialogsPropType)=>{
-return {
-    dialogsPage:state.dialogsPage
-}
-}
-let mapDispatchToProps =(dispatch: (action: ActionType) => void)=>{
-    return{
-        updateNewMessage:()=>{
-            dispatch(sendMessageCreator());},
-        sendMessage:(message: string)=>{
-            dispatch(updateNewMessageCreator(message))},
-    }
+let mapStateToProps = (state:RootStateType) => {
+    return {
+        dialogsPage: state.dialogsPage
+    };
+};
+let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
+    return {
+        sendMessage: () => {
+            dispatch(sendMessageCreator());
+        },
+        updateNewMessage: (message: string) => {
+            dispatch(updateNewMessageCreator(message));
+        },
+    };
 
-}
+};
 
 
-export const DialogContainer =connect(mapStateToProps,mapDispatchToProps)(Dialogs);
+const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+
+export default DialogContainer;
 
 
 

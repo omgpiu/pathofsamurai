@@ -51,7 +51,9 @@ export type StoreType = {
     dispatch: (action: ActionType) => void
 
 }
-
+export type dispatchType = {
+  action: ActionType
+}
 
 let state: StoreType = {
     _state: {

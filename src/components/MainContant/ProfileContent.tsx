@@ -1,28 +1,17 @@
 import React from 'react';
 import '../../App.module.css';
-import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {ActionType, ProfilePageType} from '../../Rdux/State';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import {Store} from 'redux';
-
-type PropType = {
-
-    store: Store
+import {MyPostsTypeOne} from './MyPosts/MyPosts';
+import {ActionType} from '../../Rdux/State';
 
 
-}
 
-function Profile(props: PropType) {
+function Profile() {
     return (
         <div>
             <ProfileInfo/>
-
-            <MyPostsContainer
-                           store={props.store}
-            />
-            />
-
+            <MyPostsContainer/>
         </div>
     );
 

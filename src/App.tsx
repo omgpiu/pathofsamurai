@@ -9,7 +9,7 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import {Store} from 'redux';
-import {DialogContainer} from './components/Dialogs/DialogsContainer';
+import DialogContainer from './components/Dialogs/DialogsContainer';
 
 
 export type PropsType = {
@@ -19,7 +19,7 @@ export type PropsType = {
 }
 
 
-function App(props: PropsType) {
+function App() {
 
     return (
 
@@ -28,11 +28,9 @@ function App(props: PropsType) {
             <Nav/>
             <div className={st.wrapperMainContent}>
                 <Route path='/profile' render={() =>
-                    <Profile
-                        store={props.store}
-                    />}/>
+                    <Profile/>}/>
                 <Route path='/dialogs' render={() =>
-                    <DialogContainer store={props.store}/>
+                    <DialogContainer/>
                 }
                 />
                 <Route path={'/news'} component={News}/>
