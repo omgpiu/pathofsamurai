@@ -4,7 +4,7 @@ import store from './Rdux/redux-store';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
-
+import {Provider} from 'react-redux';
 
 
 const renderTree = (state: RootStateType) => {
@@ -13,9 +13,9 @@ const renderTree = (state: RootStateType) => {
         <BrowserRouter>
 <Provider store={store}>
 
-</Provider>
-            <App  state={state} dispatch={store.dispatch.bind(store)} store={store}/>
 
+            <App />
+</Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );

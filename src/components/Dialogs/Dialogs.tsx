@@ -5,7 +5,7 @@ import DialogItem from './DialogItem/DialogItem';
 import {Button, TextField} from '@material-ui/core';
 import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/State';
 
-type DialogsPropType = {
+export type DialogsPropType = {
     updateNewMessage: (message: string) => void
     sendMessage: () => void
     dialogsPage: DialogsPageType
