@@ -15,39 +15,41 @@ export  type SendMessageCreatorType = {
 
 let initialState = {
 
-        messageData: [
-            {id: v1(), message: 'Hello'},
-            {id: v1(), message: 'My name'},
-            {id: v1(), message: 'My name is'},
-            {id: v1(), message: 'My name is Sasha'}
-        ],
-        dialogsData: [
-            {id: v1(), name: 'Artem'},
-            {id: v1(), name: 'Vova'},
-            {id: v1(), name: 'Dima'},
-            {id: v1(), name: 'Masha'},
-            {id: v1(), name: 'Egor'}
-        ],
-        newMessageText: ''
-}
+    messageData: [
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'My name'},
+        {id: v1(), message: 'My name is'},
+        {id: v1(), message: 'My name is Sasha'}
+    ],
+    dialogsData: [
+        {id: v1(), name: 'Artem'},
+        {id: v1(), name: 'Vova'},
+        {id: v1(), name: 'Dima'},
+        {id: v1(), name: 'Masha'},
+        {id: v1(), name: 'Egor'}
+    ],
+    newMessageText: ''
+};
 type StateDialogs = typeof initialState
 
-export const dialogsReducer = (state: StateDialogs = initialState, action: ActionType):StateDialogs => {
-debugger
+export const dialogsReducer = (state: StateDialogs = initialState, action: ActionType): StateDialogs => {
+
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:{
-            let stateCopy = {...state};
-            stateCopy.newMessageText = action.dialogMessage;
-            return stateCopy;}
+        case UPDATE_NEW_MESSAGE_TEXT:
+            return {
+                ...state,
+                newMessageText: action.dialogMessage
+            };
 
-        case SEND_NEW_MESSAGE_TEXT:{
-            let stateCopy = {...state};
-            let dialogMessage = stateCopy.newMessageText;
-            stateCopy.newMessageText = '';
 
-            stateCopy.messageData.push({id: v1(), message: dialogMessage});
-            return stateCopy;}
+        case SEND_NEW_MESSAGE_TEXT:
+            let dialogMessage = state.newMessageText;
+            return {
+                ...state,
+                newMessageText: '',
+                messageData: [...state.messageData, {id: v1(), message: dialogMessage}]
+            };
         default:
             return state;
 
@@ -55,8 +57,8 @@ debugger
 
 
 };
-export const sendMessageCreator = ():SendMessageCreatorType => ({type: SEND_NEW_MESSAGE_TEXT});
+export const sendMessageCreator = (): SendMessageCreatorType => ({type: SEND_NEW_MESSAGE_TEXT});
 
-export const updateNewMessageCreator = (text: string):UpdateNewMessageBodyCreatorType =>
+export const updateNewMessageCreator = (text: string): UpdateNewMessageBodyCreatorType =>
     ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text});
 export default dialogsReducer;

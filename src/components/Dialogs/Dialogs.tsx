@@ -18,10 +18,12 @@ function Dialogs(props: DialogsPropType) {
 
 
     const dialogsElements = state.dialogsData.map((dialog: DialogItemType) => <DialogItem name={dialog.name}
-                                                                                          id={dialog.id}/>);
+                                                                                          id={dialog.id}
+    key={dialog.id}/>);
 
     const messageElements = state.messageData.map((message: MessageType) => <Message message={message.message}
-                                                                                     id={message.id}/>);
+                                                                                     id={message.id}
+    key={message.id}/>);
 
 
     const newMessageBody = state.newMessageText;
