@@ -36,16 +36,18 @@ export const dialogsReducer = (state: StateDialogs = initialState, action: Actio
 debugger
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.dialogMessage;
-            return state;
+        case UPDATE_NEW_MESSAGE_TEXT:{
+            let stateCopy = {...state};
+            stateCopy.newMessageText = action.dialogMessage;
+            return stateCopy;}
 
-        case SEND_NEW_MESSAGE_TEXT:
+        case SEND_NEW_MESSAGE_TEXT:{
+            let stateCopy = {...state};
+            let dialogMessage = stateCopy.newMessageText;
+            stateCopy.newMessageText = '';
 
-            let dialogMessage = state.newMessageText;
-            state.newMessageText = '';
-            state.messageData.push({id: v1(), message: dialogMessage});
-            return state;
+            stateCopy.messageData.push({id: v1(), message: dialogMessage});
+            return stateCopy;}
         default:
             return state;
 
