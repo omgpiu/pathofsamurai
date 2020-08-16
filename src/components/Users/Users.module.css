@@ -1,0 +1,50 @@
+.dialogsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    padding: 10px;
+
+}
+
+.dialogs .dialog {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+
+}
+
+
+.dialog {}
+
+.active {
+    color: blueviolet;
+    background-color: cornsilk;
+
+
+}
+
+
+.dialogs {
+    padding: 10px;
+
+
+}
+
+.messages .message {
+    padding: 5px;
+    border: 1px solid black;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+
+
+}
+
+
+.messages {
+    padding: 10px;
+
+
+}

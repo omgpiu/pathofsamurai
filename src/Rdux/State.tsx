@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 import profileReducer, {AddPostActionCreatorType, updateNewPostTextActionCreatorType,} from './profile-reducer';
 import dialogsReducer, {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
+import {followACType, unfollowACType} from './users-reducer';
 
 export type DialogItemType = {
     name: string
@@ -41,7 +42,7 @@ export type RootStateType = {
 }
 
 export type ActionType = AddPostActionCreatorType | updateNewPostTextActionCreatorType
-    | SendMessageCreatorType | UpdateNewMessageBodyCreatorType
+    | SendMessageCreatorType | UpdateNewMessageBodyCreatorType | followACType | unfollowACType
 
 export type StoreType = {
     _state: RootStateType
