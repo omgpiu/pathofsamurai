@@ -9,7 +9,7 @@ let reducers = combineReducers({
     profilePage:profileReducer,
     dialogsPage:dialogsReducer,
     sidebar:sidebarReducer,
-    users:usersReducer
+    usersPage:usersReducer
 });
 // We have to combaine reducers, it's like our main state
 

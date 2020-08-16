@@ -7,7 +7,7 @@ import {followAC, setUsersAC, unfollowAC, usersType} from '../../Rdux/users-redu
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-       users: state
+       users: state.usersPage.users
     };
 };
 let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
@@ -18,7 +18,7 @@ let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
         unfollowUser: (userId: string) => {
             dispatch(unfollowAC(userId));
         },
-        setUsers: (users: Array<usersType>) => {
+        setUsers: (users: usersType) => {
             dispatch(setUsersAC(users));
         }
     };

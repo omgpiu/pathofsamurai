@@ -38,7 +38,7 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
-    users: Array<usersType>
+    usersPage: usersType
 }
 
 export type ActionType = AddPostActionCreatorType | updateNewPostTextActionCreatorType
