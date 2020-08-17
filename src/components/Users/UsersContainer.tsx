@@ -2,12 +2,12 @@ import React from 'react';
 import Users from './Users';
 import {ActionType, RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
-import {followAC, setUsersAC, unfollowAC, usersType} from '../../Rdux/users-reducer';
+import {followAC, setUsersAC, unfollowAC, userType} from '../../Rdux/users-reducer';
 
 
 let mapStateToProps = (state: RootStateType) => {
     return {
-       users: state.usersPage.users
+        users: state.usersPage.users // Спросить техподдержку
     };
 };
 let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
@@ -18,7 +18,7 @@ let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
         unfollowUser: (userId: string) => {
             dispatch(unfollowAC(userId));
         },
-        setUsers: (users: usersType) => {
+        setUsers: (users: Array<userType>) => {
             dispatch(setUsersAC(users));
         }
     };

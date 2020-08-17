@@ -7,7 +7,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 
 
-const renderTree = (state: RootStateType) => {
+
 
     ReactDOM.render(
         <BrowserRouter>
@@ -17,10 +17,10 @@ const renderTree = (state: RootStateType) => {
         </BrowserRouter>,
         document.getElementById('root')
     );
-};
 
 
-renderTree(store.getState());
+
+
 
 
 // If you want your app to work offline and load faster, you can change

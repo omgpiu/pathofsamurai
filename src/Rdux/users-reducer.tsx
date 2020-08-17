@@ -32,9 +32,9 @@ export type userType = {
     followed:boolean
 }
 
-export type usersType ={
+export type usersPageType ={
     users: Array<userType>
-}
+} // Проверить с тех.поддержкой как сделать правильней
 
 
 let initialState = {

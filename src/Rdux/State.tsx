@@ -1,7 +1,7 @@
 import React from 'react';
 import {AddPostActionCreatorType, updateNewPostTextActionCreatorType,} from './profile-reducer';
 import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
-import {followACType, setUsersACType, unfollowACType, usersType} from './users-reducer';
+import {followACType, setUsersACType, unfollowACType, usersPageType} from './users-reducer';
 
 export type DialogItemType = {
     name: string
@@ -38,20 +38,12 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: Object
-    usersPage: usersType
+    usersPage: usersPageType
 }
 
 export type ActionType = AddPostActionCreatorType | updateNewPostTextActionCreatorType
     | SendMessageCreatorType | UpdateNewMessageBodyCreatorType | followACType | unfollowACType | setUsersACType
 
-export type StoreType = {
-    _state: RootStateType
-    _callSubscriber: (state: RootStateType) => void
-    getState: () => RootStateType
-    subscribe: (observer: (state: RootStateType) => void) => void
-    dispatch: (action: ActionType) => void
-
-}
 export type dispatchType = {
     action: ActionType
 }
