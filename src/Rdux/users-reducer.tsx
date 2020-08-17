@@ -30,6 +30,7 @@ export type userType = {
     location: locationUsersType
     statusMessage:string
     followed:boolean
+    photoUrl:string
 }
 
 export type usersPageType ={
@@ -41,45 +42,16 @@ let initialState = {
     users: [
         {
             id: v1(),
-            fullName: 'Sasha',
-            surName: 'Dubrovskii',
+            fullName: 'Nikola',
+            surName: 'Tesla',
             location: {
                 country: 'Russia',
                 city: 'St.Peterburg',
             },
             statusMessage: 'I\'m looking for an IT job',
-            followed: true
-        }, {
-            id: v1(),
-            fullName: 'Petya',
-            surName: 'Reznichenko',
-            statusMessage: 'I\'m looking for  a friend',
-            location: {
-                country: 'Russia',
-                city: 'Novosibirsk',
-            },
             followed: true,
-        }, {
-            id: v1(),
-            fullName: 'Masha',
-            surName: 'Petrenko',
-            statusMessage: 'I want to go anywhere',
-            location: {
-                country: 'China',
-                city: 'Beijing',
-            },
-            followed: true,
-        }, {
-            id: v1(),
-            fullName: 'Jhon',
-            surName: 'Smit',
-            statusMessage: 'I\'m tired',
-            location: {
-                country: 'Canada',
-                city: 'St.Torronto',
-            },
-            followed: false,
-        },
+            photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1873797/pub_5cdb288dd0418e00b317c23e_5cdb289014882500b3e2f97c/scale_1200'},
+
     ]
 
 };
@@ -109,6 +81,12 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
             };
         case 'SET_USERS':
             return {...state, users: [...state.users,...action.users]};
+
+// let stateUsers = [...state.users];
+// let newUsers: any = action.users.map((user: userType) => {
+//     return [...stateUsers, user];
+// });
+// return {...state, users: newUsers}; решение вопроса двумерного массива
 
         default:
             return state;
