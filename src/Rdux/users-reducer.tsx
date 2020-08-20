@@ -20,20 +20,19 @@ export type  setUsersACType = {
 }
 
 export type locationUsersType = {
-    country:string
-    city:string
+    country: string
+    city: string
 }
 export type userType = {
-    id:string
-    fullName: string
-    surName:string
+    id: string
+    name: string
     location: locationUsersType
-    statusMessage:string
-    followed:boolean
-    photoUrl:string
+    status: string
+    followed: boolean
+    photoUrl: string
 }
 
-export type usersPageType ={
+export type usersPageType = {
     users: Array<userType>
 } // Проверить с тех.поддержкой как сделать правильней
 
@@ -42,15 +41,16 @@ let initialState = {
     users: [
         {
             id: v1(),
-            fullName: 'Nikola',
-            surName: 'Tesla',
+            name: 'Nikola',
+
             location: {
                 country: 'Russia',
                 city: 'St.Peterburg',
             },
-            statusMessage: 'I\'m looking for an IT job',
+            status: 'I\'m looking for an IT job',
             followed: true,
-            photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1873797/pub_5cdb288dd0418e00b317c23e_5cdb289014882500b3e2f97c/scale_1200'},
+            photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1873797/pub_5cdb288dd0418e00b317c23e_5cdb289014882500b3e2f97c/scale_1200'
+        },
 
     ]
 
@@ -80,13 +80,15 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
 
             };
         case 'SET_USERS':
-            return {...state, users: [...state.users,...action.users]};
+            // return {...state, users: [...state.users, ...action.users]};
+            debugger
 
-// let stateUsers = [...state.users];
-// let newUsers: any = action.users.map((user: userType) => {
-//     return [...stateUsers, user];
-// });
-// return {...state, users: newUsers}; решение вопроса двумерного массива
+            let stateUsers = [...state.users];
+            let newUsers: any = action.users.map((user: any) => {
+                return [...stateUsers, user];
+            });
+            return {...state, users: newUsers};
+        // решение вопроса двумерного массива
 
         default:
             return state;
