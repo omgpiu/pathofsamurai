@@ -20,19 +20,23 @@ export type  setUsersACType = {
 }
 
 export type locationUsersType = {
-    country:string
-    city:string
+    country: string
+    city: string
 }
 export type userType = {
-    id:string
+    id: string
     name: string
     location: locationUsersType
-    status:string
-    followed:boolean
-    photoUrl:string
+    status: string
+    followed: boolean
+    photoUrl: string
+    photos: {
+        small: string
+        large: string
+    }
 }
 
-export type usersPageType ={
+export type usersPageType = {
     users: Array<userType>
 } // Проверить с тех.поддержкой как сделать правильней
 
@@ -42,18 +46,21 @@ let initialState = {
         {
             id: v1(),
             name: 'Nikola',
-
             location: {
                 country: 'Russia',
                 city: 'St.Peterburg',
             },
             status: 'I\'m looking for an IT job',
             followed: true,
-            photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1873797/pub_5cdb288dd0418e00b317c23e_5cdb289014882500b3e2f97c/scale_1200'},
-
+            photos: {
+                small: 'null',
+                large: ''
+            },
+            photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1873797/pub_5cdb288dd0418e00b317c23e_5cdb289014882500b3e2f97c/scale_1200'
+        },
     ]
-
 };
+
 type StateProfile = typeof initialState
 const usersReducer = (state: StateProfile = initialState, action: ActionType): StateProfile => {
 
@@ -79,7 +86,7 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
 
             };
         case 'SET_USERS':
-            return {...state, users: [...state.users,...action.users]};
+            return {...state, users: [...state.users, ...action.users]};
 
 // let stateUsers = [...state.users];
 // let newUsers: any = action.users.map((user: userType) => {
