@@ -27,9 +27,7 @@ export type  setPageACType = {
 export type setTotalUsersCountACType = {
     type: typeof SET_TOTAL_USER_COUNT
     count: number
-
 }
-
 
 export type locationUsersType = {
     country: string
@@ -76,7 +74,7 @@ let initialState = {
         },
     ],
     pageSize: 5,
-    totalUsersCount: 0,
+    totalUsersCount: 1,
     currentPage: 1,
 
 };
@@ -103,7 +101,6 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                     }
                     return user;
                 }),
-
             };
         case 'SET_USERS':
             return {...state, users: action.users};
@@ -111,18 +108,14 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
             return {...state, currentPage: action.currentPage};
         case  'SET_TOTAL_USER_COUNT':
             return  {...state, totalUsersCount: action.count}
-
 // let stateUsers = [...state.users];
 // let newUsers: any = action.users.map((user: userType) => {
 //     return [...stateUsers, user];
 // });
 // return {...state, users: newUsers}; решение вопроса двумерного массива
-
         default:
             return state;
     }
-
-
 };
 
 export const followAC = (userId: string): followACType => ({type: FOLLOW, userId});

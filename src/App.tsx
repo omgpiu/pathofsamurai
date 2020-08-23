@@ -8,17 +8,8 @@ import Profile from './components/MainContant/ProfileContent';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {Store} from 'redux';
 import DialogContainer from './components/Dialogs/DialogsContainer';
-import Users from './components/Users/UsersContainer';
 import UsersContainer from './components/Users/UsersContainer';
-
-
-export type PropsType = {
-    store: Store
-
-
-}
 
 
 function App() {
@@ -35,11 +26,10 @@ function App() {
                     <DialogContainer/>
                 }
                 />
-                <Route path='/users' render={()=><UsersContainer/>}/>
+                <Route path='/users' render={() => <UsersContainer/>}/>
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Settings}/>
-
 
 
             </div>
