@@ -1,67 +1,70 @@
 import React from 'react';
 import {userType} from '../../Rdux/users-reducer';
 import st from './Users.module.css';
-import * as axios from 'axios';
+import commonAvatar from '../../photo/commonAvatar.png';
 
-type PropsType = {
+
+export type PropsUsersType = {
     users: Array<userType>
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
-    setUsers: any
-
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
 
 }
 
-
-function Users(props: PropsType) {
-
-        let getUsers = ()=>{
-
-
-    if (props.users.length === 1) {
-
-        axios.default.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            props.setUsers(response.data);
-        });
-
-
-    }}
-
+function Users(props: PropsUsersType) {
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i);
+    }
     return (
 
         <div>
-            <button onClick={getUsers}>Get Users</button>
-            {props.users.map(u =>
-                <div key={u.id}>
-                <span>
-                    <div>
-                        <img className={st.userAvatar} src={u.photoUrl} alt="userPhoto"/>
-                    </div>
-                    <div>
-                        {u.followed ?
-                            <button onClick={() => {
-                                props.unfollowUser(u.id);
-                            }}>Unfollow</button> :
-                            <button onClick={() => {
-                                props.followUser(u.id);
-                            }}>Follow</button>}
-                                            </div>
-                </span>
-                    <span>
+            <div>
+                {pages.map(p => {
+                    return <span onClick={(e) => {
+                        props.onPageChanged(p);
+                    }}
+                                 className={props.currentPage === p ? st.selected : st.unselected}>{p}</span>;
+                })}
 
-                    <div>{u.name} </div>
-                    <div>{u.status}</div>
-                </span>
-                    <span>
-                    <div>{'u.location.country'}</div>
-                    <div>{'u.location.city'}</div>
-                </span>
-                </div>
+            </div>
+            {props.users.map((u: userType) => {
+                    return (
+                        <div key={u.id}>
+                                <span>
+                                    <div>
+                                        <img src={u.photos.small != null
+                                            ? u.photos.small
+                                            : commonAvatar} className={st.userAvatar} alt="avatar"/>
+                                    </div>
+                                    <div>
+                                        {u.followed ? <button onClick={() => {
+                                                props.unfollowUser(u.id);
+                                            }}>Unfollow</button> :
+                                            <button onClick={() => {
+                                                props.followUser(u.id);
+                                            }}>Follow</button>}
+                                    </div>
+                                </span>
+                            <span>
+                                    <div>{u.name} </div>
+                                    <div>{u.status}</div>
+                                </span>
+                            <span>
+                                    <div>{'u.location.country'}</div>
+                                    <div>{'u.location.city'}</div>
+                                </span>
+                        </div>
+                    );
+                }
             )}
         </div>
     );
-
-
 }
 
 
