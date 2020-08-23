@@ -52,6 +52,7 @@ export type usersPageType = {
     totalUsersCount: number
     currentPage: number
     count:number
+    isFetching:boolean
 }
 
 
@@ -76,7 +77,7 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 1,
     currentPage: 1,
-
+    isFetching: false
 };
 
 type StateProfile = typeof initialState
