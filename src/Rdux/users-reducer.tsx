@@ -60,18 +60,18 @@ let initialState = {
     users: [
         {
             id: v1(),
-            name: 'Nikola',
+            name: '',
             location: {
-                country: 'Russia',
-                city: 'St.Peterburg',
+                country: '',
+                city: '',
             },
-            status: 'I\'m looking for an IT job',
+            status: '',
             followed: true,
             photos: {
-                small: 'null',
+                small: '',
                 large: ''
             },
-            photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1873797/pub_5cdb288dd0418e00b317c23e_5cdb289014882500b3e2f97c/scale_1200'
+            photoUrl: ''
         },
     ],
     pageSize: 5,
