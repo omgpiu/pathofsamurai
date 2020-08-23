@@ -9,28 +9,54 @@ type PropsType = {
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
     setUsers: any
-    photoUrl: string
-
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    setPage: (currentPage: number) => void
+    setTotalUsersCount: any
 }
 
-class UsersC extends React.Component<any, any> {
+class UsersC extends React.Component<PropsType> {
 
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setUsers(response.data.items);
-        });
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalUsersCount);
+            });
     }
 
+    onPageChanged = (pageNumber: number) => {
+        this.props.setPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+
+            });
+    };
 
     render() {
-        debugger
+
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i);
+        }
+
         return (
-
             <div>
+                <div>
+                    {pages.map(p => {
+                        return <span onClick={(e) => {
+                            this.onPageChanged(p);
+                        }}
+                        className={this.props.currentPage === p ? st.selected : st.unselected}>{p}</span>;
+                    })}
 
-                {this.props.users.map((u: any) => {
-                        debugger
+                </div>
+                {this.props.users.map((u: userType) => {
                         return (
                             <div key={u.id}>
                                 <span>
@@ -40,21 +66,19 @@ class UsersC extends React.Component<any, any> {
                                             : commonAvatar} className={st.userAvatar} alt="avatar"/>
                                     </div>
                                     <div>
-                                        {u.followed ?
-                                            <button onClick={() => {
+                                        {u.followed ? <button onClick={() => {
                                                 this.props.unfollowUser(u.id);
                                             }}>Unfollow</button> :
                                             <button onClick={() => {
                                                 this.props.followUser(u.id);
                                             }}>Follow</button>}
-                                                            </div>
+                                    </div>
                                 </span>
-                                                <span>
-
+                                <span>
                                     <div>{u.name} </div>
                                     <div>{u.status}</div>
                                 </span>
-                                                <span>
+                                <span>
                                     <div>{'u.location.country'}</div>
                                     <div>{'u.location.city'}</div>
                                 </span>

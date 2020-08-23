@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../../../App.module.css';
 import st from './Post.module.css';
-import {PostType} from '../../../../Rdux/State';
 
 
 export type PostTypeOne = {
@@ -17,7 +16,7 @@ const Post: React.FC<PostTypeOne> = (props) => {
         <div className={`${st.wrapper} ${st.wrapper_i}`}>
 
             <div className={`${st.item} ${st.img}`}>
-                <img src={'https://www.sunhome.ru/i/wallpapers/91/neitiri-v-avatar.orig.jpg'}/>
+                <img src={'https://www.sunhome.ru/i/wallpapers/91/neitiri-v-avatar.orig.jpg'} alt={'avatar'}/>
             </div>
 
             <div className={`${st.items} ${st.messageBox}`}>
