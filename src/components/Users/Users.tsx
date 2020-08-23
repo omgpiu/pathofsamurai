@@ -1,7 +1,7 @@
 import React from 'react';
 import {userType} from '../../Rdux/users-reducer';
 import st from './Users.module.css';
-import axios from 'axios';
+import * as axios from 'axios';
 
 type PropsType = {
     users: Array<userType>
@@ -9,24 +9,28 @@ type PropsType = {
     unfollowUser: (userId: string) => void
     setUsers: any
 
+
 }
 
 
 function Users(props: PropsType) {
 
+        let getUsers = ()=>{
+
 
     if (props.users.length === 1) {
 
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        axios.default.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
             props.setUsers(response.data);
         });
 
 
-    }
+    }}
 
     return (
 
         <div>
+            <button onClick={getUsers}>Get Users</button>
             {props.users.map(u =>
                 <div key={u.id}>
                 <span>

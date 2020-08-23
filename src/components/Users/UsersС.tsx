@@ -2,39 +2,40 @@ import React from 'react';
 import {userType} from '../../Rdux/users-reducer';
 import st from './Users.module.css';
 import axios from 'axios';
+import commonAvatar from '../../photo/commonAvatar.png';
 
 type PropsType = {
     users: Array<userType>
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
     setUsers: any
+    photoUrl:string
 
 }
 
-class UsersС extends React.Component<any, any> {
-    getUsers = () => {
-        if (this.props.users.length === 1) {
-
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                this.props.setUsers(response.data);
-            });
-        }
+class UsersC extends React.Component<any, any> {
 
 
-        render()
-        {
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUsers(response.data.items);
+        });
+    }
 
-            return (
+
+    render() {
+
+        return (
 
             <div>
-                <button onClick={this.getUsers}>
-                    GET USERS
-                </button>
-                {this.props.users.map(u =>
+
+                {this.props.users.map((u: any) =>
                         <div key={u.id}>
                 <span>
                     <div>
-                        <img className={st.userAvatar} src={u.photoUrl} alt="userPhoto"/>
+                        <img src={u.photos.small != null
+                            ? u.photos.small
+                            : commonAvatar} className={st.userAvatar} alt="avatar"/>
                     </div>
                     <div>
                         {u.followed ?
@@ -58,11 +59,11 @@ class UsersС extends React.Component<any, any> {
                         </div>
                 )}
             </div>
-        )
-
-        }
+        );
 
     }
+
 }
 
-export default UsersС;
+
+export default UsersC;

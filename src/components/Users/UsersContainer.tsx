@@ -1,5 +1,5 @@
 import React from 'react';
-import Users from './Users';
+import UsersC from './UsersС';
 import {ActionType, RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
 import {followAC, setUsersAC, unfollowAC, userType} from '../../Rdux/users-reducer';
@@ -26,7 +26,7 @@ let mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
 };
 
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC);
 
 
 export default UsersContainer;
