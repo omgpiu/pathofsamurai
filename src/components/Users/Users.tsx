@@ -2,6 +2,7 @@ import React from 'react';
 import {userType} from '../../Rdux/users-reducer';
 import st from './Users.module.css';
 import commonAvatar from '../../photo/commonAvatar.png';
+import {NavLink} from 'react-router-dom';
 
 
 export type PropsUsersType = {
@@ -38,9 +39,11 @@ function Users(props: PropsUsersType) {
                         <div key={u.id}>
                                 <span>
                                     <div>
+                                        <NavLink to={'/profile/'+u.id}>
                                         <img src={u.photos.small != null
                                             ? u.photos.small
                                             : commonAvatar} className={st.userAvatar} alt="avatar"/>
+                                            </NavLink>
                                     </div>
                                     <div>
                                         {u.followed ? <button onClick={() => {
