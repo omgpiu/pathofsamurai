@@ -16,6 +16,7 @@ export type PropsType = {
     setPage: (currentPage: number) => void
     setTotalUsersCount: any
     isFetching:boolean
+    toggleIsFetching:( isFetching:boolean)=>void
 
 }
 
@@ -23,8 +24,10 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
 
     componentDidMount() {
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.toggleIsFetching(false);
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount);
             });
@@ -32,8 +35,10 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
     onPageChanged = (pageNumber: number) => {
         this.props.setPage(pageNumber);
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.toggleIsFetching(false);
                 this.props.setUsers(response.data.items);
 
             });

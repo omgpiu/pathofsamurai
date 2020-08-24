@@ -6,7 +6,8 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_PAGE = 'SET_PAGE';
-const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT'
+const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 export type followACType = {
     type: typeof FOLLOW
@@ -32,6 +33,11 @@ export type setTotalUsersCountACType = {
 export type locationUsersType = {
     country: string
     city: string
+}
+export type isFetchingTypeAC = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+
 }
 export type userType = {
     id: string
@@ -109,6 +115,8 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
             return {...state, currentPage: action.currentPage};
         case  'SET_TOTAL_USER_COUNT':
             return  {...state, totalUsersCount: action.count}
+        case 'TOGGLE_IS_FETCHING':
+            return {...state,isFetching: action.isFetching}
 // let stateUsers = [...state.users];
 // let newUsers: any = action.users.map((user: userType) => {
 //     return [...stateUsers, user];
@@ -124,6 +132,7 @@ export const unfollowAC = (userId: string): unfollowACType => ({type: UNFOLLOW, 
 export const setUsersAC = (users: Array<userType>): setUsersACType => ({type: SET_USERS, users});
 export const setPageAC = (currentPage:number): setPageACType => ({type: SET_PAGE, currentPage});
 export const setTotalUsersCountAC = (totalUsersCount:number): setTotalUsersCountACType => ({type: SET_TOTAL_USER_COUNT, count:totalUsersCount});
+export const toggleIsFetchingAC = (isFetching:boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
 
 
 

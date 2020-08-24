@@ -3,6 +3,7 @@ import {AddPostActionCreatorType, updateNewPostTextActionCreatorType,} from './p
 import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import {
     followACType,
+    isFetchingTypeAC,
     setPageACType,
     setTotalUsersCountACType,
     setUsersACType,
@@ -53,7 +54,7 @@ export type ActionType =
     | setUsersACType
     | setPageACType
     | setTotalUsersCountACType
-
+    | isFetchingTypeAC
 
 
 const state = () => {

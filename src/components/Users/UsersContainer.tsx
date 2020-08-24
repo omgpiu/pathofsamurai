@@ -2,7 +2,15 @@ import React from 'react';
 import UsersAPIComponent from './UsersAPIComponent';
 import {ActionType, RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
-import {followAC, setPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC, userType} from '../../Rdux/users-reducer';
+import {
+    followAC,
+    setPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    toggleIsFetchingAC,
+    unfollowAC,
+    userType
+} from '../../Rdux/users-reducer';
 
 
 type MapStatePropsType = {
@@ -17,8 +25,9 @@ type MapDispatchPropsType = {
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
     setUsers: (users: Array<userType>) => void
-    setPage: (currentPage:number)=> void
-    setTotalUsersCount: (totalCount:number)=>void
+    setPage: (currentPage: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
 
 
 }
@@ -29,7 +38,7 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching:state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching
 
     };
 };
@@ -44,11 +53,14 @@ let mapDispatchToProps = (dispatch: (action: ActionType) => void): MapDispatchPr
         setUsers: (users: Array<userType>) => {
             dispatch(setUsersAC(users));
         },
-        setPage: (pageNumber:number)=> {
-            dispatch(setPageAC(pageNumber))
+        setPage: (pageNumber: number) => {
+            dispatch(setPageAC(pageNumber));
         },
-        setTotalUsersCount: (totalCount:number)=> {
-            dispatch(setTotalUsersCountAC(totalCount))
+        setTotalUsersCount: (totalCount: number) => {
+            dispatch(setTotalUsersCountAC(totalCount));
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(toggleIsFetchingAC(isFetching));
         },
 
     };
