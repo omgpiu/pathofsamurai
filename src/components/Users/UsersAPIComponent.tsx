@@ -2,7 +2,6 @@ import React from 'react';
 import {userType} from '../../Rdux/users-reducer';
 import axios from 'axios';
 import Users from './Users';
-import preLoader from './preLoader';
 import PreLoader from './preLoader';
 
 export type PropsType = {
@@ -15,8 +14,8 @@ export type PropsType = {
     currentPage: number
     setPage: (currentPage: number) => void
     setTotalUsersCount: any
-    isFetching:boolean
-    toggleIsFetching:( isFetching:boolean)=>void
+    isFetching: boolean
+    toggleIsFetching: (isFetching: boolean) => void
 
 }
 
@@ -45,16 +44,17 @@ class UsersAPIComponent extends React.Component<PropsType> {
     };
 
     render() {
+
         return <>
-            {this.props.isFetching ? <PreLoader/>:null}
+            {this.props.isFetching ? <div style={{backgroundColor: 'red'}}><PreLoader/></div> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
-                         users={this.props.users}
-                         currentPage={this.props.currentPage}
-                         followUser={this.props.followUser}
-                         pageSize={this.props.pageSize}
-                         unfollowUser={this.props.unfollowUser}
-                         onPageChanged={this.onPageChanged}
-        />;
+                   users={this.props.users}
+                   currentPage={this.props.currentPage}
+                   followUser={this.props.followUser}
+                   pageSize={this.props.pageSize}
+                   unfollowUser={this.props.unfollowUser}
+                   onPageChanged={this.onPageChanged}
+            />;
         </>;
     }
 }

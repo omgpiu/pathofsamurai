@@ -3,12 +3,12 @@ import UsersAPIComponent from './UsersAPIComponent';
 import {ActionType, RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
 import {
-    followAC,
-    setPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowAC,
+    followUser,
+    setPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unfollowUser,
     userType
 } from '../../Rdux/users-reducer';
 
@@ -42,31 +42,38 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
 
     };
 };
-let mapDispatchToProps = (dispatch: (action: ActionType) => void): MapDispatchPropsType => {
-    return {
-        followUser: (userId: string) => {
-            dispatch(followAC(userId));
-        },
-        unfollowUser: (userId: string) => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: (users: Array<userType>) => {
-            dispatch(setUsersAC(users));
-        },
-        setPage: (pageNumber: number) => {
-            dispatch(setPageAC(pageNumber));
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount));
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(isFetching));
-        },
+// let mapDispatchToProps = (dispatch: (action: ActionType) => void): MapDispatchPropsType => {
+//     return {
+//         followUser: (userId: string) => {
+//             dispatch(followAC(userId));
+//         },
+//         unfollowUser: (userId: string) => {
+//             dispatch(unfollowAC(userId));
+//         },
+//         setUsers: (users: Array<userType>) => {
+//             dispatch(setUsersAC(users));
+//         },
+//         setPage: (pageNumber: number) => {
+//             dispatch(setPageAC(pageNumber));
+//         },
+//         setTotalUsersCount: (totalCount: number) => {
+//             dispatch(setTotalUsersCountAC(totalCount));
+//         },
+//         toggleIsFetching: (isFetching: boolean) => {
+//             dispatch(toggleIsFetchingAC(isFetching));
+//         },
+//
+//     };
+// };
 
-    };
-};
+const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
+    followUser,
+    unfollowUser,
+    setUsers,
+    setPage,
+    setTotalUsersCount,
+    toggleIsFetching,
 
-const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
-
+})(UsersAPIComponent);
 
 export default UsersContainer;

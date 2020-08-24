@@ -127,12 +127,12 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
     }
 };
 
-export const followAC = (userId: string): followACType => ({type: FOLLOW, userId});
-export const unfollowAC = (userId: string): unfollowACType => ({type: UNFOLLOW, userId});
-export const setUsersAC = (users: Array<userType>): setUsersACType => ({type: SET_USERS, users});
-export const setPageAC = (currentPage:number): setPageACType => ({type: SET_PAGE, currentPage});
-export const setTotalUsersCountAC = (totalUsersCount:number): setTotalUsersCountACType => ({type: SET_TOTAL_USER_COUNT, count:totalUsersCount});
-export const toggleIsFetchingAC = (isFetching:boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const followUser = (userId: string): followACType => ({type: FOLLOW, userId});
+export const unfollowUser = (userId: string): unfollowACType => ({type: UNFOLLOW, userId});
+export const setUsers = (users: Array<userType>): setUsersACType => ({type: SET_USERS, users});
+export const setPage = (currentPage:number): setPageACType => ({type: SET_PAGE, currentPage});
+export const setTotalUsersCount = (totalUsersCount:number): setTotalUsersCountACType => ({type: SET_TOTAL_USER_COUNT, count:totalUsersCount});
+export const toggleIsFetching = (isFetching:boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
 
 
 
