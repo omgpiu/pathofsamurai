@@ -3,8 +3,14 @@ import st from './preLoader.module.css'
 
 
 const PreLoader = ()=>{
-    return  <div className={st.preloader}>
-        <div className={st.spinner}></div>
+    return <div className={st.loader}>
+        <div className={st.l_main}>
+            <div className={st.l_square}><span></span><span></span><span></span></div>
+            <div className={st.l_square}><span></span><span></span><span></span></div>
+            <div className={st.l_square}><span></span><span></span><span></span></div>
+            <div className={st.l_square}><span></span><span></span><span></span></div>
+
+        </div>
     </div>
 
 }

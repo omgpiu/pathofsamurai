@@ -4,6 +4,8 @@ import axios from 'axios';
 import Users from './Users';
 import PreLoader from './preLoader';
 
+
+
 export type PropsType = {
     users: Array<userType>
     followUser: (userId: string) => void
@@ -46,7 +48,7 @@ class UsersAPIComponent extends React.Component<PropsType> {
     render() {
 
         return <>
-            {this.props.isFetching ? <div style={{backgroundColor: 'red'}}><PreLoader/></div> : null}
+            {this.props.isFetching ? <PreLoader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    users={this.props.users}
                    currentPage={this.props.currentPage}
