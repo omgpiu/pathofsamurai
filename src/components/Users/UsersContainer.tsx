@@ -1,6 +1,6 @@
-import React from 'react';
+
 import UsersAPIComponent from './UsersAPIComponent';
-import {ActionType, RootStateType} from '../../Rdux/State';
+import {RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
 import {
     followUser,

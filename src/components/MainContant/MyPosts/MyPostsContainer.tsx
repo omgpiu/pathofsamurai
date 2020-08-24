@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../Rdux/profile-reducer';
 import MyPosts from './MyPosts';

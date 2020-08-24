@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {v1} from 'uuid';
 import {ActionType, PostType} from './State';
 
