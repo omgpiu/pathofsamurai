@@ -1,5 +1,10 @@
 import React from 'react';
-import {AddPostActionCreatorType, updateNewPostTextActionCreatorType,} from './profile-reducer';
+import {
+    AddPostActionCreatorType,
+    ProfileProfileType,
+    SetUserProfileType,
+    UpdateNewPostTextActionCreatorType,
+} from './profile-reducer';
 import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import {
     followACType,
@@ -29,6 +34,7 @@ export type PostType = {
 export type ProfilePageType = {
     postData: Array<PostType>
     newPostText: string
+    profile: ProfileProfileType
 }
 
 export type DialogsPageType = {
@@ -44,9 +50,10 @@ export type RootStateType = {
 
 }
 
+
 export type ActionType =
     AddPostActionCreatorType
-    | updateNewPostTextActionCreatorType
+    | UpdateNewPostTextActionCreatorType
     | SendMessageCreatorType
     | UpdateNewMessageBodyCreatorType
     | followACType
@@ -55,6 +62,7 @@ export type ActionType =
     | setPageACType
     | setTotalUsersCountACType
     | isFetchingTypeAC
+    | SetUserProfileType
 
 
 const state = () => {

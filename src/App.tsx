@@ -4,13 +4,12 @@ import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import st from './App.module.css';
 import {Route} from 'react-router-dom';
-import Profile from './components/MainContant/ProfileContent';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import DialogContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-
+import ProfileContentContainerAPI from './components/Profile/ProfileContentContainerAPI';
 
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
             <Nav/>
             <div className={st.wrapperMainContent}>
                 <Route path='/profile' render={() =>
-                    <Profile/>}/>
+                    <ProfileContentContainerAPI/>}/>
                 <Route path='/dialogs' render={() =>
                     <DialogContainer/>
                 }

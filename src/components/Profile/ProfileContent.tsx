@@ -2,12 +2,15 @@ import React from 'react';
 import '../../App.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
+import {ProfilePropsType, RootProfileType} from './ProfileContentContainerAPI';
 
 
-function Profile() {
+function ProfileContent(props:ProfilePropsType) {
+
     return (
         <div>
-            <ProfileInfo/>
+
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
         </div>
     );
@@ -15,4 +18,4 @@ function Profile() {
 }
 
 
-export default Profile;
+export default ProfileContent;
