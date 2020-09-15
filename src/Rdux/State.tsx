@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     AddPostActionCreatorType,
-    ProfileProfileType,
+    ProfileType,
     SetUserProfileType,
     UpdateNewPostTextActionCreatorType,
 } from './profile-reducer';
@@ -34,7 +34,7 @@ export type PostType = {
 export type ProfilePageType = {
     postData: Array<PostType>
     newPostText: string
-    profile: ProfileProfileType
+    profile: any
 }
 
 export type DialogsPageType = {

@@ -7,7 +7,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 export type SetUserProfileType = {
     type: typeof SET_USER_PROFILE
-    profile: ProfileProfileType
+    profile: ProfileType
 }
 
 
@@ -18,10 +18,10 @@ export type UpdateNewPostTextActionCreatorType = {
     type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
-export type ProfileProfileType = {
-    photos:ProfileProfilePhotosType
+export type ProfileType = {
+    photos:ProfilePhotosType
 }
-export type ProfileProfilePhotosType ={
+export type ProfilePhotosType ={
     large: string
     small?: string
 }
@@ -86,7 +86,7 @@ const profileReducer = (state: StateProfile = initialState, action: ActionType):
     }
 ;
 export const addPostActionCreator = (): AddPostActionCreatorType => ({type: ADD_POST});
-export const setUserProfile = (profile: ProfileProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile});
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile});
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionCreatorType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export default profileReducer;

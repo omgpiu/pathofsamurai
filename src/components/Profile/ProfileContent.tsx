@@ -2,10 +2,10 @@ import React from 'react';
 import '../../App.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import {ProfilePropsType, RootProfileType} from './ProfileContentContainerAPI';
+import {MapStatePropsType} from './ProfileContentContainerAPI';
 
 
-function ProfileContent(props:ProfilePropsType) {
+function ProfileContent(props:MapStatePropsType) {
 
     return (
         <div>

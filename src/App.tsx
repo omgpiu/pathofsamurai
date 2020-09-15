@@ -12,6 +12,7 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContentContainerAPI from './components/Profile/ProfileContentContainerAPI';
 
 
+
 function App() {
 
     return (
@@ -20,8 +21,8 @@ function App() {
             <Header/>
             <Nav/>
             <div className={st.wrapperMainContent}>
-                <Route path='/profile' render={() =>
-                    <ProfileContentContainerAPI/>}/>
+                <Route path='/profile/:userId?' render={() =>
+                    <ProfileContentContainerAPI />}/>
                 <Route path='/dialogs' render={() =>
                     <DialogContainer/>
                 }

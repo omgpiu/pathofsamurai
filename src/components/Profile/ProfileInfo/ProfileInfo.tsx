@@ -2,19 +2,17 @@ import React from 'react';
 import st from './ProfileInfo.module.css';
 import photo2 from '../../../photo/photo2.jpeg';
 import logo2 from '../../../photo/logo2.png';
-import {ProfileProfileType} from '../../../Rdux/profile-reducer';
+import {ProfileType} from '../../../Rdux/profile-reducer';
 import PreLoader from '../../Users/preLoader';
 
  type PropsType ={
-     profile:ProfileProfileType
+     profile:ProfileType
  }
 function ProfileInfo(props:PropsType) {
 
      if (!props.profile){
          return <div><PreLoader/></div>
      }
-
-
 
     return (
         <div>
