@@ -3,6 +3,7 @@ import {userType} from '../../Rdux/users-reducer';
 import st from './Users.module.css';
 import commonAvatar from '../../photo/commonAvatar.png';
 import {NavLink} from 'react-router-dom';
+import axios from 'axios';
 
 
 export type PropsUsersType = {
@@ -26,8 +27,8 @@ function Users(props: PropsUsersType) {
 
         <div>
             <div>
-                {pages.map((p,i) => {
-                    return <span  key={i} onClick={(e) => {
+                {pages.map((p, i) => {
+                    return <span key={i} onClick={(e) => {
                         props.onPageChanged(p);
                     }}
                                  className={props.currentPage === p ? st.selected : st.unselected}>{p}</span>;
@@ -39,7 +40,7 @@ function Users(props: PropsUsersType) {
                         <div key={u.id}>
                                 <span>
                                     <div>
-                                        <NavLink to={'/profile/'+u.id}>
+                                        <NavLink to={'/profile/' + u.id}>
                                         <img src={u.photos.small != null
                                             ? u.photos.small
                                             : commonAvatar} className={st.userAvatar} alt="avatar"/>
@@ -47,10 +48,39 @@ function Users(props: PropsUsersType) {
                                     </div>
                                     <div>
                                         {u.followed ? <button onClick={() => {
-                                                props.unfollowUser(u.id);
+                                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                                    {
+                                                        withCredentials: true,
+                                                        headers: {
+                                                            'API-KEY': '78abceff-cb7c-4815-8b56-016c67d0625d'
+                                                        }
+                                                    })
+                                                    .then(response => {
+                                                        if (response.data.resultCode === 0) {
+
+                                                            props.unfollowUser(u.id);
+                                                        }
+                                                    });
+
+
                                             }}>Unfollow</button> :
                                             <button onClick={() => {
-                                                props.followUser(u.id);
+                                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
+                                                    {
+                                                        withCredentials: true,
+                                                        headers: {
+                                                            'API-KEY': '78abceff-cb7c-4815-8b56-016c67d0625d'
+                                                        }
+
+                                                    })
+                                                    .then(response => {
+                                                        if (response.data.resultCode === 0) {
+
+                                                            props.followUser(u.id);
+                                                        }
+                                                    });
+
+
                                             }}>Follow</button>}
                                     </div>
                                 </span>

@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    AddPostActionCreatorType,
-    ProfileType,
-    SetUserProfileType,
-    UpdateNewPostTextActionCreatorType,
-} from './profile-reducer';
+import {AddPostActionCreatorType, SetUserProfileType, UpdateNewPostTextActionCreatorType,} from './profile-reducer';
 import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import {
     followACType,
@@ -15,6 +10,7 @@ import {
     unfollowACType,
     usersPageType
 } from './users-reducer';
+import {setAuthUserDataType} from './auth-reducer';
 
 export type DialogItemType = {
     name: string
@@ -63,6 +59,7 @@ export type ActionType =
     | setTotalUsersCountACType
     | isFetchingTypeAC
     | SetUserProfileType
+    | setAuthUserDataType
 
 
 const state = () => {

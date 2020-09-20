@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.module.css';
-import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import st from './App.module.css';
 import {Route} from 'react-router-dom';
@@ -10,7 +9,7 @@ import Settings from './components/Settings/Settings';
 import DialogContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContentContainerAPI from './components/Profile/ProfileContentContainerAPI';
-
+import HeaderContainerAPI from './components/Header/HeaderContainerAPI';
 
 
 function App() {
@@ -18,11 +17,11 @@ function App() {
     return (
 
         <div className={st.appWrapper}>
-            <Header/>
+            <HeaderContainerAPI/>
             <Nav/>
             <div className={st.wrapperMainContent}>
                 <Route path='/profile/:userId?' render={() =>
-                    <ProfileContentContainerAPI />}/>
+                    <ProfileContentContainerAPI/>}/>
                 <Route path='/dialogs' render={() =>
                     <DialogContainer/>
                 }
