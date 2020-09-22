@@ -20,13 +20,13 @@ export type MapStatePropsType = {
 }
 type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 type PathParamsType = {
-    userId: any
+    userId: string
 }
 //userId cant be number ?
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+        let userId = +this.props.match.params.userId;
         if (!userId) {
             userId = 7531;
         }
