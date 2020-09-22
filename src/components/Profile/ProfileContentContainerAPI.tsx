@@ -22,7 +22,7 @@ type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 type PathParamsType = {
     userId: any
 }
-
+//userId cant be number ?
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
     componentDidMount() {

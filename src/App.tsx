@@ -17,7 +17,7 @@ function App() {
     return (
 
         <div className={st.appWrapper}>
-            <HeaderContainerAPI/>
+            <HeaderContainerAPI />
             <Nav/>
             <div className={st.wrapperMainContent}>
                 <Route path='/profile/:userId?' render={() =>
