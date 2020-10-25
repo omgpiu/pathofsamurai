@@ -2,6 +2,7 @@ import UsersAPIComponent from './UsersAPIComponent';
 import {RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
 import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC, userType} from '../../Rdux/users-reducer';
+import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 
 type MapStatePropsType = {
@@ -35,7 +36,7 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
 
     };
 };
-
+let withRedirect = withAuthRedirect(UsersAPIComponent);
 
 const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
 
@@ -46,6 +47,6 @@ const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, Root
     unfollowTC
 
 
-})(UsersAPIComponent);
+})(withRedirect);
 
 export default UsersContainer;
