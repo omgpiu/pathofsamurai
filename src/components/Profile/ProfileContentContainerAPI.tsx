@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
-import {ProfileType, setUserProfile} from '../../Rdux/profile-reducer';
+import {getUserProfileTC, ProfileType, setUserProfile} from '../../Rdux/profile-reducer';
 import {ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {getProfileAPI} from '../../API/api';
+import {usersAPI} from '../../API/api';
 
 
 // export type MapDispatchPropsType = {
@@ -21,9 +21,10 @@ export type MapStatePropsType = {
 type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 type PathParamsType = {
     userId: string
-    // setUserProfileTC:(userId:string)=>void
+
 }
-//userId cant be number ?
+
+//userId cant be a number ?
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
@@ -32,11 +33,7 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
             userId = 7531;
         }
 
-        getProfileAPI(userId).then(data => {
-            this.props.setUserProfile(data);
-
-        });
-        // this.props.setUserProfileTC(userId)
+        this.props.getUserProfileTC(String(userId))
     }
 
     render() {
@@ -55,8 +52,8 @@ let mapStateToProps = (state: RootProfileType): MapStatePropsType => ({
 let WithUrlDataContainerComponent = withRouter(ProfileContentContainerAPI);
 
 type PropsFromRedux = ConnectedProps<typeof connector>
-const connector = connect(mapStateToProps, {setUserProfile});
-export default connect(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent);
+const connector = connect(mapStateToProps, {getUserProfileTC});
+export default connect(mapStateToProps, {getUserProfileTC})(WithUrlDataContainerComponent);
 
 
 // export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootProfileType >(mapStateToProps, {setUserProfile})(WithUrlDataContainerComponent); //спросить по типизации

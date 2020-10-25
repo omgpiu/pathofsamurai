@@ -4,17 +4,16 @@ import st from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 
 
+
 function Header(props: any) {
+    debugger
     return (
         <header className={st.appHeader}>
             <img src={logoNew} alt="newLogo"/>
             <div className={st.loginBlock}>
-                {props.isAuth ? props.login :
-
-
-                    <NavLink to={'/login'}>
-                        Login
-                    </NavLink>}
+                {props.isAuth
+                    ? props.login
+                    : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
     );

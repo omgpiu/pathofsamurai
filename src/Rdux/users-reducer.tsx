@@ -1,7 +1,7 @@
 import {v1} from 'uuid';
 import {ActionType} from './State';
 import {Dispatch} from 'react';
-import {getUsersAPI, startFollowUserAPI, startUnfollowUserAPI} from '../API/api';
+import {usersAPI} from '../API/api';
 
 
 const FOLLOW = 'FOLLOW';
@@ -96,7 +96,7 @@ export const setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountA
     count: totalUsersCount
 });
 export const toggleIsFetching = (isFetching: boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
-export const toggleFollowingProgress = (isFetching: boolean,userId:string): isFollowingProgressAC => ({
+export const toggleFollowingProgress = (isFetching: boolean, userId: string): isFollowingProgressAC => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
     userId
@@ -104,32 +104,31 @@ export const toggleFollowingProgress = (isFetching: boolean,userId:string): isFo
 
 export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFetching(true));
-    getUsersAPI(currentPage, pageSize)
+    usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(toggleIsFetching(false));
-            dispatch(setUsers(data.items));
-            dispatch(setTotalUsersCount(data.totalCount));
+            dispatch(setUsers(data.data.items));
+            dispatch(setTotalUsersCount(data.data.totalCount));
         });
 };
-export const followTC = (userId:string) => (dispatch: Dispatch<ActionType>) => {
-    dispatch(toggleFollowingProgress(true,userId));
-    startFollowUserAPI(userId).then(data => {
-        if (data.resultCode === 0) {
+export const followTC = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleFollowingProgress(true, userId));
+    usersAPI.startFollowUsers(userId).then(data => {
+        if (data.data.resultCode === 0) {
             dispatch(followUser(userId));
         }
-        dispatch(toggleFollowingProgress(false,userId));
+        dispatch(toggleFollowingProgress(false, userId));
     });
 };
-export const unfollowTC = (userId:string) => (dispatch: Dispatch<ActionType>) => {
-    dispatch(toggleFollowingProgress(true,userId));
-    startUnfollowUserAPI(userId).then(data => {
-        if (data.resultCode === 0) {
+export const unfollowTC = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleFollowingProgress(true, userId));
+    usersAPI.startUnfollowUsers(userId).then(data => {
+        if (data.data.resultCode === 0) {
             dispatch(unfollowUser(userId));
         }
-        dispatch(toggleFollowingProgress(false,userId));
-        });
+        dispatch(toggleFollowingProgress(false, userId));
+    });
 };
-
 
 
 export type followACType = {
@@ -176,9 +175,8 @@ export type userType = {
 export type isFollowingProgressAC = {
     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
     isFetching: boolean
-    userId:string
+    userId: string
 }
-
 export type usersPageType = {
     users: Array<userType>
     pageSize: number
@@ -188,10 +186,6 @@ export type usersPageType = {
     isFetching: boolean
     followingInProgress: Array<string>
 }
-
-
-
-
 
 
 export default usersReducer;

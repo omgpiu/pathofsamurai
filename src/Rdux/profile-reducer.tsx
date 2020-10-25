@@ -1,7 +1,8 @@
 import {v1} from 'uuid';
 import {ActionType, PostType} from './State';
 import {Dispatch} from 'react';
-import {getProfileAPI} from '../API/api';
+import {usersAPI} from '../API/api';
+import {toggleFollowingProgress, unfollowUser} from './users-reducer';
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -20,7 +21,7 @@ let initialState = {
         {id: v1(), message: 'Hello ', likesCount: 10},
         {id: v1(), message: 'Hello ', likesCount: 10}],
     newPostText: '',
-    profile:{
+    profile: {
         photos: {
             large: ''
         }
@@ -62,29 +63,18 @@ export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({ty
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionCreatorType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
 
-export const setUserProfileTC = (userId:string)=>(dispatch:Dispatch<ActionType>)=>{
-    let userId1 = +userId;
-    if (!userId) {
-        userId1 = 7531;
-    }
 
-    getProfileAPI(userId1).then(data => {
-       dispatch(setUserProfile(data));
-
+export const getUserProfileTC = (userId:string) => (dispatch: Dispatch<ActionType>)=>{
+    usersAPI.getProfile(+userId).then(res => {
+        dispatch(setUserProfile(res.data));
     });
 
 }
-
-
-
-
 
 export type SetUserProfileType = {
     type: typeof SET_USER_PROFILE
     profile: ProfileType
 }
-
-
 export type AddPostActionCreatorType = {
     type: typeof ADD_POST
 }
@@ -93,14 +83,12 @@ export type UpdateNewPostTextActionCreatorType = {
     newText: string
 }
 export type ProfileType = {
-    photos:ProfilePhotosType
+    photos: ProfilePhotosType
 }
-export type ProfilePhotosType ={
+export type ProfilePhotosType = {
     large: string
     small?: string
 }
-
-
 
 
 export default profileReducer;

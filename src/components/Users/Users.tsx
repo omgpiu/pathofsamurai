@@ -3,7 +3,6 @@ import {userType} from '../../Rdux/users-reducer';
 import st from './Users.module.css';
 import commonAvatar from '../../photo/commonAvatar.png';
 import {NavLink} from 'react-router-dom';
-import {startFollowUserAPI, startUnfollowUserAPI} from '../../API/api';
 
 
 export type PropsUsersType = {
@@ -14,10 +13,10 @@ export type PropsUsersType = {
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    toggleFollowingProgress: (isFetching: boolean,userId:string) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
     followingInProgress: Array<string>
-    followTC: (userId:string)=>void
-    unfollowTC:(userId:string)=>void
+    followTC: (userId: string) => void
+    unfollowTC: (userId: string) => void
 
 
 }
@@ -52,10 +51,15 @@ function Users(props: PropsUsersType) {
                                             </NavLink>
                                     </div>
                                     <div>
-                                        {u.followed ? <button disabled={props.followingInProgress.some(id=>id===u.id)}
-                                          onClick={() => {props.unfollowTC(u.id)}}>Unfollow</button> :
-                                            <button disabled={props.followingInProgress.some(id=>id===u.id)}
-                                            onClick={() => {props.followTC(u.id)}}>Follow</button>}
+                                        {u.followed ?
+                                            <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                                    onClick={() => {
+                                                        props.unfollowTC(u.id);
+                                                    }}>Unfollow</button> :
+                                            <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                                    onClick={() => {
+                                                        props.followTC(u.id);
+                                                    }}>Follow</button>}
                                     </div>
                                 </span>
                             <span>

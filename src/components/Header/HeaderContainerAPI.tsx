@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './Header';
 import {connect, ConnectedProps} from 'react-redux';
-import {setAuthUserData} from '../../Rdux/auth-reducer';
-import {getAuthAPI} from '../../API/api';
+import {getAuthUserDataTC, setAuthUserData} from '../../Rdux/auth-reducer';
+import {AuthAPI} from '../../API/api';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 
@@ -13,7 +13,7 @@ type PathParamsType = {
     id: string,
     email: string,
     login: string
-    // isAuth:boolean
+    // isAuth?:boolean
 }
 
 type mapStateToPropsType = {
@@ -31,14 +31,8 @@ type stateType = {
 class HeaderContainerAPI extends React.Component<PropsType> {
 
     componentDidMount() {
-        getAuthAPI().then(data => {
-            if (data.resultCode === 0) {
-                let {id, email, login} = data.data;
-                this.props.setAuthUserData(id, email, login, true);
-
-
-            }
-        });
+        debugger
+        this.props.getAuthUserDataTC();
     }
 
     render() {
@@ -54,5 +48,5 @@ const mapStateToProps = (state: stateType): mapStateToPropsType => (
     });
 
 type PropsFromRedux = ConnectedProps<typeof connector>
-const connector = connect(mapStateToProps, {setAuthUserData});
+const connector = connect(mapStateToProps, {getAuthUserDataTC});
 export default withRouter(connector(HeaderContainerAPI));
