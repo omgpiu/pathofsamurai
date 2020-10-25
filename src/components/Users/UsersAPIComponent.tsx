@@ -6,8 +6,7 @@ import PreLoader from './preLoader';
 
 export type PropsType = {
     users: Array<userType>
-    followUser: (userId: string) => void
-    unfollowUser: (userId: string) => void
+
     toggleFollowingProgress: (isFetching: boolean,userId:string) => void
     pageSize: number
     totalUsersCount: number
@@ -16,6 +15,8 @@ export type PropsType = {
     isFetching: boolean
     getUsersTC: (currentPage: number, pageSize: number) => void
     followingInProgress:[]
+    followTC: (userId:string)=>void
+    unfollowTC:(userId:string)=>void
 
 }
 
@@ -37,12 +38,15 @@ class UsersAPIComponent extends React.Component<PropsType> {
             <Users totalUsersCount={this.props.totalUsersCount}
                    users={this.props.users}
                    currentPage={this.props.currentPage}
-                   followUser={this.props.followUser}
+                   // followUser={this.props.followUser}
                    pageSize={this.props.pageSize}
-                   unfollowUser={this.props.unfollowUser}
+                   // unfollowUser={this.props.unfollowUser}
                    onPageChanged={this.onPageChanged}
                    toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
+                   followTC={this.props.followTC}
+                   unfollowTC={this.props.unfollowTC}
+
             />;
         </>;
     }

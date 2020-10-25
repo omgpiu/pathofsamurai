@@ -1,14 +1,7 @@
 import UsersAPIComponent from './UsersAPIComponent';
 import {RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
-import {
-    followUser,
-    getUsersTC,
-    setPage,
-    toggleFollowingProgress,
-    unfollowUser,
-    userType
-} from '../../Rdux/users-reducer';
+import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC, userType} from '../../Rdux/users-reducer';
 
 
 type MapStatePropsType = {
@@ -17,15 +10,17 @@ type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress:[]
+    followingInProgress: []
 }
 
 type MapDispatchPropsType = {
-    followUser: (userId: string) => void
-    unfollowUser: (userId: string) => void
+    // followUser: (userId: string) => void
+    // unfollowUser: (userId: string) => void
     setPage: (currentPage: number) => void
-    toggleFollowingProgress: (isFetching: boolean,userId:string) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
+    followTC: (userId: string) => void
+    unfollowTC: (userId: string) => void
 
 
 }
@@ -37,18 +32,19 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress:state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress
 
     };
 };
 
 
 const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
-    followUser,
-    unfollowUser,
+
     setPage,
     getUsersTC,
     toggleFollowingProgress,
+    followTC,
+    unfollowTC
 
 
 })(UsersAPIComponent);

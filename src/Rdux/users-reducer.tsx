@@ -1,7 +1,7 @@
 import {v1} from 'uuid';
 import {ActionType} from './State';
 import {Dispatch} from 'react';
-import {getUsersAPI} from '../API/api';
+import {getUsersAPI, startFollowUserAPI, startUnfollowUserAPI} from '../API/api';
 
 
 const FOLLOW = 'FOLLOW';
@@ -113,6 +113,26 @@ export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: 
             dispatch(setTotalUsersCount(data.totalCount));
         });
 };
+export const followTC = (userId:string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleFollowingProgress(true,userId));
+    startFollowUserAPI(userId).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(followUser(userId));
+        }
+        dispatch(toggleFollowingProgress(false,userId));
+    });
+};
+export const unfollowTC = (userId:string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleFollowingProgress(true,userId));
+    startUnfollowUserAPI(userId).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(unfollowUser(userId));
+        }
+        dispatch(toggleFollowingProgress(false,userId));
+        });
+};
+
+
 
 export type followACType = {
     type: typeof FOLLOW
@@ -170,6 +190,10 @@ export type usersPageType = {
     isFetching: boolean
     followingInProgress: []
 }
+
+
+
+
 
 
 export default usersReducer;
