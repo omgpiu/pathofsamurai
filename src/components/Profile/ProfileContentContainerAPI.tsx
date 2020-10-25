@@ -21,6 +21,7 @@ export type MapStatePropsType = {
 type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 type PathParamsType = {
     userId: string
+    // setUserProfileTC:(userId:string)=>void
 }
 //userId cant be number ?
 
@@ -35,6 +36,7 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
             this.props.setUserProfile(data);
 
         });
+        // this.props.setUserProfileTC(userId)
     }
 
     render() {

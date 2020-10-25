@@ -35,7 +35,7 @@ let initialState = {
     totalUsersCount: 1,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [] as Array<string>
 };
 
 type StateProfile = typeof initialState
@@ -69,11 +69,9 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
             return {...state, totalUsersCount: action.count};
         case 'TOGGLE_IS_FETCHING':
             return {...state, isFetching: action.isFetching};
-        case 'TOGGLE_IS_FOLLOWING_PROGRESS':
-
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {
                 ...state,
-//@ts-ignore
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id != action.userId)
@@ -188,7 +186,7 @@ export type usersPageType = {
     currentPage: number
     count: number
     isFetching: boolean
-    followingInProgress: []
+    followingInProgress: Array<string>
 }
 
 

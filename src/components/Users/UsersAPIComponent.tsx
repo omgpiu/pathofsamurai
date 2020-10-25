@@ -14,7 +14,7 @@ export type PropsType = {
     setPage: (currentPage: number) => void
     isFetching: boolean
     getUsersTC: (currentPage: number, pageSize: number) => void
-    followingInProgress:[]
+    followingInProgress:Array<string>
     followTC: (userId:string)=>void
     unfollowTC:(userId:string)=>void
 

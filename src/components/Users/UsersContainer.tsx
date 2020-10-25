@@ -10,7 +10,7 @@ type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: []
+    followingInProgress: Array<string>
 }
 
 type MapDispatchPropsType = {
