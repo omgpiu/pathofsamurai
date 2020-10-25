@@ -4,11 +4,13 @@ import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 import {Button, TextField} from '@material-ui/core';
 import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/State';
+import { Redirect } from 'react-router-dom';
 
 export type DialogsPropType = {
     updateNewMessage: (message: string) => void
     sendMessage: () => void
     dialogsPage: DialogsPageType
+    isAuth:boolean
 }
 
 
@@ -36,6 +38,10 @@ function Dialogs(props: DialogsPropType) {
         let message = e.target.value;
         props.updateNewMessage(message);
     };
+
+  if (!props.isAuth) return <Redirect to={'/login'}/>
+
+
 
 
     return (

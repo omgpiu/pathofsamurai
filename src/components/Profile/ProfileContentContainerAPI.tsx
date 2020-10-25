@@ -1,11 +1,10 @@
 import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
-import {getUserProfileTC, ProfileType, setUserProfile} from '../../Rdux/profile-reducer';
-import {ProfilePageType} from '../../Rdux/State';
+import {getUserProfileTC, ProfileType} from '../../Rdux/profile-reducer';
+import {isAuthType, ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {usersAPI} from '../../API/api';
+import {RouteComponentProps, withRouter, Redirect} from 'react-router-dom';
 
 
 // export type MapDispatchPropsType = {
@@ -14,10 +13,14 @@ import {usersAPI} from '../../API/api';
 
 export type RootProfileType = {
     profilePage: ProfilePageType
+    auth: isAuthType
+
 }
 export type MapStatePropsType = {
     profile: ProfileType
+    isAuth: boolean
 }
+
 type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 type PathParamsType = {
     userId: string
@@ -33,10 +36,11 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
             userId = 7531;
         }
 
-        this.props.getUserProfileTC(String(userId))
+        this.props.getUserProfileTC(String(userId));
     }
 
     render() {
+        if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile}/>
@@ -45,7 +49,10 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
 }
 
 let mapStateToProps = (state: RootProfileType): MapStatePropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth
+
+
 });
 
 

@@ -29,19 +29,16 @@ type stateType = {
 }
 
 class HeaderContainerAPI extends React.Component<PropsType> {
-
     componentDidMount() {
         debugger
         this.props.getAuthUserDataTC();
     }
-
     render() {
         return <Header {...this.props}/>;
     }
 }
 
 const mapStateToProps = (state: stateType): mapStateToPropsType => (
-
     {
         isAuth: state.auth.isAuth,
         login: state.auth.login

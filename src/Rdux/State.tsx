@@ -44,7 +44,10 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
     sidebar: Object
     usersPage: usersPageType
-
+    auth: isAuthType
+}
+export type isAuthType = {
+    isAuth: boolean
 }
 
 
