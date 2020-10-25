@@ -14,6 +14,9 @@ export type PropsUsersType = {
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
+    toggleFollowingProgress: (isFetching: boolean,userId:string) => void
+    followingInProgress: []
+
 
 }
 
@@ -47,21 +50,24 @@ function Users(props: PropsUsersType) {
                                             </NavLink>
                                     </div>
                                     <div>
-                                        {u.followed ? <button onClick={() => {
-
+                                        {u.followed ? <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
+                                                props.toggleFollowingProgress(true,u.id);
                                                 startUnfollowUserAPI(u.id).then(data => {
                                                     if (data.resultCode === 0) {
                                                         props.unfollowUser(u.id);
                                                     }
+                                                    props.toggleFollowingProgress(false,u.id);
                                                 });
 
                                             }}>Unfollow</button> :
-                                            <button onClick={() => {
+                                            <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
+                                                props.toggleFollowingProgress(true,u.id);
                                                 startFollowUserAPI(u.id)
                                                     .then(data => {
                                                         if (data.resultCode === 0) {
                                                             props.followUser(u.id);
                                                         }
+                                                        props.toggleFollowingProgress(false,u.id);
                                                     });
 
 

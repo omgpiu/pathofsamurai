@@ -4,6 +4,7 @@ import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs
 import {
     followACType,
     isFetchingTypeAC,
+    isFollowingProgressAC,
     setPageACType,
     setTotalUsersCountACType,
     setUsersACType,
@@ -60,6 +61,7 @@ export type ActionType =
     | isFetchingTypeAC
     | SetUserProfileType
     | setAuthUserDataType
+    | isFollowingProgressAC
 
 
 const state = () => {

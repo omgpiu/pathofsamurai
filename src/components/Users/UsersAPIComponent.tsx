@@ -8,13 +8,14 @@ export type PropsType = {
     users: Array<userType>
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
-
+    toggleFollowingProgress: (isFetching: boolean,userId:string) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
     setPage: (currentPage: number) => void
     isFetching: boolean
     getUsersTC: (currentPage: number, pageSize: number) => void
+    followingInProgress:[]
 
 }
 
@@ -40,6 +41,8 @@ class UsersAPIComponent extends React.Component<PropsType> {
                    pageSize={this.props.pageSize}
                    unfollowUser={this.props.unfollowUser}
                    onPageChanged={this.onPageChanged}
+                   toggleFollowingProgress={this.props.toggleFollowingProgress}
+                   followingInProgress={this.props.followingInProgress}
             />;
         </>;
     }
