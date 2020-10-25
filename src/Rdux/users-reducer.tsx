@@ -1,6 +1,8 @@
-
 import {v1} from 'uuid';
 import {ActionType} from './State';
+import {Dispatch} from 'react';
+import {getUsersAPI} from '../API/api';
+
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -29,7 +31,6 @@ export type setTotalUsersCountACType = {
     type: typeof SET_TOTAL_USER_COUNT
     count: number
 }
-
 export type locationUsersType = {
     country: string
     city: string
@@ -57,8 +58,8 @@ export type usersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    count:number
-    isFetching:boolean
+    count: number
+    isFetching: boolean
 }
 
 
@@ -114,9 +115,9 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
         case 'SET_PAGE':
             return {...state, currentPage: action.currentPage};
         case  'SET_TOTAL_USER_COUNT':
-            return  {...state, totalUsersCount: action.count}
+            return {...state, totalUsersCount: action.count};
         case 'TOGGLE_IS_FETCHING':
-            return {...state,isFetching: action.isFetching}
+            return {...state, isFetching: action.isFetching};
 // let stateUsers = [...state.users];
 // let newUsers: any = action.users.map((user: userType) => {
 //     return [...stateUsers, user];
@@ -130,10 +131,22 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
 export const followUser = (userId: string): followACType => ({type: FOLLOW, userId});
 export const unfollowUser = (userId: string): unfollowACType => ({type: UNFOLLOW, userId});
 export const setUsers = (users: Array<userType>): setUsersACType => ({type: SET_USERS, users});
-export const setPage = (currentPage:number): setPageACType => ({type: SET_PAGE, currentPage});
-export const setTotalUsersCount = (totalUsersCount:number): setTotalUsersCountACType => ({type: SET_TOTAL_USER_COUNT, count:totalUsersCount});
-export const toggleIsFetching = (isFetching:boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const setPage = (currentPage: number): setPageACType => ({type: SET_PAGE, currentPage});
+export const setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountACType => ({
+    type: SET_TOTAL_USER_COUNT,
+    count: totalUsersCount
+});
+export const toggleIsFetching = (isFetching: boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
 
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleIsFetching(true));
+    getUsersAPI(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount));
+        });
+};
 
 
 export default usersReducer;

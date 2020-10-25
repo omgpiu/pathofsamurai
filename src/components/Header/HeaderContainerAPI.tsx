@@ -10,13 +10,10 @@ type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 
 
 type PathParamsType = {
-        id:string,
-        email: string,
-        login:string
-       // isAuth:boolean
-
-
-
+    id: string,
+    email: string,
+    login: string
+    // isAuth:boolean
 }
 
 type mapStateToPropsType = {
@@ -37,7 +34,8 @@ class HeaderContainerAPI extends React.Component<PropsType> {
         getAuthAPI().then(data => {
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data;
-                this.props.setAuthUserData(id, email, login,true);
+                this.props.setAuthUserData(id, email, login, true);
+
 
             }
         });

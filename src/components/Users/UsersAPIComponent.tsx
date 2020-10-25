@@ -2,21 +2,19 @@ import React from 'react';
 import {userType} from '../../Rdux/users-reducer';
 import Users from './Users';
 import PreLoader from './preLoader';
-import {getUsersAPI} from '../../API/api';
 
 
 export type PropsType = {
     users: Array<userType>
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
-    setUsers: any
+
     pageSize: number
     totalUsersCount: number
     currentPage: number
     setPage: (currentPage: number) => void
-    setTotalUsersCount: any
     isFetching: boolean
-    toggleIsFetching: (isFetching: boolean) => void
+    getUsersTC: (currentPage: number, pageSize: number) => void
 
 }
 
@@ -24,24 +22,12 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
 
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        getUsersAPI(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setPage(pageNumber);
-        this.props.toggleIsFetching(true);
-        getUsersAPI(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false);
-                this.props.setUsers(data.items);
-            });
-    };
+        this.props.getUsersTC(pageNumber, this.props.pageSize);
+       };
 
     render() {
 

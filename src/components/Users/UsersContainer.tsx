@@ -1,15 +1,7 @@
 import UsersAPIComponent from './UsersAPIComponent';
 import {RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
-import {
-    followUser,
-    setPage,
-    setTotalUsersCount,
-    setUsers,
-    toggleIsFetching,
-    unfollowUser,
-    userType
-} from '../../Rdux/users-reducer';
+import {followUser, getUsersTC, setPage, unfollowUser, userType} from '../../Rdux/users-reducer';
 
 
 type MapStatePropsType = {
@@ -23,10 +15,11 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
-    setUsers: (users: Array<userType>) => void
+
     setPage: (currentPage: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
+
+
+    getUsersTC: (currentPage: number, pageSize: number) => void
 
 
 }
@@ -41,37 +34,14 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
 
     };
 };
-// let mapDispatchToProps = (dispatch: (action: ActionType) => void): MapDispatchPropsType => {
-//     return {
-//         followUser: (userId: string) => {
-//             dispatch(followAC(userId));
-//         },
-//         unfollowUser: (userId: string) => {
-//             dispatch(unfollowAC(userId));
-//         },
-//         setUsers: (users: Array<userType>) => {
-//             dispatch(setUsersAC(users));
-//         },
-//         setPage: (pageNumber: number) => {
-//             dispatch(setPageAC(pageNumber));
-//         },
-//         setTotalUsersCount: (totalCount: number) => {
-//             dispatch(setTotalUsersCountAC(totalCount));
-//         },
-//         toggleIsFetching: (isFetching: boolean) => {
-//             dispatch(toggleIsFetchingAC(isFetching));
-//         },
-//
-//     };
-// };
+
 
 const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
     followUser,
     unfollowUser,
-    setUsers,
     setPage,
-    setTotalUsersCount,
-    toggleIsFetching,
+    getUsersTC
+
 
 })(UsersAPIComponent);
 
