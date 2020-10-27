@@ -1,8 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import {connect, ConnectedProps} from 'react-redux';
-import {getAuthUserDataTC, setAuthUserData} from '../../Rdux/auth-reducer';
-import {AuthAPI} from '../../API/api';
+import {getAuthUserDataTC} from '../../Rdux/auth-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 
@@ -33,6 +32,7 @@ class HeaderContainerAPI extends React.Component<PropsType> {
         debugger
         this.props.getAuthUserDataTC();
     }
+
     render() {
         return <Header {...this.props}/>;
     }

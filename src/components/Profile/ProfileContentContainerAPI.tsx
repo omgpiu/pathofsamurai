@@ -5,7 +5,6 @@ import {getUserProfileTC, ProfileType} from '../../Rdux/profile-reducer';
 import {isAuthType, ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
 
 

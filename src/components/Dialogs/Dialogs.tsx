@@ -4,13 +4,12 @@ import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 import {Button, TextField} from '@material-ui/core';
 import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/State';
-import { Redirect } from 'react-router-dom';
 
 export type DialogsPropType = {
     updateNewMessage: (message: string) => void
     sendMessage: () => void
     dialogsPage: DialogsPageType
-    isAuth:boolean
+    isAuth: boolean
 }
 
 
@@ -21,11 +20,11 @@ function Dialogs(props: DialogsPropType) {
 
     const dialogsElements = state.dialogsData.map((dialog: DialogItemType) => <DialogItem name={dialog.name}
                                                                                           id={dialog.id}
-    key={dialog.id}/>);
+                                                                                          key={dialog.id}/>);
 
     const messageElements = state.messageData.map((message: MessageType) => <Message message={message.message}
                                                                                      id={message.id}
-    key={message.id}/>);
+                                                                                     key={message.id}/>);
 
 
     const newMessageBody = state.newMessageText;
@@ -38,9 +37,6 @@ function Dialogs(props: DialogsPropType) {
         let message = e.target.value;
         props.updateNewMessage(message);
     };
-
-
-
 
 
     return (
