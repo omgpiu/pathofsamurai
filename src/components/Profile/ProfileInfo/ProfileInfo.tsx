@@ -1,6 +1,7 @@
 import React from 'react';
 import st from './ProfileInfo.module.css';
 import logo2 from '../../../photo/logo2.png';
+import commonAvatar from '../../../photo/commonAvatar.png';
 import {ProfileType} from '../../../Rdux/profile-reducer';
 import PreLoader from '../../Users/preLoader';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
