@@ -1,6 +1,7 @@
 import {ActionType} from './State';
 import {Dispatch} from 'react';
-import {AuthAPI} from '../API/api';
+import {AuthAPI} from '../API/auth-api';
+
 
 const SET_USER_DATA = 'SET_USER_DATA';
 

@@ -1,7 +1,7 @@
 import {v1} from 'uuid';
 import {ActionType} from './State';
 import {Dispatch} from 'react';
-import {usersAPI} from '../API/api';
+import {usersAPI} from '../API/users-api';
 
 
 const FOLLOW = 'FOLLOW';

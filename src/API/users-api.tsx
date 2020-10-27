@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {profileAPI} from './profile-api';
 
 
 const instance = axios.create({
@@ -12,30 +13,22 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`);
     },
     getProfile(userId: number) {
-        return instance.get(`profile/` + userId)
+        return profileAPI.getProfile(userId);
 
     },
     startUnfollowUsers(id: number) {
-        return instance.delete(`follow/${id}`)
+        return instance.delete(`follow/${id}`);
 
     },
     startFollowUsers(id: number) {
-        return instance.post(`follow/${id}`, {})
+        return instance.post(`follow/${id}`, {});
 
     }
 
 };
 
-
-export const AuthAPI =  {
-    me() {
-        return instance.get(`auth/me`)
-    }
-
-
-};
 
 

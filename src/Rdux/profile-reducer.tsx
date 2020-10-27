@@ -1,7 +1,7 @@
 import {v1} from 'uuid';
 import {ActionType, PostType} from './State';
 import {Dispatch} from 'react';
-import {usersAPI} from '../API/api';
+import {usersAPI} from '../API/users-api';
 import {toggleFollowingProgress, unfollowUser} from './users-reducer';
 
 const ADD_POST = 'ADD-POST';
