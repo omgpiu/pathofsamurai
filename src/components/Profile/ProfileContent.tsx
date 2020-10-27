@@ -5,12 +5,15 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {MapStatePropsType} from './ProfileContentContainerAPI';
 
 
-function ProfileContent(props:MapStatePropsType) {
+type PropsType = MapStatePropsType & { updateStatus: (status: string) => void }
+
+
+function ProfileContent(props: PropsType) {
 
     return (
         <div>
 
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>
     );

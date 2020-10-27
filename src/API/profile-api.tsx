@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 
 
@@ -13,15 +12,19 @@ const instance = axios.create({
 export const profileAPI = {
 
     getProfile(userId: number) {
-        return instance.get(`profile/` + userId)
+        debugger
+        return instance.get(`profile/` + userId);
 
     },
-    getStatus(userId: number){
-        return instance.get(`profile/status`+ userId)
+    getStatus(userId: number) {
+        debugger
+        return instance.get(`profile/status/` + userId);
     },
-    updateStatus(status:string){
-        return instance.put(`profile/status`)
+    updateStatus(status: string) {
+        debugger
+        return instance.put(`profile/status`, {status: status});
     }
+    //status- server needs this key
 
 };
 

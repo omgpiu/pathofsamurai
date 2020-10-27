@@ -2,11 +2,12 @@ import {v1} from 'uuid';
 import {ActionType, PostType} from './State';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
-import {toggleFollowingProgress, unfollowUser} from './users-reducer';
+import {profileAPI} from '../API/profile-api';
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 
 let initialState = {
@@ -25,7 +26,8 @@ let initialState = {
         photos: {
             large: ''
         }
-    }
+    },
+    status: ''
 };
 type StateProfile = typeof initialState
 const profileReducer = (state: StateProfile = initialState, action: ActionType): StateProfile => {
@@ -53,6 +55,11 @@ const profileReducer = (state: StateProfile = initialState, action: ActionType):
                     ...state,
                     profile: action.profile
                 };
+            case 'SET_USER_STATUS':
+                return  {
+                    ...state,
+                    status: action.status
+                }
             default :
                 return state;
         }
@@ -62,18 +69,45 @@ export const addPostActionCreator = (): AddPostActionCreatorType => ({type: ADD_
 export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile});
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionCreatorType =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export const setUserStatus = (status: string): SetUserStatusTypeAC => ({
+    type: SET_USER_STATUS,
+    status
+});
 
 
-export const getUserProfileTC = (userId:number) => (dispatch: Dispatch<ActionType>)=>{
+export const getUserProfileTC = (userId: number) => (dispatch: Dispatch<ActionType>) => {
     usersAPI.getProfile(userId).then(res => {
         dispatch(setUserProfile(res.data));
     });
 
+};
+
+export  const getUserStatusTC = (userId:number)=>(dispatch: Dispatch<ActionType>)=>{
+
+    debugger
+    profileAPI.getStatus(userId).then(res=>{
+        debugger
+        dispatch(setUserStatus(res.data))
+    })
 }
+export const updateUserStatusTC = (status:string) => (dispatch: Dispatch<ActionType>) => {
+    debugger
+    profileAPI.updateStatus(status).then(res => {
+        if(res.data.resultCode===0){
+            dispatch(setUserStatus(status));
+        }
+
+    });
+
+};
 
 export type SetUserProfileType = {
     type: typeof SET_USER_PROFILE
     profile: ProfileType
+}
+export type SetUserStatusTypeAC = {
+    type: typeof SET_USER_STATUS
+    status: string
 }
 export type AddPostActionCreatorType = {
     type: typeof ADD_POST

@@ -29,7 +29,7 @@ type stateType = {
 
 class HeaderContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
-        debugger
+
         this.props.getAuthUserDataTC();
     }
 

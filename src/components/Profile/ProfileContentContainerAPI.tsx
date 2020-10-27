@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
-import {getUserProfileTC, ProfileType} from '../../Rdux/profile-reducer';
+import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from '../../Rdux/profile-reducer';
 import {isAuthType, ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
@@ -19,6 +19,8 @@ export type RootProfileType = {
 }
 export type MapStatePropsType = {
     profile: ProfileType
+    status: string
+
 
 }
 export type MapStatePropsForRedirectType = {
@@ -32,7 +34,6 @@ type PathParamsType = {
 
 }
 
-//userId cant be a number ?
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
@@ -42,26 +43,28 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         }
 
         this.props.getUserProfileTC(userId);
+        this.props.getUserStatusTC(userId)
     }
 
     render() {
 
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateUserStatusTC}/>
             </div>);
     }
 }
 
 let mapStateToProps = (state: RootProfileType): MapStatePropsType => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 });
 
 
 type PropsFromRedux = ConnectedProps<typeof connector>
-const connector = connect(mapStateToProps, {getUserProfileTC});
+const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC});
 export default compose<React.ComponentClass>(
-    connect(mapStateToProps, {getUserProfileTC}),
+    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC}),
     withRouter,
     // withAuthRedirect
 )(ProfileContentContainerAPI);

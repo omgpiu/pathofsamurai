@@ -7,6 +7,8 @@ import ProfileStatus from './ProfileStatus/ProfileStatus';
 
 type PropsType = {
     profile: ProfileType
+    status:string
+    updateStatus: (status:string)=>void
 }
 
 function ProfileInfo(props: PropsType) {
@@ -20,7 +22,8 @@ function ProfileInfo(props: PropsType) {
                     <div className={st.thisLogo}><img src={props.profile.photos.large} alt="Avatar"/></div>
                     : <div className={st.thisLogo}><img src={logo2} alt="Avatar"/></div>
                 }
-                <ProfileStatus status={'TestStatus'}/>
+
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     );

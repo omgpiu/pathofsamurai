@@ -1,6 +1,4 @@
-import React from 'react';
 import axios from 'axios';
-import {profileAPI} from './profile-api';
 
 
 const instance = axios.create({
@@ -12,9 +10,9 @@ const instance = axios.create({
 });
 
 
-export const AuthAPI =  {
+export const AuthAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get(`auth/me`);
     }
 
 

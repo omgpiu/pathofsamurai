@@ -4,9 +4,8 @@ import st from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 
 
-
 function Header(props: any) {
-    debugger
+
     return (
         <header className={st.appHeader}>
             <img src={logoNew} alt="newLogo"/>

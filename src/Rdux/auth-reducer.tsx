@@ -46,17 +46,14 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 
 export const getAuthUserDataTC = () => (dispatch: Dispatch<ActionType>) => {
     AuthAPI.me().then(res => {
-        debugger
+
         if (res.data.resultCode === 0) {
-            debugger
+
             let {id, email, login} = res.data.data;
             dispatch(setAuthUserData(id, email, login, true));
         }
     });
-}
-
-
-
+};
 
 
 export default authReducer;

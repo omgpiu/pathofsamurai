@@ -74,7 +74,7 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id != action.userId)
+                    : state.followingInProgress.filter(id => id !== action.userId)
             };
 // let stateUsers = [...state.users];
 // let newUsers: any = action.users.map((user: userType) => {

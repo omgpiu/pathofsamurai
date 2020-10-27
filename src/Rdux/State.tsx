@@ -1,5 +1,10 @@
 import React from 'react';
-import {AddPostActionCreatorType, SetUserProfileType, UpdateNewPostTextActionCreatorType,} from './profile-reducer';
+import {
+    AddPostActionCreatorType,
+    SetUserProfileType,
+    SetUserStatusTypeAC,
+    UpdateNewPostTextActionCreatorType,
+} from './profile-reducer';
 import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
 import {
     followACType,
@@ -32,6 +37,7 @@ export type ProfilePageType = {
     postData: Array<PostType>
     newPostText: string
     profile: any
+    status: string
 }
 
 export type DialogsPageType = {
@@ -65,6 +71,7 @@ export type ActionType =
     | SetUserProfileType
     | setAuthUserDataType
     | isFollowingProgressAC
+    | SetUserStatusTypeAC
 
 
 const state = () => {
