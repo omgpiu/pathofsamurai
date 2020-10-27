@@ -3,6 +3,7 @@ import {RootStateType} from '../../Rdux/State';
 import {connect} from 'react-redux';
 import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC, userType} from '../../Rdux/users-reducer';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
+import {compose} from 'redux';
 
 
 type MapStatePropsType = {
@@ -11,16 +12,16 @@ type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<string>
+    followingInProgress: Array<number>
 }
 
 type MapDispatchPropsType = {
 
     setPage: (currentPage: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
-    followTC: (userId: string) => void
-    unfollowTC: (userId: string) => void
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
 
 
 }
@@ -36,17 +37,28 @@ let mapStateToProps = (state: RootStateType): MapStatePropsType => {
 
     };
 };
-let withRedirect = withAuthRedirect(UsersAPIComponent);
-
-const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
-
-    setPage,
-    getUsersTC,
-    toggleFollowingProgress,
-    followTC,
-    unfollowTC
+// let withRedirect = withAuthRedirect(UsersAPIComponent);
 
 
-})(withRedirect);
 
-export default UsersContainer;
+
+// const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
+//
+//     setPage,
+//     getUsersTC,
+//     toggleFollowingProgress,
+//     followTC,
+//     unfollowTC
+//
+//
+// })(withRedirect);
+
+export default compose <React.ComponentClass>(withAuthRedirect,
+    connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
+            setPage,
+            getUsersTC,
+            toggleFollowingProgress,
+            followTC,
+            unfollowTC
+        })
+    )(UsersAPIComponent)

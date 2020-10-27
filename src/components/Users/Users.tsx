@@ -13,10 +13,10 @@ export type PropsUsersType = {
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
-    followingInProgress: Array<string>
-    followTC: (userId: string) => void
-    unfollowTC: (userId: string) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+    followingInProgress: Array<number>
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
 
 
 }

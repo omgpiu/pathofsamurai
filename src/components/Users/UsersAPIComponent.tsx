@@ -6,16 +6,16 @@ import PreLoader from './preLoader';
 
 export type PropsType = {
     users: Array<userType>
-    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
     setPage: (currentPage: number) => void
     isFetching: boolean
     getUsersTC: (currentPage: number, pageSize: number) => void
-    followingInProgress: Array<string>
-    followTC: (userId: string) => void
-    unfollowTC: (userId: string) => void
+    followingInProgress: Array<number>
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
 
 }
 

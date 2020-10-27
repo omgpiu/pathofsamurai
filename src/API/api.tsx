@@ -18,11 +18,11 @@ export const usersAPI = {
         return instance.get(`profile/` + userId)
 
     },
-    startUnfollowUsers(id: string) {
+    startUnfollowUsers(id: number) {
         return instance.delete(`follow/${id}`)
 
     },
-    startFollowUsers(id: string) {
+    startFollowUsers(id: number) {
         return instance.post(`follow/${id}`, {})
 
     }

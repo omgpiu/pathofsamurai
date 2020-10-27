@@ -7,6 +7,7 @@ import {Redirect} from 'react-router-dom';
 import React from 'react';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {MapStatePropsForRedirectType, RootProfileType} from '../Profile/ProfileContentContainerAPI';
+import {compose} from 'redux';
 
 const mapStateToProps = (state: RootStateType) => {
     return {
@@ -30,15 +31,15 @@ const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
 
 };
 
-let AuthRedirectComponent=withAuthRedirect(Dialogs)
 
 
 
 
-const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
-
-export default DialogContainer;
+export default compose<React.FunctionComponent>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs);
 
 
 
