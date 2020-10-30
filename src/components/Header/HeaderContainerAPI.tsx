@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import {connect, ConnectedProps} from 'react-redux';
 import {getAuthUserDataTC, logoutTC} from '../../Rdux/auth-reducer';
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
 
 type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
@@ -30,8 +30,8 @@ type stateType = {
 class HeaderContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
 
-      this.props.getAuthUserDataTC();
-      // this.props.logoutTC();
+        this.props.getAuthUserDataTC();
+        // this.props.logoutTC();
 
     }
 

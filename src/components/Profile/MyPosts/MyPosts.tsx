@@ -3,7 +3,6 @@ import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import {PostType} from '../../../Rdux/State';
-import {Button, FormControl, FormGroup, TextField} from '@material-ui/core';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
@@ -12,28 +11,8 @@ export type MyPostsTypeOne = {
     addPost: () => void
 }
 
-// let AddNewPostForm = (props:any) => {
-//     return <form onSubmit={props.formik.handleSubmit}>
-//         <FormControl>
-//
-//             <FormGroup>
-//                 <TextField
-//                     label="text"
-//                     margin="normal"
-//                     {...props.formik.getFieldProps('email')}
-//                 />{
-//                 props.formik.errors.email ? <div style={{color: 'red'}}>{props.formik.errors.email}</div> : null
-//             }
-//
-//                 <Button type={'submit'} variant={'contained'} color={'primary'}>Add Post</Button>
-//             </FormGroup>
-//         </FormControl>
-//     </form>;
-// };
-
 
 function MyPosts(props: MyPostsTypeOne) {
-
 
 
     const postsData = props.postData

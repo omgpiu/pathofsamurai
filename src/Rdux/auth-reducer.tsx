@@ -1,6 +1,6 @@
 import {ActionType, ThunkType} from './State';
 import {Dispatch} from 'react';
-import {AuthAPI} from '../API/auth-api';
+import {AuthAPI, LoginParamsType} from '../API/auth-api';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppRootStateType} from './redux-store';
 
@@ -23,7 +23,6 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
             return {
                 ...state,
                 ...action.payload,
-
             };
         default:
             return state;
@@ -45,11 +44,13 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch<ActionType>) => {
     });
 };
 //Разобраться с диспатчем санки
-export const loginTC = (data: any): ThunkType => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
+export const loginTC = (data:LoginParamsType): ThunkType => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
     AuthAPI.login(data)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(getAuthUserDataTC());
+            } else {
+                // let message = res.data.messages.length > 0 ? res.data.messages[0] : 'Some error'
 
             }
         });

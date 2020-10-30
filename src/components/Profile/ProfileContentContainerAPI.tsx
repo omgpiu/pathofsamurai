@@ -4,7 +4,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from '../../Rdux/profile-reducer';
 import {isAuthType, ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
-import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
@@ -25,6 +25,7 @@ export type MapStatePropsType = {
     profile: ProfileType
     status: string
     isAuth: boolean
+    authorizedUserId: number | null
 
 
 }
@@ -42,29 +43,17 @@ type PathParamsType = {
 class ProfileContentContainerAPI extends React.Component<PropsType> {
 
     componentDidMount() {
-        let userId = +this.props.match.params.userId;
+        let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
-            userId = 7531;
+
+            userId = this.props.authorizedUserId;
         }
 
         this.props.getUserProfileTC(userId);
         this.props.getUserStatusTC(userId);
     }
-    // componentDidUpdate = (prevProps: any, prevState: any) => {
-    //
-    //     if (!this.props.isLoggedIn) {
-    //         console.log('render2');
-    //         return <Redirect to={'/login'}/>;
-    //     }
-    // }; support
 
     render() {
-
-        // console.log('render');
-        // if (!this.props.isLoggedIn) {
-        //
-        //     return <Redirect to={'/login'}/>;
-        // }
         return (
             <div>
                 <Profile {...this.props} profile={this.props.profile} status={this.props.status}
@@ -76,7 +65,9 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
 let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    authorizedUserId: state.auth.data.userId,
+
 });
 
 

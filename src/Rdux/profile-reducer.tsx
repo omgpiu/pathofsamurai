@@ -75,12 +75,12 @@ export const setUserStatus = (status: string) => ({
     type: SET_USER_STATUS,
     status
 } as const);
-export const getUserProfileTC = (userId: number) => (dispatch: Dispatch<ActionType>) => {
+export const getUserProfileTC = (userId: number|null) => (dispatch: Dispatch<ActionType>) => {
     usersAPI.getProfile(userId).then(res => {
         dispatch(setUserProfile(res.data));
     });
 };
-export const getUserStatusTC = (userId: number) => (dispatch: Dispatch<ActionType>) => {
+export const getUserStatusTC = (userId: number|null) => (dispatch: Dispatch<ActionType>) => {
     profileAPI.getStatus(userId).then(res => {
         dispatch(setUserStatus(res.data));
     });

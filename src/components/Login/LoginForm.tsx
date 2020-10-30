@@ -15,33 +15,56 @@ import {connect} from 'react-redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {Redirect} from 'react-router-dom';
 
+// TODO сделать проверку правильности пароля
+const validate= (values: FormikType) => {
+    const errors: FormikType = {};
 
+
+    if (!values.email) {
+        errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
+    }
+    if (!values.password) {
+        errors.password = 'Required';
+    } else if (values.password.length < 5) {
+        errors.password = 'Must be 5 characters or more';
+    }
+    return errors;
+}
 const LoginForm = (props: any) => {
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             rememberMe: false
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {};
-            if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-            }
-            if (!values.password) {
-                errors.password = 'Required';
-            } else if (values.password.length < 5) {
-                errors.password = 'Must be 5 characters or more';
-            }
-            return errors;
-        },
+        },validate,
+        // validationSchema: Yup.object({
+        //     email: Yup.string().email('Invalid email address').required('Required'),
+        //     password: Yup.string()
+        //         .max(10, 'Must be 10 characters or less')
+        //         .min(3, 'Must be 3 characters or more')
+        //         .required('Required')
+        // }),
+        // validate: (values: FormikType) => {
+        //     const errors: FormikType = {};
+        //
+        //
+        //     if (!values.email) {
+        //         errors.email = 'Required';
+        //     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        //         errors.email = 'Invalid email address';
+        //     }
+        //     if (!values.password) {
+        //         errors.password = 'Required';
+        //     } else if (values.password.length < 5) {
+        //         errors.password = 'Must be 5 characters or more';
+        //     }
+        //     return errors;
+        // },
 
-        onSubmit: values => {
-            (
-                props.loginTC(values));
-
+        onSubmit: (values,actions) => {
+            (props.loginTC(values));
         },
     });
     if (props.isAuth) {
@@ -94,11 +117,13 @@ const LoginForm = (props: any) => {
 };
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth
+
 });
 type MapStatePropsType = {
     isAuth: boolean
+
 }
-type FormikErrorType = {
+type FormikType = {
     email?: string
     password?: string
     rememberMe?: boolean
