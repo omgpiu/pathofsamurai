@@ -12,16 +12,16 @@ const instance = axios.create({
 export const profileAPI = {
 
     getProfile(userId: number) {
-        debugger
+
         return instance.get(`profile/` + userId);
 
     },
     getStatus(userId: number) {
-        debugger
+
         return instance.get(`profile/status/` + userId);
     },
     updateStatus(status: string) {
-        debugger
+
         return instance.put(`profile/status`, {status: status});
     }
     //status- server needs this key

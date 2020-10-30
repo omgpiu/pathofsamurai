@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC, userType} from '../../Rdux/users-reducer';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
+import React from 'react';
 
 
 type MapStatePropsType = {

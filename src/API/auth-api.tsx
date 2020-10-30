@@ -13,9 +13,33 @@ const instance = axios.create({
 export const AuthAPI = {
     me() {
         return instance.get(`auth/me`);
+    },
+    login (data:LoginParamsType) {
+        return instance.post<ResponseType<{ userId: number }>>('auth/login',data)
+    },
+    logout () {
+        return instance.delete<ResponseType<{ userId: number }>>('auth/login')
     }
 
 
 };
 
+
+
+
+
+
+
+
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
 

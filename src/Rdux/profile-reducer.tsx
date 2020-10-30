@@ -29,8 +29,8 @@ let initialState = {
     },
     status: ''
 };
-type StateProfile = typeof initialState
-const profileReducer = (state: StateProfile = initialState, action: ActionType): StateProfile => {
+type  InitialStateType = typeof initialState
+const profileReducer = (state:  InitialStateType = initialState, action: ActionType):  InitialStateType => {
         switch (action.type) {
             case ADD_POST:
                 const newPost: PostType = {
@@ -55,7 +55,7 @@ const profileReducer = (state: StateProfile = initialState, action: ActionType):
                     ...state,
                     profile: action.profile
                 };
-            case 'SET_USER_STATUS':
+            case SET_USER_STATUS:
                 return  {
                     ...state,
                     status: action.status
@@ -84,14 +84,11 @@ export const getUserProfileTC = (userId: number) => (dispatch: Dispatch<ActionTy
 
 export  const getUserStatusTC = (userId:number)=>(dispatch: Dispatch<ActionType>)=>{
 
-    debugger
     profileAPI.getStatus(userId).then(res=>{
-        debugger
         dispatch(setUserStatus(res.data))
     })
 }
 export const updateUserStatusTC = (status:string) => (dispatch: Dispatch<ActionType>) => {
-    debugger
     profileAPI.updateStatus(status).then(res => {
         if(res.data.resultCode===0){
             dispatch(setUserStatus(status));

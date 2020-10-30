@@ -4,8 +4,10 @@ import {connect, ConnectedProps} from 'react-redux';
 import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from '../../Rdux/profile-reducer';
 import {isAuthType, ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
+import {AppRootStateType} from '../../Rdux/redux-store';
+import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 
 // export type MapDispatchPropsType = {
@@ -15,11 +17,14 @@ import {compose} from 'redux';
 export type RootProfileType = {
     profilePage: ProfilePageType
     auth: isAuthType
+    isLoggedIn: boolean
+
 
 }
 export type MapStatePropsType = {
     profile: ProfileType
     status: string
+    isAuth: boolean
 
 
 }
@@ -36,6 +41,7 @@ type PathParamsType = {
 
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
+
     componentDidMount() {
         let userId = +this.props.match.params.userId;
         if (!userId) {
@@ -43,21 +49,35 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         }
 
         this.props.getUserProfileTC(userId);
-        this.props.getUserStatusTC(userId)
+        this.props.getUserStatusTC(userId);
     }
+    // componentDidUpdate = (prevProps: any, prevState: any) => {
+    //
+    //     if (!this.props.isLoggedIn) {
+    //         console.log('render2');
+    //         return <Redirect to={'/login'}/>;
+    //     }
+    // }; support
 
     render() {
 
+        // console.log('render');
+        // if (!this.props.isLoggedIn) {
+        //
+        //     return <Redirect to={'/login'}/>;
+        // }
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateUserStatusTC}/>
+                <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                         updateStatus={this.props.updateUserStatusTC}/>
             </div>);
     }
 }
 
-let mapStateToProps = (state: RootProfileType): MapStatePropsType => ({
+let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    isAuth: state.auth.isAuth
 });
 
 
@@ -66,7 +86,7 @@ const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, u
 export default compose<React.ComponentClass>(
     connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC}),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 )(ProfileContentContainerAPI);
 
 

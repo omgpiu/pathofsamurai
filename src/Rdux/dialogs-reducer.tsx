@@ -30,9 +30,9 @@ let initialState = {
     ],
     newMessageText: ''
 };
-type StateDialogs = typeof initialState
+type  InitialStateType = typeof initialState
 
-export const dialogsReducer = (state: StateDialogs = initialState, action: ActionType): StateDialogs => {
+export const dialogsReducer = (state:  InitialStateType = initialState, action: ActionType):  InitialStateType => {
 
 
     switch (action.type) {

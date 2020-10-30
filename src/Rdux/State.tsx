@@ -38,6 +38,7 @@ export type ProfilePageType = {
     newPostText: string
     profile: any
     status: string
+    isLoggedIn: boolean
 }
 
 export type DialogsPageType = {
@@ -51,6 +52,7 @@ export type RootStateType = {
     sidebar: Object
     usersPage: usersPageType
     auth: isAuthType
+    isLoggedIn: boolean
 }
 export type isAuthType = {
     isAuth: boolean

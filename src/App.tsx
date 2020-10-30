@@ -2,7 +2,7 @@ import React from 'react';
 import './App.module.css';
 import Nav from './components/Nav/Nav';
 import st from './App.module.css';
-import {Route} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
@@ -18,22 +18,24 @@ function App() {
     return (
 
         <div className={st.appWrapper}>
-            <HeaderContainerAPI />
+            <HeaderContainerAPI/>
             <Nav/>
             <div className={st.wrapperMainContent}>
-                <Route path='/profile/:userId?' render={() =>
-                    <ProfileContentContainerAPI/>}/>
-                <Route path='/dialogs' render={() =>
-                    <DialogContainer/>
-                }
-                />
-                <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path={'/news'} component={News}/>
-                <Route path={'/music'} component={Music}/>
-                <Route path={'/settings'} component={Settings}/>
-                <Route path={'/login'} component={Login}/>
-
-
+                <Switch>
+                    <Route  path='/profile/:userId?' render={() =>
+                        <ProfileContentContainerAPI/>}/>
+                    <Route path='/dialogs' render={() =>
+                        <DialogContainer/>
+                    }
+                    />
+                    <Route path='/users' render={() => <UsersContainer/>}/>
+                    <Route path={'/news'} component={News}/>
+                    <Route path={'/music'} component={Music}/>
+                    <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/login'} component={Login}/>
+                    <Route path={'/404'} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
+                    <Redirect from={'*'} to={'/404'}/>
+                </Switch>
             </div>
 
 
