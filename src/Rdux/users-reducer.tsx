@@ -61,13 +61,13 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                     return user;
                 }),
             };
-        case 'SET_USERS':
+        case SET_USERS:
             return {...state, users: action.users};
-        case 'SET_PAGE':
+        case SET_PAGE:
             return {...state, currentPage: action.currentPage};
-        case  'SET_TOTAL_USER_COUNT':
+        case  SET_TOTAL_USER_COUNT:
             return {...state, totalUsersCount: action.count};
-        case 'TOGGLE_IS_FETCHING':
+        case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching};
         case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {
@@ -76,31 +76,27 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             };
-// let stateUsers = [...state.users];
-// let newUsers: any = action.users.map((user: userType) => {
-//     return [...stateUsers, user];
-// });
-// return {...state, users: newUsers}; решение вопроса двумерного массива
+
         default:
             return state;
     }
 };
 
 
-export const followUser = (userId: number): followACType => ({type: FOLLOW, userId});
-export const unfollowUser = (userId: number): unfollowACType => ({type: UNFOLLOW, userId});
-export const setUsers = (users: Array<userType>): setUsersACType => ({type: SET_USERS, users});
-export const setPage = (currentPage: number): setPageACType => ({type: SET_PAGE, currentPage});
-export const setTotalUsersCount = (totalUsersCount: number): setTotalUsersCountACType => ({
+export const followUser = (userId: number) => ({type: FOLLOW, userId} as const);
+export const unfollowUser = (userId: number) => ({type: UNFOLLOW, userId} as const);
+export const setUsers = (users: Array<userType>) => ({type: SET_USERS, users} as const);
+export const setPage = (currentPage: number) => ({type: SET_PAGE, currentPage} as const);
+export const setTotalUsersCount = (totalUsersCount: number) => ({
     type: SET_TOTAL_USER_COUNT,
     count: totalUsersCount
-});
-export const toggleIsFetching = (isFetching: boolean): isFetchingTypeAC => ({type: TOGGLE_IS_FETCHING, isFetching});
-export const toggleFollowingProgress = (isFetching: boolean, userId: number): isFollowingProgressAC => ({
+} as const);
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const);
+export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
     userId
-});
+} as const);
 
 export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFetching(true));
@@ -131,35 +127,21 @@ export const unfollowTC = (userId: number) => (dispatch: Dispatch<ActionType>) =
 };
 
 
-export type followACType = {
-    type: typeof FOLLOW
-    userId: number
-}
-export type unfollowACType = {
-    type: typeof UNFOLLOW
-    userId: number
-}
-export type  setUsersACType = {
-    type: typeof SET_USERS
-    users: Array<userType>
-}
-export type  setPageACType = {
-    type: typeof SET_PAGE
-    currentPage: number
-}
-export type setTotalUsersCountACType = {
-    type: typeof SET_TOTAL_USER_COUNT
-    count: number
-}
+export type followACType = ReturnType<typeof followUser>
+export type unfollowACType = ReturnType<typeof unfollowUser>
+export type  setUsersACType = ReturnType<typeof setUsers>
+export type  setPageACType = ReturnType<typeof setPage>
+export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
+export type isFetchingTypeAC = ReturnType<typeof toggleIsFetching>
+export type isFollowingProgressAC = ReturnType<typeof toggleFollowingProgress>
+
+
 export type locationUsersType = {
     country: string
     city: string
 }
-export type isFetchingTypeAC = {
-    type: typeof TOGGLE_IS_FETCHING
-    isFetching: boolean
 
-}
+
 export type userType = {
     id: number
     name: string
@@ -172,11 +154,7 @@ export type userType = {
         large: string
     }
 }
-export type isFollowingProgressAC = {
-    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
-    isFetching: boolean
-    userId: number
-}
+
 export type usersPageType = {
     users: Array<userType>
     pageSize: number
