@@ -13,12 +13,12 @@ const reducers = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
 });
-// We have to combaine reducers, it's like our main state
+// We have to combine reducers, it's like our main state
 
 
-let store: Store = createStore(reducers,applyMiddleware(thunkMiddleware));
+let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
 export type AppRootStateType = ReturnType<typeof reducers>
 // @ts-ignore
-window.store = store
+window.store = store;
 
 export default store;

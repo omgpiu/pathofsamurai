@@ -17,6 +17,8 @@ import {
     usersPageType
 } from './users-reducer';
 import {setAuthUserDataType} from './auth-reducer';
+import {ThunkAction} from 'redux-thunk';
+import {AppRootStateType} from './redux-store';
 
 export type DialogItemType = {
     name: string
@@ -58,6 +60,7 @@ export type isAuthType = {
     isAuth: boolean
 }
 
+export type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionType>
 
 export type ActionType =
     AddPostActionCreatorType

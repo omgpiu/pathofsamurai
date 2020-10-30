@@ -29,7 +29,6 @@ export type MapStatePropsType = {
 
 }
 export type MapStatePropsForRedirectType = {
-
     isAuth: boolean
 }
 

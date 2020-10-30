@@ -16,13 +16,6 @@ import {AppRootStateType} from '../../Rdux/redux-store';
 import {Redirect} from 'react-router-dom';
 
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
-}
-
-
 const LoginForm = (props: any) => {
     const formik = useFormik({
         initialValues: {
@@ -105,5 +98,9 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
 type MapStatePropsType = {
     isAuth: boolean
 }
-
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
+}
 export default connect(mapStateToProps, {loginTC})(LoginForm);
