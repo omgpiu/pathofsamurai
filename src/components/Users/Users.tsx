@@ -1,8 +1,9 @@
 import React from 'react';
-import {userType} from '../../Rdux/users-reducer';
+
 import st from './Users.module.css';
 import commonAvatar from '../../photo/commonAvatar.png';
 import {NavLink} from 'react-router-dom';
+import {userType} from '../../Rdux/Types';
 
 
 export type PropsUsersType = {

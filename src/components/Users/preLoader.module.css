@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #2196f3;
 }
 
 .loader .l_main {
@@ -15,7 +16,8 @@
     height: 128px;
     margin: 0;
     -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+
 }
 
 @media (max-width: 550px) {
@@ -59,7 +61,7 @@
     height: 36px;
     width: 36px;
     border-radius: 2px;
-    background-color: #FFFFFF
+    background-color: aqua;
 }
 
 .l_square span:nth-child(1) {

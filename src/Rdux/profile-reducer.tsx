@@ -1,8 +1,10 @@
 import {v1} from 'uuid';
-import {ActionType, PostType} from './State';
+import {ActionType, PostType} from './Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
 import {profileAPI} from '../API/profile-api';
+
+
 
 
 
@@ -25,6 +27,7 @@ let initialState = {
         {id: v1(), message: 'Hello ', likesCount: 10},
         {id: v1(), message: 'Hello ', likesCount: 10}],
     newPostText: '',
+    //profile : null as profiletype | null
     profile: {
         photos: {
             large: ''

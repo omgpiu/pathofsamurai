@@ -1,7 +1,8 @@
 import React from 'react';
-import {userType} from '../../Rdux/users-reducer';
+
 import Users from './Users';
 import PreLoader from './preLoader';
+import {userType} from '../../Rdux/Types';
 
 
 export type PropsType = {

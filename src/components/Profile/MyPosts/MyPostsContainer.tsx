@@ -2,7 +2,7 @@
 
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../Rdux/profile-reducer';
 import MyPosts from './MyPosts';
-import {ActionType, RootStateType} from '../../../Rdux/State';
+import {ActionType, RootStateType} from '../../../Rdux/Types';
 import {connect} from 'react-redux';
 
 

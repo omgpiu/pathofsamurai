@@ -2,7 +2,6 @@ import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
 import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from '../../Rdux/profile-reducer';
-import {isAuthType, ProfilePageType} from '../../Rdux/State';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
@@ -10,28 +9,13 @@ import {AppRootStateType} from '../../Rdux/redux-store';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 
-// export type MapDispatchPropsType = {
-//     setUserProfile?:(profile:ProfileType)=>void
-// }
-
-export type RootProfileType = {
-    profilePage: ProfilePageType
-    auth: isAuthType
-    isLoggedIn: boolean
-
-
-}
 export type MapStatePropsType = {
     profile: ProfileType
     status: string
     isAuth: boolean
     authorizedUserId: number | null
-
-
 }
-export type MapStatePropsForRedirectType = {
-    isAuth: boolean
-}
+
 
 type PropsType = RouteComponentProps<PathParamsType> & PropsFromRedux
 type PathParamsType = {
@@ -45,8 +29,10 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
     componentDidMount() {
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
-
             userId = this.props.authorizedUserId;
+            // if(!userId){
+            //     this.props.history.push('/login')}
+            // TODO Support profile page unreachable when user is logged out
         }
 
         this.props.getUserProfileTC(userId);
@@ -65,7 +51,7 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
 let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    isAuth: state.auth.isAuth,
+    isAuth: state.auth.data.isAuth,
     authorizedUserId: state.auth.data.userId,
 
 });
@@ -76,7 +62,7 @@ const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, u
 export default compose<React.ComponentClass>(
     connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC}),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )(ProfileContentContainerAPI);
 
 

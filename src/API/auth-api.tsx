@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {LoginParamsType,ResponseType} from '../Rdux/Types';
 
 
 const instance = axios.create({
@@ -20,26 +21,7 @@ export const AuthAPI = {
     logout () {
         return instance.delete<ResponseType<{ userId: number }>>('auth/login')
     }
-
-
 };
 
 
-
-
-
-
-
-
-export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: Array<string>
-    data: D
-}
-export type LoginParamsType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha?: string
-}
 

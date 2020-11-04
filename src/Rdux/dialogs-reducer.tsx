@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionType} from './State';
+import {ActionType} from './Types';
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 const SEND_NEW_MESSAGE_TEXT = 'SEND-NEW-MESSAGE-TEXT';

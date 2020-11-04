@@ -3,7 +3,7 @@ import st from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 import {Button, TextField} from '@material-ui/core';
-import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/State';
+import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/Types';
 
 export type DialogsPropType = {
     updateNewMessage: (message: string) => void
@@ -13,11 +13,8 @@ export type DialogsPropType = {
 }
 
 
-function Dialogs(props: DialogsPropType) {
-
+const Dialogs:  React.FC<DialogsPropType> =(props)=> {
     let state = props.dialogsPage;
-
-
     const dialogsElements = state.dialogsData.map((dialog: DialogItemType) => <DialogItem name={dialog.name}
                                                                                           id={dialog.id}
                                                                                           key={dialog.id}/>);
@@ -37,12 +34,8 @@ function Dialogs(props: DialogsPropType) {
         let message = e.target.value;
         props.updateNewMessage(message);
     };
-
-
     return (
-
         <div className={st.dialogsWrapper}>
-
             <div className={st.dialogs}>
                 {dialogsElements}
             </div>

@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionType} from './State';
+import {ActionType, userType} from './Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
 
@@ -82,7 +82,7 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
     }
 };
 
-
+//actions
 export const followUser = (userId: number) => ({type: FOLLOW, userId} as const);
 export const unfollowUser = (userId: number) => ({type: UNFOLLOW, userId} as const);
 export const setUsers = (users: Array<userType>) => ({type: SET_USERS, users} as const);
@@ -98,8 +98,12 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
     userId
 } as const);
 
+//thunks
 export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFetching(true));
+    dispatch(setPage(currentPage))
+
+
     usersAPI.getUsers(currentPage, pageSize)
         .then(data => {
             dispatch(toggleIsFetching(false));
@@ -136,34 +140,8 @@ export type isFetchingTypeAC = ReturnType<typeof toggleIsFetching>
 export type isFollowingProgressAC = ReturnType<typeof toggleFollowingProgress>
 
 
-export type locationUsersType = {
-    country: string
-    city: string
-}
 
 
-export type userType = {
-    id: number
-    name: string
-    location: locationUsersType
-    status: string
-    followed: boolean
-    photoUrl: string
-    photos: {
-        small: string
-        large: string
-    }
-}
-
-export type usersPageType = {
-    users: Array<userType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    count: number
-    isFetching: boolean
-    followingInProgress: Array<number>
-}
 
 
 export default usersReducer;

@@ -1,10 +1,19 @@
 import UsersAPIComponent from './UsersAPIComponent';
-import {RootStateType} from '../../Rdux/State';
+import {userType} from '../../Rdux/Types';
 import {connect} from 'react-redux';
-import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC, userType} from '../../Rdux/users-reducer';
+import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC} from '../../Rdux/users-reducer';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
 import React from 'react';
+import {AppRootStateType} from '../../Rdux/redux-store';
+import {
+    getCurrentPage,
+    getPageSize,
+    getTotalUsers,
+    getUsers,
+    getIsFetching,
+    getFollowingInProgress
+} from '../../Rdux/users-selectors';
 
 
 type MapStatePropsType = {
@@ -27,35 +36,23 @@ type MapDispatchPropsType = {
 
 }
 
-let mapStateToProps = (state: RootStateType): MapStatePropsType => {
+let mapStateToProps = (state: AppRootStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsers(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
 
     };
 };
-// let withRedirect = withAuthRedirect(UsersAPIComponent);
+
+//RootStateType поменял в двух местах
 
 
-
-
-// const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
-//
-//     setPage,
-//     getUsersTC,
-//     toggleFollowingProgress,
-//     followTC,
-//     unfollowTC
-//
-//
-// })(withRedirect);
-
-export default compose <React.ComponentClass>(withAuthRedirect,
-    connect<MapStatePropsType, MapDispatchPropsType, {}, RootStateType>(mapStateToProps, {
+export default compose <React.FunctionComponent>(
+    connect<MapStatePropsType, MapDispatchPropsType, {}, AppRootStateType>(mapStateToProps, {
             setPage,
             getUsersTC,
             toggleFollowingProgress,
