@@ -4,6 +4,7 @@ import logo2 from '../../../photo/logo2.png';
 import {ProfileType} from '../../../Rdux/profile-reducer';
 import PreLoader from '../../Users/preLoader';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks';
 
 type PropsType = {
     profile: ProfileType
@@ -23,7 +24,8 @@ function ProfileInfo(props: PropsType) {
                     : <div className={st.thisLogo}><img src={logo2} alt="Avatar"/></div>
                 }
 
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                {/*<ProfileStatus status={props.status} updateStatus={props.updateStatus}/>*/}
+                <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
     );

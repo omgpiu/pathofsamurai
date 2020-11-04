@@ -2,17 +2,16 @@ import UsersAPIComponent from './UsersAPIComponent';
 import {userType} from '../../Rdux/Types';
 import {connect} from 'react-redux';
 import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC} from '../../Rdux/users-reducer';
-import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
 import React from 'react';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {
     getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
     getPageSize,
     getTotalUsers,
     getUsers,
-    getIsFetching,
-    getFollowingInProgress
 } from '../../Rdux/users-selectors';
 
 
@@ -51,12 +50,12 @@ let mapStateToProps = (state: AppRootStateType) => {
 //RootStateType поменял в двух местах
 
 
-export default compose <React.FunctionComponent>(
+export default compose<React.FunctionComponent>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, AppRootStateType>(mapStateToProps, {
-            setPage,
-            getUsersTC,
-            toggleFollowingProgress,
-            followTC,
-            unfollowTC
-        })
-    )(UsersAPIComponent)
+        setPage,
+        getUsersTC,
+        toggleFollowingProgress,
+        followTC,
+        unfollowTC
+    })
+)(UsersAPIComponent);

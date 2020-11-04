@@ -8,7 +8,7 @@ import {DialogItemType} from '../../../Rdux/Types';
 
 
 
-const DialogItem: React.FC<DialogItemType> = (props) => {
+const DialogItem: React.FC<DialogItemType> = (props:DialogItemType) => {
     let path = '/dialogs/1' + props.id;
     return (
         <div className={st.dialog}>
