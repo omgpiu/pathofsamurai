@@ -12,7 +12,7 @@ export type MyPostsTypeOne = {
 }
 
 
-function MyPosts(props: MyPostsTypeOne) {
+const MyPosts = React.memo((props: MyPostsTypeOne) => {
 
 
     const postsData = props.postData
@@ -68,7 +68,7 @@ function MyPosts(props: MyPostsTypeOne) {
 
     );
 
-}
+});
 
 
 export default MyPosts;
