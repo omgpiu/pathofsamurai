@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     AddPostActionCreatorType,
+    deletePostActionCreatorType,
     SetUserProfileType,
     SetUserStatusTypeAC,
     UpdateNewPostTextActionCreatorType,
@@ -14,7 +15,6 @@ import {
     setTotalUsersCountACType,
     setUsersACType,
     unfollowACType,
-
 } from './users-reducer';
 import {confirmUserDataType, setAuthUserDataType} from './auth-reducer';
 import {ThunkAction} from 'redux-thunk';
@@ -126,7 +126,6 @@ export type LoginParamsType = {
 }
 
 
-
 export type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionType>
 
 export type ActionType =
@@ -146,6 +145,7 @@ export type ActionType =
     | SetUserStatusTypeAC
     | setInitializedType
     | confirmUserDataType
+    | deletePostActionCreatorType
 
 
 const state = () => {

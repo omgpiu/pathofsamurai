@@ -13,6 +13,7 @@ const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
+const DELETE_POST = 'DELETE_POST'
 
 
 let initialState = {
@@ -53,7 +54,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
             UPDATE_NEW_POST_TEXT:
                 return {
                     ...state,
-                    newPostText: action.newText
+                    newPostText: action.text
                 };
             case  SET_USER_PROFILE:
                 return {
@@ -65,15 +66,24 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
                     ...state,
                     status: action.status
                 };
+            case DELETE_POST:
+                return {
+                    ...state,
+                    postData: state.postData.filter(p=>p.id != action.postId)
+                };
             default :
                 return state;
         }
     }
 ;
+
+export const deletePostAC = (postId:string)=>({
+    type:DELETE_POST
+, postId} as const )
 export const addPostActionCreator = () => ({type: ADD_POST} as const);
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
 export const updateNewPostTextActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text} as const);
+    ({type: UPDATE_NEW_POST_TEXT, text} as const);
 export const setUserStatus = (status: string) => ({
     type: SET_USER_STATUS,
     status
@@ -100,6 +110,8 @@ export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetUserStatusTypeAC = ReturnType<typeof setUserStatus>
 export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>
 export type UpdateNewPostTextActionCreatorType = ReturnType<typeof updateNewPostTextActionCreator>
+export type deletePostActionCreatorType = ReturnType<typeof deletePostAC>
+
 export type ProfileType = {
     photos: ProfilePhotosType
 }

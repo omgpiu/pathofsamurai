@@ -15,7 +15,8 @@ export type MyPostsTypeOne = {
 const MyPosts = React.memo((props: MyPostsTypeOne) => {
 
 
-    const postsData = props.postData
+    const postsData = [...props.postData]
+        .reverse()
         .map(post => <Post key={post.id} message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
 
