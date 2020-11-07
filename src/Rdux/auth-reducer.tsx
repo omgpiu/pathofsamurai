@@ -3,10 +3,9 @@ import {Dispatch} from 'react';
 import {AuthAPI} from '../API/auth-api';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppRootStateType} from './redux-store';
-import {FormikHelpers} from 'formik';
-
-const SET_USER_DATA = 'SET_USER_DATA';
-const CONFIRM_USER_DATA = 'CONFIRM_USER_DATA';
+//refactor
+const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
+const CONFIRM_USER_DATA = 'samurai-network/auth/CONFIRM_USER_DATA';
 
 let initialState = {
     data: {
@@ -42,47 +41,37 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
     }
 } as const);
 export const confirmUserData = (isCorrect: boolean) => (
-
-    {
-        type: CONFIRM_USER_DATA, isCorrect
-    } as const);
+    {type: CONFIRM_USER_DATA, isCorrect} as const);
 
 
-export const getAuthUserDataTC = () => (dispatch: Dispatch<ActionType>) => {
+export const getAuthUserDataTC = () => async (dispatch: Dispatch<ActionType>) => {
 
-    return AuthAPI.me().then(res => {
-        if (res.data.resultCode === 0) {
-            let {id, email, login} = res.data.data;
-            dispatch(setAuthUserData(id, email, login, true));
-        }
-    });
+    const response = await AuthAPI.me();
+    if (response.data.resultCode === 0) {
+        let {id, email, login} = response.data.data;
+        dispatch(setAuthUserData(id, email, login, true));
+    }
+
 };
 
-export const loginTC = (data: LoginParamsType): ThunkType => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
+export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
+    const response = await AuthAPI.login(data);
+    if (response.data.resultCode === 0) {
+        dispatch(getAuthUserDataTC());
+        dispatch(confirmUserData(true));
+    } else {
+        // dispatch(formikHelpers.setFieldError())
+        dispatch(confirmUserData(false));
+    }
 
 
-    AuthAPI.login(data)
-        .then(res => {
-
-            if (res.data.resultCode === 0) {
-                dispatch(getAuthUserDataTC());
-                dispatch(confirmUserData(true));
-            } else {
-                    // dispatch(formikHelpers.setFieldError())
-                dispatch(confirmUserData(false));
-            }
-
-
-        });
 };
-export const logoutTC = () => (dispatch: Dispatch<ActionType>) => {
+export const logoutTC = () => async (dispatch: Dispatch<ActionType>) => {
+    const response = await AuthAPI.logout();
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+    }
 
-    AuthAPI.logout()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false));
-            }
-        });
 
 };
 export type setAuthUserDataType = ReturnType<typeof setAuthUserData>

@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 import {ActionType, userType} from './Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
+import {updateObjectInArray} from '../utils/object-helpers/object-helpers';
 
 
 const FOLLOW = 'FOLLOW';
@@ -43,6 +44,12 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
 
     switch (action.type) {
         case FOLLOW:
+            // return {
+            //     ...state, users: updateObjectInArray(state.users,action.userId,'id',{followed:true})
+            //
+            //
+            // };
+
             return {
                 ...state, users: state.users.map(user => {
                     if (user.id === action.userId) {
@@ -52,7 +59,13 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                 }),
 
             };
+
         case UNFOLLOW:
+            // return {
+            //     ...state, users: updateObjectInArray(state.users,action.userId,'id',{followed:false})
+            //
+            //
+            // };
             return {
                 ...state, users: state.users.map(user => {
                     if (user.id === action.userId) {
@@ -99,36 +112,36 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
 } as const);
 
 //thunks
-export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch<ActionType>) => {
+export const getUsersTC = (currentPage: number, pageSize: number) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleIsFetching(true));
-    dispatch(setPage(currentPage))
+    dispatch(setPage(currentPage));
+    const data = await usersAPI.getUsers(currentPage, pageSize);
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.data.items));
+    dispatch(setTotalUsersCount(data.data.totalCount));
+
+};
+
+const followUnfollowFlow=async (dispatch: Dispatch<ActionType>,userId:number,apiMethod:(userId:number)=>any,actionCreator:any )=>{
+    dispatch(toggleFollowingProgress(true, userId));
+    const data = await apiMethod(userId);
+    if (data.data.resultCode === 0) {
+        dispatch(actionCreator(userId));
+    }
+    dispatch(toggleFollowingProgress(false, userId));
+}
+export const followTC = (userId: number) => async (dispatch: Dispatch<ActionType>) => {
+    let apiMethod = usersAPI.startFollowUsers.bind(usersAPI)
+    await followUnfollowFlow(dispatch, userId, apiMethod, followUser)
+};
+export const unfollowTC = (userId: number) => async (dispatch: Dispatch<ActionType>) => {
+
+    let apiMethod = usersAPI.startUnfollowUsers.bind(usersAPI)
+    await followUnfollowFlow(dispatch, userId, apiMethod, unfollowUser)
 
 
-    usersAPI.getUsers(currentPage, pageSize)
-        .then(data => {
-            dispatch(toggleIsFetching(false));
-            dispatch(setUsers(data.data.items));
-            dispatch(setTotalUsersCount(data.data.totalCount));
-        });
 };
-export const followTC = (userId: number) => (dispatch: Dispatch<ActionType>) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.startFollowUsers(userId).then(data => {
-        if (data.data.resultCode === 0) {
-            dispatch(followUser(userId));
-        }
-        dispatch(toggleFollowingProgress(false, userId));
-    });
-};
-export const unfollowTC = (userId: number) => (dispatch: Dispatch<ActionType>) => {
-    dispatch(toggleFollowingProgress(true, userId));
-    usersAPI.startUnfollowUsers(userId).then(data => {
-        if (data.data.resultCode === 0) {
-            dispatch(unfollowUser(userId));
-        }
-        dispatch(toggleFollowingProgress(false, userId));
-    });
-};
+
 
 
 export type followACType = ReturnType<typeof followUser>
@@ -138,10 +151,6 @@ export type  setPageACType = ReturnType<typeof setPage>
 export type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
 export type isFetchingTypeAC = ReturnType<typeof toggleIsFetching>
 export type isFollowingProgressAC = ReturnType<typeof toggleFollowingProgress>
-
-
-
-
 
 
 export default usersReducer;

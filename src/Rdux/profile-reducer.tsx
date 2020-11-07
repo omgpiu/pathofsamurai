@@ -5,15 +5,11 @@ import {usersAPI} from '../API/users-api';
 import {profileAPI} from '../API/profile-api';
 
 
-
-
-
-
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
-const DELETE_POST = 'DELETE_POST'
+const DELETE_POST = 'DELETE_POST';
 
 
 let initialState = {
@@ -69,7 +65,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
             case DELETE_POST:
                 return {
                     ...state,
-                    postData: state.postData.filter(p=>p.id != action.postId)
+                    postData: state.postData.filter(p => p.id != action.postId)
                 };
             default :
                 return state;
@@ -77,9 +73,10 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
     }
 ;
 
-export const deletePostAC = (postId:string)=>({
-    type:DELETE_POST
-, postId} as const )
+export const deletePostAC = (postId: string) => ({
+    type: DELETE_POST
+    , postId
+} as const);
 export const addPostActionCreator = () => ({type: ADD_POST} as const);
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
 export const updateNewPostTextActionCreator = (text: string) =>
@@ -88,22 +85,23 @@ export const setUserStatus = (status: string) => ({
     type: SET_USER_STATUS,
     status
 } as const);
-export const getUserProfileTC = (userId: number|null) => (dispatch: Dispatch<ActionType>) => {
-    usersAPI.getProfile(userId).then(res => {
-        dispatch(setUserProfile(res.data));
-    });
+
+export const getUserProfileTC = (userId: number | null) => async (dispatch: Dispatch<ActionType>) => {
+    const res = await usersAPI.getProfile(userId);
+    dispatch(setUserProfile(res.data));
+
 };
-export const getUserStatusTC = (userId: number|null) => (dispatch: Dispatch<ActionType>) => {
-    profileAPI.getStatus(userId).then(res => {
-        dispatch(setUserStatus(res.data));
-    });
+export const getUserStatusTC = (userId: number | null) => async (dispatch: Dispatch<ActionType>) => {
+    const res = await profileAPI.getStatus(userId);
+    dispatch(setUserStatus(res.data));
+
 };
-export const updateUserStatusTC = (status: string) => (dispatch: Dispatch<ActionType>) => {
-    profileAPI.updateStatus(status).then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(setUserStatus(status));
-        }
-    });
+export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch<ActionType>) => {
+    const res = await profileAPI.updateStatus(status);
+    if (res.data.resultCode === 0) {
+        dispatch(setUserStatus(status));
+    }
+
 };
 
 export type SetUserProfileType = ReturnType<typeof setUserProfile>

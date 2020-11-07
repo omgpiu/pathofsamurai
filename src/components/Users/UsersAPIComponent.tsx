@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Users from './Users';
 import PreLoader from './preLoader';
 import {userType} from '../../Rdux/Types';
@@ -24,11 +23,13 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
 
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
+        const {currentPage,pageSize} = this.props
+        this.props.getUsersTC(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsersTC(pageNumber, this.props.pageSize);
+        const {pageSize}= this.props
+        this.props.getUsersTC(pageNumber,pageSize);
     };
 
     render() {

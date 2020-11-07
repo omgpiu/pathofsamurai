@@ -148,9 +148,3 @@ export type ActionType =
     | deletePostActionCreatorType
 
 
-const state = () => {
-    return (
-        <div> hello</div>
-    );
-};
-export default state;
