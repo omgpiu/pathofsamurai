@@ -10,6 +10,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 
 
 let initialState = {
@@ -27,7 +28,8 @@ let initialState = {
     //profile : null as profiletype | null
     profile: {
         photos: {
-            large: ''
+            large: '',
+            small:''
         }
     },
     status: ''
@@ -67,6 +69,11 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
                     ...state,
                     postData: state.postData.filter(p => p.id != action.postId)
                 };
+            case SAVE_PHOTO_SUCCESS:
+                return {
+                    ...state,
+                    profile: {...state.profile, photos: action.photos}
+                };
             default :
                 return state;
         }
@@ -76,6 +83,10 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
 export const deletePostAC = (postId: string) => ({
     type: DELETE_POST
     , postId
+} as const);
+export const savePhotoSucces = (photos: any) => ({
+    type: SAVE_PHOTO_SUCCESS
+    , photos
 } as const);
 export const addPostActionCreator = () => ({type: ADD_POST} as const);
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
@@ -103,7 +114,13 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch<
     }
 
 };
-
+export const savePhoto = (file:any) => async (dispatch:Dispatch<ActionType>)=>{
+    let res = await profileAPI.savePhoto(file)
+    if (res.data.resultCode === 0) {
+        dispatch(savePhotoSucces(res.data.data.photos));
+    }
+}
+export type SavePhotoSuccesesType = ReturnType<typeof savePhotoSucces>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetUserStatusTypeAC = ReturnType<typeof setUserStatus>
 export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>
@@ -111,12 +128,12 @@ export type UpdateNewPostTextActionCreatorType = ReturnType<typeof updateNewPost
 export type deletePostActionCreatorType = ReturnType<typeof deletePostAC>
 
 export type ProfileType = {
-    photos: ProfilePhotosType
+    photos: {
+        large: string
+        small: string
+    }
 }
-export type ProfilePhotosType = {
-    large: string
-    small?: string
-}
+export type ProfilePhotosType = {}
 
 
 export default profileReducer;

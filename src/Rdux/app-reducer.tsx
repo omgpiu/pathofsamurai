@@ -1,7 +1,5 @@
 import {ActionType, ThunkType} from './Types';
-import {Dispatch} from 'react';
-import {AuthAPI} from '../API/auth-api';
-import {getAuthUserDataTC, setAuthUserData} from './auth-reducer';
+import {getAuthUserDataTC} from './auth-reducer';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppRootStateType} from './redux-store';
 
@@ -16,7 +14,7 @@ type  InitialStateType = typeof initialState
 const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
 
     switch (action.type) {
-                case SET_IS_INITIALIZED:
+        case SET_IS_INITIALIZED:
             return {
                 ...state,
                 isInitialized: true,
@@ -30,13 +28,13 @@ const appReducer = (state: InitialStateType = initialState, action: ActionType):
 export const setInitialized = () => ({type: SET_IS_INITIALIZED} as const);
 
 
-export const setInitializedTC = ():ThunkType => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
+export const setInitializedTC = (): ThunkType => (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
 
-   let promise =  dispatch(getAuthUserDataTC());
-   Promise.all([promise]).then(()=>{
-       dispatch(setInitialized())
+    let promise = dispatch(getAuthUserDataTC());
+    Promise.all([promise]).then(() => {
+        dispatch(setInitialized());
 
-   })
+    });
 };
 export type setInitializedType = ReturnType<typeof setInitialized>
 

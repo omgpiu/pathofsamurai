@@ -1,14 +1,14 @@
 
-
 .item {
-color: white;
+    color: white;
 }
 
-.thisPhoto img{
+.thisPhoto img {
     width: 100%;
-   height: 450px;
+    height: 450px;
 
 }
+
 .thisLogo img {
     width: 150px;
     border-radius: 10px;

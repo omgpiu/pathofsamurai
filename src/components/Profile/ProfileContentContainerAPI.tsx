@@ -1,12 +1,17 @@
 import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
-import {getUserProfileTC, getUserStatusTC, ProfileType, updateUserStatusTC} from '../../Rdux/profile-reducer';
+import {
+    getUserProfileTC,
+    getUserStatusTC,
+    ProfileType,
+    savePhoto,
+    updateUserStatusTC
+} from '../../Rdux/profile-reducer';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
-import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 
 export type MapStatePropsType = {
@@ -14,6 +19,7 @@ export type MapStatePropsType = {
     status: string
     isAuth: boolean
     authorizedUserId: number | null
+
 }
 
 
@@ -26,7 +32,7 @@ type PathParamsType = {
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
@@ -39,11 +45,27 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         this.props.getUserStatusTC(userId);
     }
 
+
+    componentDidMount() {
+
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId != prevProps.match.params.userId) {
+            this.refreshProfile();
+        }
+
+    }
+
     render() {
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                         updateStatus={this.props.updateUserStatusTC}/>
+                <Profile
+
+                    isOwner={!this.props.match.params.userId}
+                    {...this.props} profile={this.props.profile} status={this.props.status}
+                    updateStatus={this.props.updateUserStatusTC}/>
             </div>);
     }
 }
@@ -54,13 +76,15 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     isAuth: state.auth.data.isAuth,
     authorizedUserId: state.auth.data.userId,
 
+
+
 });
 
 
 type PropsFromRedux = ConnectedProps<typeof connector>
-const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC});
+const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC,savePhoto});
 export default compose<React.ComponentClass>(
-    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC}),
+    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC,savePhoto}),
     withRouter,
     // withAuthRedirect
 )(ProfileContentContainerAPI);

@@ -32,7 +32,7 @@ let initialState = {
             photoUrl: ''
         },
     ],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 1,
     currentPage: 1,
     isFetching: false,

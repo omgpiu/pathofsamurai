@@ -2,6 +2,7 @@ import React from 'react';
 import {
     AddPostActionCreatorType,
     deletePostActionCreatorType,
+    SavePhotoSuccesesType,
     SetUserProfileType,
     SetUserStatusTypeAC,
     UpdateNewPostTextActionCreatorType,
@@ -146,5 +147,6 @@ export type ActionType =
     | setInitializedType
     | confirmUserDataType
     | deletePostActionCreatorType
+    | SavePhotoSuccesesType
 
 

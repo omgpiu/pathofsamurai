@@ -1,30 +1,36 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import st from './ProfileInfo.module.css';
-import logo2 from '../../../photo/logo2.png';
 import {ProfileType} from '../../../Rdux/profile-reducer';
 import PreLoader from '../../Users/preLoader';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+import commonLogo from '../../../photo/commonAvatar.png';
 import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks';
 
-type PropsType = {
-    profile: ProfileType
-    status: string
-    updateStatus: (status: string) => void
-}
 
 function ProfileInfo(props: PropsType) {
+
     if (!props.profile) {
         return <div><PreLoader/></div>;
     }
+
+    // const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files && e.target.files.length) {
+    //         props.savePhoto(e.target.files[0]);
+    //     }
+    //
+    //
+    // };
+    const onMainPhotoSelected = (e: any) => {
+        if(e.target.files.length){
+            props.savePhoto(e.target.files[0]);
+        }
+    }
+
     return (
         <div>
             <div className={st.description}>
-                {props.profile.photos.large ?
-                    <div className={st.thisLogo}><img src={props.profile.photos.large} alt="Avatar"/></div>
-                    : <div className={st.thisLogo}><img src={logo2} alt="Avatar"/></div>
-                }
+                <img src={props.profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
+                {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
-                {/*<ProfileStatus status={props.status} updateStatus={props.updateStatus}/>*/}
                 <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
         </div>
@@ -33,3 +39,10 @@ function ProfileInfo(props: PropsType) {
 
 
 export default ProfileInfo;
+type PropsType = {
+    profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: any
+}
