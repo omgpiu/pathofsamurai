@@ -9,30 +9,29 @@ export type DialogsPropType = {
     updateNewMessage: (message: string) => void
     sendMessage: () => void
     dialogsPage: DialogsPageType
-    isAuth: boolean
+
 }
 
 
-const Dialogs:  React.FC<DialogsPropType> =(props)=> {
-    let state = props.dialogsPage;
-    const dialogsElements = state.dialogsData.map((dialog: DialogItemType) => <DialogItem name={dialog.name}
-                                                                                          id={dialog.id}
-                                                                                          key={dialog.id}/>);
+const Dialogs: React.FC<DialogsPropType> = (props) => {
 
-    const messageElements = state.messageData.map((message: MessageType) => <Message message={message.message}
-                                                                                     id={message.id}
-                                                                                     key={message.id}/>);
+    const {dialogsPage, sendMessage, updateNewMessage} = props;
 
 
-    const newMessageBody = state.newMessageText;
+    const dialogsElements = dialogsPage.dialogsData.map((d: DialogItemType) => <DialogItem name={d.name}
+                                                                                           id={d.id}
+                                                                                           key={d.id}/>);
 
+    const messageElements = dialogsPage.messageData.map((m: MessageType) => <Message message={m.message}
+                                                                                     id={m.id}
+                                                                                     key={m.id}/>);
+    const newMessageBody = dialogsPage.newMessageText;
     const onSendMessageClick = () => {
-        props.sendMessage();
+        sendMessage();
     };
-
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let message = e.target.value;
-        props.updateNewMessage(message);
+        updateNewMessage(message);
     };
     return (
         <div className={st.dialogsWrapper}>
@@ -41,28 +40,25 @@ const Dialogs:  React.FC<DialogsPropType> =(props)=> {
             </div>
             <div className={st.messages}>
                 {messageElements} </div>
+
+
+
             <div>
                 <TextField id="outlined-basic" label="Filled" variant="filled" color={'primary'}
                            onChange={onNewMessageChange}
                            value={newMessageBody}
                            placeholder={'Enter your message'}/>
-
-
             </div>
             <div><Button
                 variant="contained"
                 color="primary"
                 onClick={onSendMessageClick}
-
-
             >
                 Send
             </Button></div>
-
-
         </div>
     );
-}
+};
 
 
 export default Dialogs;

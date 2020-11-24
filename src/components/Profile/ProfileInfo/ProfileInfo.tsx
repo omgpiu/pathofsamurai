@@ -1,48 +1,55 @@
-import React, {ChangeEvent} from 'react';
-import st from './ProfileInfo.module.css';
-import {ProfileType} from '../../../Rdux/profile-reducer';
+import React, {ChangeEvent, useState} from 'react';
 import PreLoader from '../../Users/preLoader';
-import commonLogo from '../../../photo/commonAvatar.png';
+import {NewProfileType} from '../../../Rdux/Types';
 import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks';
+import commonLogo from '../../../photo/commonAvatar.png';
+import st from './ProfileData/ProfileData.module.css';
+import ProfileData from './ProfileData/ProfileData';
+import ProfileDataForm from './ProfileDataForm/ProfileDataForm';
 
-
-function ProfileInfo(props: PropsType) {
-
-    if (!props.profile) {
-        return <div><PreLoader/></div>;
-    }
-
-    // const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    //     if (e.target.files && e.target.files.length) {
-    //         props.savePhoto(e.target.files[0]);
-    //     }
-    //
-    //
-    // };
-    const onMainPhotoSelected = (e: any) => {
-        if(e.target.files.length){
-            props.savePhoto(e.target.files[0]);
-        }
-    }
-
-    return (
-        <div>
-            <div className={st.description}>
-                <img src={props.profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
-                {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
-
-                <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus}/>
-            </div>
-        </div>
-    );
-}
-
-
-export default ProfileInfo;
 type PropsType = {
-    profile: ProfileType
+    profile: NewProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: any
+    savePhoto: (file: File) => void
 }
+
+
+const ProfileInfo: React.FC<PropsType> = (props) => {
+    const {isOwner, profile, savePhoto, status, updateStatus} = props;
+    const [editMode, setEditMode] = useState(false);
+    const goToEditMode = () => {
+        setEditMode(true);
+    };
+    if (!profile) {
+        return <div><PreLoader/></div>;
+    }
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            savePhoto(e.target.files[0]);
+        }
+    };
+
+    return <div>
+        <div>
+            {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
+        </div>
+        <img src={profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
+
+        <ProfileStatusHooks status={status} updateStatus={updateStatus}/>
+        {editMode ? <ProfileDataForm profile={profile} isOwner={false}/> :
+            <ProfileData profile={profile} isOwner={isOwner} editMode={goToEditMode}/>}
+
+        {/*<ProfileStatusClass status={props.status} updateStatus={props.updateStatus}/>*/}
+    </div>;
+
+};
+
+
+export default ProfileInfo;
+
+
+
+
+

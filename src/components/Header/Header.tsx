@@ -4,8 +4,8 @@ import st from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 
 
-function Header(props: any) {
-
+const Header: React.FC<HeaderType> = (props) => {
+    const {isAuth, login, logoutTC} = props;
 
 
     return (
@@ -13,14 +13,18 @@ function Header(props: any) {
 
             <img src={logoNew} alt="newLogo"/>
             <div className={st.loginBlock}>
-                {props.isAuth
-                    ? <div>{props.login} - <button onClick={props.logoutTC}>Log out</button></div>
+                {isAuth
+                    ? <div>{login} - <button onClick={logoutTC}>Log out</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>}
             </div>
         </header>
     );
 
-}
-
+};
 
 export default Header;
+type HeaderType = {
+    isAuth: boolean
+    logoutTC: () => void
+    login: string | null
+}

@@ -15,23 +15,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 
 let initialState = {
-    users: [
-        {
-            id: Number(v1()),
-            name: '',
-            location: {
-                country: '',
-                city: '',
-            },
-            status: '',
-            followed: true,
-            photos: {
-                small: '',
-                large: ''
-            },
-            photoUrl: ''
-        },
-    ],
+    users: [] as Array<userType>,
     pageSize: 10,
     totalUsersCount: 1,
     currentPage: 1,
@@ -135,14 +119,11 @@ export const followTC = (userId: number) => async (dispatch: Dispatch<ActionType
     await followUnfollowFlow(dispatch, userId, apiMethod, followUser)
 };
 export const unfollowTC = (userId: number) => async (dispatch: Dispatch<ActionType>) => {
-
     let apiMethod = usersAPI.startUnfollowUsers.bind(usersAPI)
     await followUnfollowFlow(dispatch, userId, apiMethod, unfollowUser)
 
 
 };
-
-
 
 export type followACType = ReturnType<typeof followUser>
 export type unfollowACType = ReturnType<typeof unfollowUser>

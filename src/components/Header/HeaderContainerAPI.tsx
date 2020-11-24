@@ -22,12 +22,8 @@ type mapStateToPropsType = {
 
 }
 
-
 class HeaderContainerAPI extends React.Component<PropsType> {
-
-
     render() {
-
         return <Header {...this.props}/>;
     }
 }

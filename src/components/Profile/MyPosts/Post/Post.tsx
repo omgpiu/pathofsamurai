@@ -12,6 +12,7 @@ export type PostTypeOne = {
 
 
 const Post: React.FC<PostTypeOne> = (props) => {
+    const {id, message, likesCount} = props;
     return (
         <div className={`${st.wrapper} ${st.wrapper_i}`}>
 
@@ -19,8 +20,8 @@ const Post: React.FC<PostTypeOne> = (props) => {
                 <img src={'https://www.sunhome.ru/i/wallpapers/91/neitiri-v-avatar.orig.jpg'} alt={'avatar'}/>
             </div>
 
-            <div className={`${st.items} ${st.messageBox}`}>
-                {props.message}
+            <div key={id} className={`${st.items} ${st.messageBox}`}>
+                {message}
             </div>
             <div className={`${st.items} ${st.buttonsBlock}`}>
 
@@ -36,7 +37,7 @@ const Post: React.FC<PostTypeOne> = (props) => {
 
 
             </div>
-            <div className={`${st.items} ${st.likes}`}>{props.likesCount}</div>
+            <div className={`${st.items} ${st.likes}`}>{likesCount}</div>
 
         </div>
 

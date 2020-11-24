@@ -27,15 +27,12 @@ function Users(props: PropsUsersType) {
         <div>
             <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} pageSize={props.pageSize}
                        totalUsersCount={props.totalUsersCount}/>
-            {props.users.map((user: userType) => <User totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
-                                                       onPageChanged={props.onPageChanged}
-                                                       currentPage={props.currentPage}
-                                                       unfollowTC={props.unfollowTC}
-                                                       followTC={props.followTC}
-                                                       followingInProgress={props.followingInProgress}
-                                                       toggleFollowingProgress={props.toggleFollowingProgress}
-                                                       user={user}
-                                                       key={user.id}/>)}
+            {props.users.map((user: userType) => <User
+                unfollowTC={props.unfollowTC}
+                followTC={props.followTC}
+                followingInProgress={props.followingInProgress}
+                user={user}
+                key={user.id}/>)}
 
         </div>);
 }

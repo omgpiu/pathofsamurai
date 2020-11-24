@@ -4,7 +4,6 @@ import {connect, ConnectedProps} from 'react-redux';
 import {
     getUserProfileTC,
     getUserStatusTC,
-    ProfileType,
     savePhoto,
     updateUserStatusTC
 } from '../../Rdux/profile-reducer';
@@ -12,10 +11,11 @@ import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
+import {NewProfileType} from '../../Rdux/Types';
 
 
 export type MapStatePropsType = {
-    profile: ProfileType
+    profile: NewProfileType | null
     status: string
     isAuth: boolean
     authorizedUserId: number | null

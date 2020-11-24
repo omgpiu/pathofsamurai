@@ -4,15 +4,12 @@ import {NavLink} from 'react-router-dom';
 import {DialogItemType} from '../../../Rdux/Types';
 
 
-
-
-
-
-const DialogItem: React.FC<DialogItemType> = (props:DialogItemType) => {
-    let path = '/dialogs/1' + props.id;
+const DialogItem: React.FC<DialogItemType> = (props) => {
+    const {id, name} = props;
+    const path = '/dialogs/1' + id;
     return (
         <div className={st.dialog}>
-            <NavLink to={path}>{props.name}</NavLink>
+            <NavLink to={path}>{name}</NavLink>
         </div>
     );
 };

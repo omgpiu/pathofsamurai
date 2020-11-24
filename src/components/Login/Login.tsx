@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginForm from './LoginForm';
 
-const Login = (props: any) => {
+const Login: React.FC<any> = (props) => {
     return <div>
 
         <h1>Login</h1>

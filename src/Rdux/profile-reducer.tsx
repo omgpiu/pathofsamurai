@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionType, PostType} from './Types';
+import {ActionType, NewProfileType, PhotosType, PostType} from './Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
 import {profileAPI} from '../API/profile-api';
@@ -25,13 +25,7 @@ let initialState = {
         {id: v1(), message: 'Hello ', likesCount: 10},
         {id: v1(), message: 'Hello ', likesCount: 10}],
     newPostText: '',
-    //profile : null as profiletype | null
-    profile: {
-        photos: {
-            large: '',
-            small:''
-        }
-    },
+    profile: null as  NewProfileType | null,
     status: ''
 };
 type  InitialStateType = typeof initialState
@@ -71,8 +65,7 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
                 };
             case SAVE_PHOTO_SUCCESS:
                 return {
-                    ...state,
-                    profile: {...state.profile, photos: action.photos}
+                    ...state, profile: {...state.profile, photos: action.photos} as NewProfileType
                 };
             default :
                 return state;
@@ -84,12 +77,12 @@ export const deletePostAC = (postId: string) => ({
     type: DELETE_POST
     , postId
 } as const);
-export const savePhotoSucces = (photos: any) => ({
+export const savePhotoSucces = (photos: PhotosType) => ({
     type: SAVE_PHOTO_SUCCESS
     , photos
 } as const);
 export const addPostActionCreator = () => ({type: ADD_POST} as const);
-export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
+export const setUserProfile = (profile: NewProfileType) => ({type: SET_USER_PROFILE, profile} as const);
 export const updateNewPostTextActionCreator = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, text} as const);
 export const setUserStatus = (status: string) => ({
@@ -114,26 +107,25 @@ export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch<
     }
 
 };
-export const savePhoto = (file:any) => async (dispatch:Dispatch<ActionType>)=>{
-    let res = await profileAPI.savePhoto(file)
+export const savePhoto = (file: File) => async (dispatch: Dispatch<ActionType>) => {
+    let res = await profileAPI.savePhoto(file);
     if (res.data.resultCode === 0) {
         dispatch(savePhotoSucces(res.data.data.photos));
     }
-}
-export type SavePhotoSuccesesType = ReturnType<typeof savePhotoSucces>
+};
+export type SavePhotoSuccessType = ReturnType<typeof savePhotoSucces>
 export type SetUserProfileType = ReturnType<typeof setUserProfile>
 export type SetUserStatusTypeAC = ReturnType<typeof setUserStatus>
 export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>
 export type UpdateNewPostTextActionCreatorType = ReturnType<typeof updateNewPostTextActionCreator>
 export type deletePostActionCreatorType = ReturnType<typeof deletePostAC>
-
-export type ProfileType = {
-    photos: {
-        large: string
-        small: string
-    }
-}
-export type ProfilePhotosType = {}
+//
+// export type ProfileType = {
+//     photos: {
+//         large: string
+//         small: string
+//     }
+// }
 
 
 export default profileReducer;

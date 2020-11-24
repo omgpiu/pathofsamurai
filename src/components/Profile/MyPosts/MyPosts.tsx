@@ -12,8 +12,8 @@ export type MyPostsTypeOne = {
 }
 
 
-const MyPosts = React.memo((props: MyPostsTypeOne) => {
-
+const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
+    const {addPost, updateNewPostText, newPostText} = props;
 
     const postsData = [...props.postData]
         .reverse()
@@ -24,14 +24,14 @@ const MyPosts = React.memo((props: MyPostsTypeOne) => {
     const newPostElement: newPostType = React.createRef<HTMLTextAreaElement>();
 
     const onAddPost = () => {
-        props.addPost();
+        addPost();
 
     };
 
 
     const onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostText(text);
+        updateNewPostText(text);
 
 
     };
@@ -44,7 +44,7 @@ const MyPosts = React.memo((props: MyPostsTypeOne) => {
             <textarea className={st.text}
                       onChange={onPostChange}
                       ref={newPostElement}
-                      value={props.newPostText}/>
+                      value={newPostText}/>
 
 
             <div onClick={onAddPost} className={st.body}>
@@ -56,19 +56,12 @@ const MyPosts = React.memo((props: MyPostsTypeOne) => {
 
                     Add Me
                 </div>
-
-
             </div>
-
             <div>
                 {postsData}
-
             </div>
-
         </div>
-
     );
-
 });
 
 

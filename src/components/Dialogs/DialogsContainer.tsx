@@ -1,15 +1,15 @@
 import {sendMessageCreator, updateNewMessageCreator} from '../../Rdux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
-import {ActionType, RootStateType} from '../../Rdux/Types';
+import {ActionType} from '../../Rdux/Types';
 import React from 'react';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
+import {AppRootStateType} from '../../Rdux/redux-store';
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
     };
 };
 

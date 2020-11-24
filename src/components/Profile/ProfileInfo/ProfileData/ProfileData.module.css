@@ -1,0 +1,21 @@
+.description {
+    padding: 10px;
+
+
+}
+
+.thisPhoto img{
+    width: 100%;
+    height: 450px;
+
+}
+.thisLogo img {
+    width: 150px;
+    border-radius: 10px;
+
+}
+.thisAva {
+    width: 150px;
+    border-radius: 10px;
+
+}

@@ -14,18 +14,28 @@ import {loginTC} from '../../Rdux/auth-reducer';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {Redirect} from 'react-router-dom';
+import {LoginParamsType} from '../../Rdux/Types';
 
 // TODO сделать проверку правильности пароля
 
-const LoginForm = (props: any) => {
+type LoginFormType = {
+    loginTC: (data: LoginParamsType) => void
+    isCorrect: boolean
+    isAuth: boolean
+}
 
-    console.log(props.isCorrect + 'in formik');
+
+const LoginForm: React.FC<LoginFormType> = (props) => {
+
+    const {isAuth, isCorrect, loginTC} = props;
+
+    console.log(isCorrect + 'in formik');
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             rememberMe: false,
-            isCorrect: props.isCorrect,
+            isCorrect: isCorrect,
             confirm: ''
         }, validate(values: FormikType) {
             const errors: FormikType = {};
@@ -45,18 +55,18 @@ const LoginForm = (props: any) => {
             }
 
             return errors;
-        } ,
+        },
 
         onSubmit: (values) => {
-            props.loginTC(values);
+            loginTC(values);
 
         },
     });
     useEffect(() => {
-        !props.isCorrect && formik.setErrors({confirm: 'Incorrect email or password'})
-    }, [props.isCorrect])
+        !isCorrect && formik.setErrors({confirm: 'Incorrect email or password'});
+    }, [isCorrect]);
 
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }
     debugger
