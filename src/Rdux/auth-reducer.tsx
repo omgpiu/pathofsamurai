@@ -1,4 +1,4 @@
-import {ActionType, LoginParamsType, ThunkType} from './Types';
+import {ActionType, LoginParamsType, ThunkType} from '../Types/Types';
 import {Dispatch} from 'react';
 import {AuthAPI} from '../API/auth-api';
 import {ThunkDispatch} from 'redux-thunk';

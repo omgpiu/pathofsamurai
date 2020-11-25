@@ -14,7 +14,7 @@ import {loginTC} from '../../Rdux/auth-reducer';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {Redirect} from 'react-router-dom';
-import {LoginParamsType} from '../../Rdux/Types';
+import {LoginParamsType} from '../../Types/Types';
 
 // TODO сделать проверку правильности пароля
 

@@ -1,5 +1,5 @@
 import UsersAPIComponent from './UsersAPIComponent';
-import {userType} from '../../Rdux/Types';
+import {userType} from '../../Types/Types';
 import {connect} from 'react-redux';
 import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC} from '../../Rdux/users-reducer';
 import {compose} from 'redux';

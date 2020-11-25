@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import PreLoader from '../../Users/preLoader';
-import {NewProfileType} from '../../../Rdux/Types';
+import {NewProfileType} from '../../../Types/Types';
 import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks';
 import commonLogo from '../../../photo/commonAvatar.png';
 import st from './ProfileData/ProfileData.module.css';

@@ -1,5 +1,5 @@
 import React from 'react';
-import {NewProfileType} from '../../../../Rdux/Types';
+import {NewProfileType} from '../../../../Types/Types';
 import st from '../ProfileData/ProfileData.module.css';
 
 

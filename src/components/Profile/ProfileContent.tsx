@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.module.css';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {MapStatePropsType} from './ProfileContentContainerAPI';
-import {NewProfileType} from '../../Rdux/Types';
+import {NewProfileType} from '../../Types/Types';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 

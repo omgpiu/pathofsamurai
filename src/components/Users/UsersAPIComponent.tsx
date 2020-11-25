@@ -1,7 +1,7 @@
 import React from 'react';
 import Users from './Users';
 import PreLoader from './preLoader';
-import {userType} from '../../Rdux/Types';
+import {userType} from '../../Types/Types';
 
 
 export type PropsType = {
@@ -23,13 +23,13 @@ class UsersAPIComponent extends React.Component<PropsType> {
 
 
     componentDidMount() {
-        const {currentPage,pageSize} = this.props
+        const {currentPage, pageSize} = this.props;
         this.props.getUsersTC(currentPage, pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        const {pageSize}= this.props
-        this.props.getUsersTC(pageNumber,pageSize);
+        const {pageSize} = this.props;
+        this.props.getUsersTC(pageNumber, pageSize);
     };
 
     render() {
@@ -41,7 +41,6 @@ class UsersAPIComponent extends React.Component<PropsType> {
                    currentPage={this.props.currentPage}
                    pageSize={this.props.pageSize}
                    onPageChanged={this.onPageChanged}
-                   toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
                    followTC={this.props.followTC}
                    unfollowTC={this.props.unfollowTC}

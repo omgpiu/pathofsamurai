@@ -2,7 +2,7 @@ import React, {RefObject} from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostType} from '../../../Rdux/Types';
+import {PostType} from '../../../Types/Types';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>

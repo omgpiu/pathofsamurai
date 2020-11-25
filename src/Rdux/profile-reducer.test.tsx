@@ -1,5 +1,6 @@
 import {v1} from 'uuid';
-import profileReducer, {addPostActionCreator, deletePostAC} from './profile-reducer';
+import profileReducer from './profile-reducer';
+
 
 let state = {
     postData: [

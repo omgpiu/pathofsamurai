@@ -1,6 +1,6 @@
 import React from 'react';
 import st from './ProfileData.module.css';
-import {ContactsType, NewProfileType} from '../../../../Rdux/Types';
+import {ContactsType, NewProfileType} from '../../../../Types/Types';
 
 const Contact: React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
     return (<div>

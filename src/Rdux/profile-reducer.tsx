@@ -1,6 +1,5 @@
 import {v1} from 'uuid';
-import {ActionType, NewProfileType, PhotosType, PostType} from './Types';
-import {Dispatch} from 'react';
+import {BaseThunkType, InferActionsTypes, NewProfileType, PhotosType, PostType} from '../Types/Types';
 import {usersAPI} from '../API/users-api';
 import {profileAPI} from '../API/profile-api';
 
@@ -25,11 +24,11 @@ let initialState = {
         {id: v1(), message: 'Hello ', likesCount: 10},
         {id: v1(), message: 'Hello ', likesCount: 10}],
     newPostText: '',
-    profile: null as  NewProfileType | null,
+    profile: null as NewProfileType | null,
     status: ''
 };
 type  InitialStateType = typeof initialState
-const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+const profileReducer = (state: InitialStateType = initialState, action: profileActionsType): InitialStateType => {
         switch (action.type) {
             case ADD_POST:
                 const newPost: PostType = {
@@ -73,59 +72,51 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionTy
     }
 ;
 
-export const deletePostAC = (postId: string) => ({
-    type: DELETE_POST
-    , postId
-} as const);
-export const savePhotoSucces = (photos: PhotosType) => ({
-    type: SAVE_PHOTO_SUCCESS
-    , photos
-} as const);
-export const addPostActionCreator = () => ({type: ADD_POST} as const);
-export const setUserProfile = (profile: NewProfileType) => ({type: SET_USER_PROFILE, profile} as const);
-export const updateNewPostTextActionCreator = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, text} as const);
-export const setUserStatus = (status: string) => ({
-    type: SET_USER_STATUS,
-    status
-} as const);
 
-export const getUserProfileTC = (userId: number | null) => async (dispatch: Dispatch<ActionType>) => {
+export const getUserProfileTC = (userId: number | null): BaseThunkType => async (dispatch) => {
     const res = await usersAPI.getProfile(userId);
-    dispatch(setUserProfile(res.data));
+    dispatch(profileActions.setUserProfile(res.data));
 
 };
-export const getUserStatusTC = (userId: number | null) => async (dispatch: Dispatch<ActionType>) => {
+export const getUserStatusTC = (userId: number | null): BaseThunkType => async (dispatch) => {
     const res = await profileAPI.getStatus(userId);
-    dispatch(setUserStatus(res.data));
+    dispatch(profileActions.setUserStatus(res.data));
 
 };
-export const updateUserStatusTC = (status: string) => async (dispatch: Dispatch<ActionType>) => {
+export const updateUserStatusTC = (status: string): BaseThunkType => async (dispatch) => {
     const res = await profileAPI.updateStatus(status);
     if (res.data.resultCode === 0) {
-        dispatch(setUserStatus(status));
+        dispatch(profileActions.setUserStatus(status));
     }
 
 };
-export const savePhoto = (file: File) => async (dispatch: Dispatch<ActionType>) => {
+export const savePhoto = (file: File): BaseThunkType => async (dispatch) => {
     let res = await profileAPI.savePhoto(file);
     if (res.data.resultCode === 0) {
-        dispatch(savePhotoSucces(res.data.data.photos));
+        dispatch(profileActions.savePhotoSucces(res.data.data.photos));
     }
 };
-export type SavePhotoSuccessType = ReturnType<typeof savePhotoSucces>
-export type SetUserProfileType = ReturnType<typeof setUserProfile>
-export type SetUserStatusTypeAC = ReturnType<typeof setUserStatus>
-export type AddPostActionCreatorType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextActionCreatorType = ReturnType<typeof updateNewPostTextActionCreator>
-export type deletePostActionCreatorType = ReturnType<typeof deletePostAC>
-//
-// export type ProfileType = {
-//     photos: {
-//         large: string
-//         small: string
-//     }
-// }
+export const profileActions = {
+    deletePostAC: (postId: string) => ({
+        type: DELETE_POST
+        , postId
+    } as const),
+    savePhotoSucces: (photos: PhotosType) => ({
+        type: SAVE_PHOTO_SUCCESS
+        , photos
+    } as const),
+    addPostActionCreator: () => ({type: ADD_POST} as const),
+    setUserProfile: (profile: NewProfileType) => ({type: SET_USER_PROFILE, profile} as const),
+    updateNewPostTextActionCreator: (text: string) =>
+        ({type: UPDATE_NEW_POST_TEXT, text} as const),
+    setUserStatus: (status: string) => ({
+        type: SET_USER_STATUS,
+        status
+    } as const),
+
+
+};
+export type profileActionsType = InferActionsTypes<typeof profileActions>
 
 
 export default profileReducer;

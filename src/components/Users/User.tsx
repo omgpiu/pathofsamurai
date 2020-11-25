@@ -3,21 +3,9 @@ import React from 'react';
 import st from './Users.module.css';
 import commonAvatar from '../../photo/commonAvatar.png';
 import {NavLink} from 'react-router-dom';
-import {userType} from '../../Rdux/Types';
+import {userType} from '../../Types/Types';
 
 
-export type PropsUsersType = {
-
-    user: userType
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: Array<number>
-    followTC: (userId: number) => void
-    unfollowTC: (userId: number) => void
-}
 type UserType = {
     user: userType
     followingInProgress: Array<number>

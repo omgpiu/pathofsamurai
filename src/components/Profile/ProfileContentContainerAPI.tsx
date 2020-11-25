@@ -11,7 +11,7 @@ import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
-import {NewProfileType} from '../../Rdux/Types';
+import {NewProfileType} from '../../Types/Types';
 
 
 export type MapStatePropsType = {

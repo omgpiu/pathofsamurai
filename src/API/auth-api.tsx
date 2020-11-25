@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LoginParamsType,ResponseType} from '../Rdux/Types';
+import {LoginParamsType,ResponseType} from '../Types/Types';
 
 
 const instance = axios.create({

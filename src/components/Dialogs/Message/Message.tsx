@@ -1,6 +1,6 @@
 import React from 'react';
 import st from './../Dialogs.module.css'
-import {MessageType} from '../../../Rdux/Types';
+import {MessageType} from '../../../Types/Types';
 
 
 

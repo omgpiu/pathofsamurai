@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-    AddPostActionCreatorType,
-    deletePostActionCreatorType,
-    SavePhotoSuccessType,
-    SetUserProfileType,
-    SetUserStatusTypeAC,
-    UpdateNewPostTextActionCreatorType,
-} from './profile-reducer';
-import {SendMessageCreatorType, UpdateNewMessageBodyCreatorType} from './dialogs-reducer';
+
+
 import {
     followACType,
     isFetchingTypeAC,
@@ -16,11 +9,11 @@ import {
     setTotalUsersCountACType,
     setUsersACType,
     unfollowACType,
-} from './users-reducer';
-import {confirmUserDataType, setAuthUserDataType} from './auth-reducer';
+} from '../Rdux/users-reducer';
+import {confirmUserDataType, setAuthUserDataType} from '../Rdux/auth-reducer';
 import {ThunkAction} from 'redux-thunk';
-import {AppRootStateType} from './redux-store';
-import {setInitializedType} from './app-reducer';
+import {AppRootStateType} from '../Rdux/redux-store';
+import {Action} from 'redux';
 
 export type PostDataArray = {
     id: string
@@ -96,8 +89,8 @@ export type ResponseType<D = {}> = {
     data: D
 }
 export type LoginParamsType = {
-    email?: string|undefined
-    password?: string|undefined
+    email?: string | undefined
+    password?: string | undefined
     rememberMe?: boolean | undefined
     captcha?: string
 }
@@ -106,23 +99,29 @@ export type LoginParamsType = {
 export type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionType>
 
 export type ActionType =
-    AddPostActionCreatorType
-    | UpdateNewPostTextActionCreatorType
-    | SendMessageCreatorType
-    | UpdateNewMessageBodyCreatorType
     | followACType
     | unfollowACType
     | setUsersACType
     | setPageACType
     | setTotalUsersCountACType
     | isFetchingTypeAC
-    | SetUserProfileType
     | setAuthUserDataType
     | isFollowingProgressAC
-    | SetUserStatusTypeAC
-    | setInitializedType
     | confirmUserDataType
-    | deletePostActionCreatorType
-    | SavePhotoSuccessType
 
+
+export type PropsUsersType = {
+
+    user: userType
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+    followingInProgress: Array<number>
+    followTC: (userId: number) => void
+    unfollowTC: (userId: number) => void
+}
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+export type BaseThunkType<A extends Action = Action, R = any> = ThunkAction<R, AppRootStateType, unknown, A>
 

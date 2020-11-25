@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionType} from './Types';
+import {InferActionsTypes} from '../Types/Types';
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 const SEND_NEW_MESSAGE_TEXT = 'SEND-NEW-MESSAGE-TEXT';
@@ -22,7 +22,7 @@ let initialState = {
     newMessageText: ''
 };
 type  InitialStateType = typeof initialState
-export const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: dialogsActionsType): InitialStateType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
             return {
@@ -40,11 +40,13 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
             return state;
     }
 };
-export const sendMessageCreator = () => ({type: SEND_NEW_MESSAGE_TEXT} as const);
-export const updateNewMessageCreator = (text: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text} as const);
 
-export type SendMessageCreatorType = ReturnType<typeof sendMessageCreator>
-export type UpdateNewMessageBodyCreatorType = ReturnType<typeof updateNewMessageCreator>
+export const dialogsActions = {
+    sendMessageCreator: () => ({type: SEND_NEW_MESSAGE_TEXT} as const),
+    updateNewMessageCreator: (text: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text} as const)
+
+};
+export type dialogsActionsType = InferActionsTypes<typeof dialogsActions>
 
 
 export default dialogsReducer;

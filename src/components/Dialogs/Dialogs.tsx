@@ -3,7 +3,7 @@ import st from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DialogItem/DialogItem';
 import {Button, TextField} from '@material-ui/core';
-import {DialogItemType, DialogsPageType, MessageType} from '../../Rdux/Types';
+import {DialogItemType, DialogsPageType, MessageType} from '../../Types/Types';
 
 export type DialogsPropType = {
     updateNewMessage: (message: string) => void

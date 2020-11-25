@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {ActionType, userType} from './Types';
+import {ActionType, userType} from '../Types/Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
 import {updateObjectInArray} from '../utils/object-helpers/object-helpers';
