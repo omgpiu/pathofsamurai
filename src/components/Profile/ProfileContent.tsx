@@ -1,19 +1,17 @@
 import React from 'react';
 import '../../App.module.css';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import {MapStatePropsType} from './ProfileContentContainerAPI';
 import {NewProfileType} from '../../Types/Types';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
-type PropsType ={
+type PropsType = {
     profile: NewProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: (file:File)=>void
+    savePhoto: (file: File) => void
 }
-
 
 
 function ProfileContent(props: PropsType) {

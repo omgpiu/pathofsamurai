@@ -1,8 +1,6 @@
-import {v1} from 'uuid';
 import {ActionType, userType} from '../Types/Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
-import {updateObjectInArray} from '../utils/object-helpers/object-helpers';
 
 
 const FOLLOW = 'FOLLOW';
@@ -106,21 +104,21 @@ export const getUsersTC = (currentPage: number, pageSize: number) => async (disp
 
 };
 
-const followUnfollowFlow=async (dispatch: Dispatch<ActionType>,userId:number,apiMethod:(userId:number)=>any,actionCreator:any )=>{
+const followUnfollowFlow = async (dispatch: Dispatch<ActionType>, userId: number, apiMethod: (userId: number) => any, actionCreator: any) => {
     dispatch(toggleFollowingProgress(true, userId));
     const data = await apiMethod(userId);
     if (data.data.resultCode === 0) {
         dispatch(actionCreator(userId));
     }
     dispatch(toggleFollowingProgress(false, userId));
-}
+};
 export const followTC = (userId: number) => async (dispatch: Dispatch<ActionType>) => {
-    let apiMethod = usersAPI.startFollowUsers.bind(usersAPI)
-    await followUnfollowFlow(dispatch, userId, apiMethod, followUser)
+    let apiMethod = usersAPI.startFollowUsers.bind(usersAPI);
+    await followUnfollowFlow(dispatch, userId, apiMethod, followUser);
 };
 export const unfollowTC = (userId: number) => async (dispatch: Dispatch<ActionType>) => {
-    let apiMethod = usersAPI.startUnfollowUsers.bind(usersAPI)
-    await followUnfollowFlow(dispatch, userId, apiMethod, unfollowUser)
+    let apiMethod = usersAPI.startUnfollowUsers.bind(usersAPI);
+    await followUnfollowFlow(dispatch, userId, apiMethod, unfollowUser);
 
 
 };

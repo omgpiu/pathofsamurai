@@ -1,7 +1,7 @@
 import {dialogsActions, dialogsActionsType} from '../../Rdux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import {connect} from 'react-redux';
-import React from 'react';
+import React, {Dispatch} from 'react';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
@@ -13,7 +13,7 @@ const mapStateToProps = (state: AppRootStateType) => {
 };
 
 
-const mapDispatchToProps = (dispatch: (action: dialogsActionsType) => void) => {
+const mapDispatchToProps = (dispatch: Dispatch<dialogsActionsType>) => {
     return {
         sendMessage: () => {
             dispatch(dialogsActions.sendMessageCreator());

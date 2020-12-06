@@ -8,6 +8,7 @@ export type PropsPaginatorType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     pageSize: number
+    portionSize?:number
 
 
 }

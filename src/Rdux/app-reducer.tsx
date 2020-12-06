@@ -1,8 +1,5 @@
-import {ActionType, BaseThunkType, InferActionsTypes, ThunkType} from '../Types/Types';
+import {BaseThunkType, InferActionsTypes} from '../Types/Types';
 import {getAuthUserDataTC} from './auth-reducer';
-import {ThunkDispatch} from 'redux-thunk';
-import {AppRootStateType} from './redux-store';
-import {profileActions} from './profile-reducer';
 
 
 const SET_IS_INITIALIZED = 'SET_IS_INITIALIZED';
@@ -27,9 +24,8 @@ const appReducer = (state: InitialStateType = initialState, action: appActionsTy
 };
 
 export const appActions = {
-    setInitialized : () => ({type: SET_IS_INITIALIZED} as const)
-}
-
+    setInitialized: () => ({type: SET_IS_INITIALIZED} as const)
+};
 
 
 // export const setInitialized = () => ({type: SET_IS_INITIALIZED} as const);
@@ -44,7 +40,7 @@ export const setInitializedTC = (): BaseThunkType => (dispatch) => {
     });
 };
 // export type setInitializedType = ReturnType<typeof setInitialized>
-export type appActionsType =  InferActionsTypes<typeof appActions>
+export type appActionsType = InferActionsTypes<typeof appActions>
 
 
 export default appReducer;

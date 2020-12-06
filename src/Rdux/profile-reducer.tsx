@@ -60,7 +60,7 @@ const profileReducer = (state: InitialStateType = initialState, action: profileA
             case DELETE_POST:
                 return {
                     ...state,
-                    postData: state.postData.filter(p => p.id != action.postId)
+                    postData: state.postData.filter(p => p.id !== action.postId)
                 };
             case SAVE_PHOTO_SUCCESS:
                 return {

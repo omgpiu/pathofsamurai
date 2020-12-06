@@ -1,17 +1,13 @@
 import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
-import {
-    getUserProfileTC,
-    getUserStatusTC,
-    savePhoto,
-    updateUserStatusTC
-} from '../../Rdux/profile-reducer';
+import {getUserProfileTC, getUserStatusTC, savePhoto, updateUserStatusTC} from '../../Rdux/profile-reducer';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {NewProfileType} from '../../Types/Types';
+import {ReduxLogin} from '../Login/reduxFormLogin/ReduxLogin';
 
 
 export type MapStatePropsType = {
@@ -61,11 +57,16 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
     render() {
         return (
             <div>
+                <div style={{margin: '5px', border: '1px solid white', backgroundColor: 'yellow'}}>
+                    <ReduxLogin/>
+                </div>
+
                 <Profile
 
                     isOwner={!this.props.match.params.userId}
                     {...this.props} profile={this.props.profile} status={this.props.status}
                     updateStatus={this.props.updateUserStatusTC}/>
+
             </div>);
     }
 }
@@ -77,14 +78,13 @@ let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     authorizedUserId: state.auth.data.userId,
 
 
-
 });
 
 
 type PropsFromRedux = ConnectedProps<typeof connector>
-const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC,savePhoto});
+const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC, savePhoto});
 export default compose<React.ComponentClass>(
-    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC,savePhoto}),
+    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC, savePhoto}),
     withRouter,
     // withAuthRedirect
 )(ProfileContentContainerAPI);
