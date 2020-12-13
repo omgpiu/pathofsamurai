@@ -44,7 +44,7 @@ const Dialogs: React.FC<DialogsPropType> = (props) => {
     );
 };
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength10 = maxLengthCreator(50);
 const AddMessageForm: React.FC<any> = ({onNewMessageChange, newMessageBody, handleSubmit, ...props}) => {
     return (
         <form>

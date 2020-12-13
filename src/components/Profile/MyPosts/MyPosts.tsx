@@ -35,7 +35,7 @@ const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
     );
 });
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength10 = maxLengthCreator(30);
 
 
 const AddPostForm: React.FC<any> = ({newPostElement, handleSubmit, ...props}) => {
