@@ -1,5 +1,3 @@
-
-
 import {
     followACType,
     isFetchingTypeAC,
@@ -9,7 +7,7 @@ import {
     setUsersACType,
     unfollowACType,
 } from '../Rdux/users-reducer';
-import {confirmUserDataType, setAuthUserDataType} from '../Rdux/auth-reducer';
+import {confirmUserDataType, getCaptchaUrlSuccess, setAuthUserDataType} from '../Rdux/auth-reducer';
 import {ThunkAction} from 'redux-thunk';
 import {AppRootStateType} from '../Rdux/redux-store';
 import {Action} from 'redux';
@@ -107,6 +105,7 @@ export type ActionType =
     | setAuthUserDataType
     | isFollowingProgressAC
     | confirmUserDataType
+    | getCaptchaUrlSuccess
 
 
 export type PropsUsersType = {

@@ -3,17 +3,19 @@ import {Dispatch} from 'react';
 import {AuthAPI} from '../API/auth-api';
 import {ThunkDispatch} from 'redux-thunk';
 import {AppRootStateType} from './redux-store';
+import {securityAPI} from '../API/security-api';
 //refactor
 const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA';
+const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 const CONFIRM_USER_DATA = 'samurai-network/auth/CONFIRM_USER_DATA';
 
 let initialState = {
-    data: {
-        userId: null as null | number,
-        email: null as null | string,
-        login: null as null | string,
-        isAuth: false,
-    },
+
+    userId: null as (number | null),
+    email: null as string | null,
+    login: null as string | null,
+    isAuth: false,
+    captchaUrl: null as string | null,
     isCorrect: true
 
 };
@@ -23,13 +25,19 @@ const authReducer = (state: InitialStateType = initialState, action: ActionType)
     switch (action.type) {
         case SET_USER_DATA:
             return {
-                ...state, data: action.payload,
+                ...state, ...action.payload
             };
         case CONFIRM_USER_DATA :
             return {
                 ...state,
                 isCorrect: action.isCorrect
             };
+        case GET_CAPTCHA_URL_SUCCESS:
+            return {
+                ...state,
+                ...action.payload
+            };
+
         default:
             return state;
     }
@@ -42,6 +50,8 @@ export const setAuthUserData = (userId: number | null, email: string | null, log
 } as const);
 export const confirmUserData = (isCorrect: boolean) => (
     {type: CONFIRM_USER_DATA, isCorrect} as const);
+export const getCaptchaUrlSuccess = (captchaUrl: string) => (
+    {type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}} as const);
 
 
 export const getAuthUserDataTC = () => async (dispatch: Dispatch<ActionType>) => {
@@ -60,12 +70,24 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch: Th
         dispatch(getAuthUserDataTC());
         dispatch(confirmUserData(true));
     } else {
+        if (response.data.resultCode === 10) {
+            dispatch(getCaptchaUrl());
+        }
         // dispatch(formikHelpers.setFieldError())
         dispatch(confirmUserData(false));
     }
 
 
 };
+export const getCaptchaUrl = (): ThunkType => async (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionType>) => {
+    const response = await securityAPI.getCaptchaUrl();
+    const captchaUrl = response.data.url;
+    dispatch(getCaptchaUrlSuccess(captchaUrl));
+
+
+};
+
+
 export const logoutTC = () => async (dispatch: Dispatch<ActionType>) => {
     const response = await AuthAPI.logout();
     if (response.data.resultCode === 0) {
@@ -76,6 +98,7 @@ export const logoutTC = () => async (dispatch: Dispatch<ActionType>) => {
 };
 export type setAuthUserDataType = ReturnType<typeof setAuthUserData>
 export type confirmUserDataType = ReturnType<typeof confirmUserData>
+export type getCaptchaUrlSuccess = ReturnType<typeof getCaptchaUrlSuccess>
 
 
 export default authReducer;

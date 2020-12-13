@@ -30,8 +30,8 @@ class HeaderContainerAPI extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => (
     {
-        isAuth: state.auth.data.isAuth,
-        login: state.auth.data.login
+        isAuth: state.auth.isAuth,
+        login: state.auth.login
     });
 
 type PropsFromRedux = ConnectedProps<typeof connector>

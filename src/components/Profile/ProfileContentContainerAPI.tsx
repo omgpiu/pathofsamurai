@@ -1,7 +1,13 @@
 import React from 'react';
 import '../../App.module.css';
 import {connect, ConnectedProps} from 'react-redux';
-import {getUserProfileTC, getUserStatusTC, savePhoto, updateUserStatusTC} from '../../Rdux/profile-reducer';
+import {
+    getUserProfileTC,
+    getUserStatusTC,
+    savePhoto,
+    saveProfile,
+    updateUserStatusTC
+} from '../../Rdux/profile-reducer';
 import Profile from './ProfileContent';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
@@ -60,10 +66,11 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
                 </div>
 
                 <Profile
-
+                    {...this.props}
                     isOwner={!this.props.match.params.userId}
                     {...this.props} profile={this.props.profile} status={this.props.status}
-                    updateStatus={this.props.updateUserStatusTC}/>
+                    updateStatus={this.props.updateUserStatusTC}
+                />
 
             </div>);
     }
@@ -72,17 +79,23 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
 let mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
-    isAuth: state.auth.data.isAuth,
-    authorizedUserId: state.auth.data.userId,
+    isAuth: state.auth.isAuth,
+    authorizedUserId: state.auth.userId,
 
 
 });
 
 
 type PropsFromRedux = ConnectedProps<typeof connector>
-const connector = connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC, savePhoto});
+const connector = connect(mapStateToProps, {
+    getUserProfileTC,
+    getUserStatusTC,
+    updateUserStatusTC,
+    savePhoto,
+    saveProfile
+});
 export default compose<React.ComponentClass>(
-    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC, savePhoto}),
+    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC, savePhoto, saveProfile}),
     withRouter,
     // withAuthRedirect
 )(ProfileContentContainerAPI);

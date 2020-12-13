@@ -8,16 +8,19 @@ import ProfileData from './ProfileData/ProfileData';
 import ProfileDataForm from './ProfileDataForm/ProfileDataForm';
 
 type PropsType = {
-    profile: NewProfileType | null
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    profile: NewProfileType | null
+    saveProfile: (formData: any) => any
 }
+
+// type ProfileTypeKeys = GetStringKeys<PropsType>,
 
 
 const ProfileInfo: React.FC<PropsType> = (props) => {
-    const {isOwner, profile, savePhoto, status, updateStatus} = props;
+    const {isOwner, profile, savePhoto, status, updateStatus, saveProfile} = props;
     const [editMode, setEditMode] = useState(false);
     const goToEditMode = () => {
         setEditMode(true);
@@ -31,6 +34,16 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
         }
     };
 
+
+    const onSubmit = (formData: any) => {
+        saveProfile(formData).then(() => {
+            setEditMode(false);
+        });
+
+
+    };
+
+
     return <div>
         <div>
             {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
@@ -38,7 +51,7 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
         <img src={profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
 
         <ProfileStatusHooks status={status} updateStatus={updateStatus}/>
-        {editMode ? <ProfileDataForm profile={profile} isOwner={false}/> :
+        {editMode ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/> :
             <ProfileData profile={profile} isOwner={isOwner} editMode={goToEditMode}/>}
 
         {/*<ProfileStatusClass status={props.status} updateStatus={props.updateStatus}/>*/}

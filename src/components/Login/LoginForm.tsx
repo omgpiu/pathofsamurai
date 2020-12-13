@@ -22,12 +22,13 @@ type LoginFormType = {
     loginTC: (data: LoginParamsType) => void
     isCorrect: boolean
     isAuth: boolean
+    captchaUrl: string | null
 }
 
 
 const LoginForm: React.FC<LoginFormType> = (props) => {
-
-    const {isAuth, isCorrect, loginTC} = props;
+    debugger
+    const {isAuth, isCorrect, loginTC, captchaUrl} = props;
 
     console.log(isCorrect + 'in formik');
     const formik = useFormik({
@@ -69,7 +70,11 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
     if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }
+    //TODO доделать отправку капчи
     return <form onSubmit={formik.handleSubmit}>
+        {captchaUrl && <img src={captchaUrl}/>}
+        {/*{captchaUrl && {createField('Symbols','')}/>}*/}
+
 
         <Grid container justify="center">
             <Grid item xs={4}>
@@ -121,13 +126,15 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
 
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
-    isAuth: state.auth.data.isAuth,
-    isCorrect: state.auth.isCorrect
+    isAuth: state.auth.isAuth,
+    isCorrect: state.auth.isCorrect,
+    captchaUrl: state.auth.captchaUrl
 
 });
 type MapStatePropsType = {
     isAuth: boolean
     isCorrect: boolean
+    captchaUrl: string | null
 
 }
 type FormikType = {

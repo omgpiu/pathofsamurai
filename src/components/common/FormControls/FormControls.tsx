@@ -1,5 +1,6 @@
 import React from 'react';
 import st from './FormControls.module.css';
+import {Field} from 'redux-form';
 
 const FormControl: React.FC<any> = ({input, meta, child, element, ...props}) => {
     const hasError = meta.touched && meta.error;
@@ -18,8 +19,6 @@ export const Textarea: React.FC<any> = (props) => {
     return <FormControl {...props}>
         <textarea {...input} {...restProps}/>
     </FormControl>;
-
-
 };
 
 
@@ -28,6 +27,13 @@ export const MyInput: React.FC<any> = (props) => {
     return <FormControl {...props}>
         <input {...input} {...restProps}/>
     </FormControl>;
-
-
 };
+
+export const createField = (placeholder: string, name: string, validators: any, component: any, props = {}, text = '') => (
+    <div>
+        <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props}
+
+        /> {text}
+    </div>
+);
+export type GetStringKeys<T> = Extract<keyof T, string>

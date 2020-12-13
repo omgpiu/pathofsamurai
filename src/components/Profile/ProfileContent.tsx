@@ -11,21 +11,26 @@ type PropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (file: File) => void
+    saveProfile: (formData: any) => any
+
 }
 
 
-function ProfileContent(props: PropsType) {
+const ProfileContent: React.FC<PropsType> = ({savePhoto, isOwner, profile, status, updateStatus, saveProfile}) => {
 
     return (
         <div>
 
-            <ProfileInfo savePhoto={props.savePhoto} isOwner={props.isOwner} profile={props.profile}
-                         status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileInfo savePhoto={savePhoto} isOwner={isOwner} profile={profile}
+                         status={status} updateStatus={updateStatus}
+                         saveProfile={saveProfile}
+
+            />
             <MyPostsContainer/>
         </div>
     );
 
-}
+};
 
 
 export default ProfileContent;
