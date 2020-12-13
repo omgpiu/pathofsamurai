@@ -1,38 +1,25 @@
-import React, {RefObject} from 'react';
+import React from 'react';
 import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import {PostType} from '../../../Types/Types';
+import {Field, reduxForm} from 'redux-form';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
-    newPostText: string
-    updateNewPostText: (text: string) => void
-    addPost: () => void
+    addPost: (post: any) => void
 }
 
 
 const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
-    const {addPost, updateNewPostText, newPostText} = props;
+    const {addPost} = props;
 
     const postsData = [...props.postData]
         .reverse()
         .map(post => <Post key={post.id} message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
-
-    type  newPostType = RefObject<any>;
-    const newPostElement: newPostType = React.createRef<HTMLTextAreaElement>();
-
-    const onAddPost = () => {
-        addPost();
-
-    };
-
-
-    const onPostChange = () => {
-        let text = newPostElement.current.value;
-        updateNewPostText(text);
-
+    const onAddPost = (values: any) => {
+        addPost(values.newPostText);
 
     };
 
@@ -40,14 +27,21 @@ const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
     return (
 
         <div className={st.item}> Posts
-            <div>New posts</div>
-            <textarea className={st.text}
-                      onChange={onPostChange}
-                      ref={newPostElement}
-                      value={newPostText}/>
+            <AddNewPostFormRedux onSubmit={onAddPost}/>
+            {postsData}
+        </div>
+    );
+});
 
+const AddPostForm: React.FC<any> = ({newPostElement, handleSubmit, ...props}) => {
+    return (
+        <form onSubmit={handleSubmit}>
 
-            <div onClick={onAddPost} className={st.body}>
+            <Field
+                placeholder={'Enter your message'}
+                component={'textarea'} name={'newPostText'}
+            />
+            <div onClick={handleSubmit} className={st.body}>
                 <div className={st.button}>
                     <span className={`${st.button_line} ${st.button_line_top}`}></span>
                     <span className={`${st.button_line} ${st.button_line_right}`}></span>
@@ -57,12 +51,10 @@ const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
                     Add Me
                 </div>
             </div>
-            <div>
-                {postsData}
-            </div>
-        </div>
+        </form>
     );
-});
+};
 
+const AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddPostForm);
 
 export default MyPosts;

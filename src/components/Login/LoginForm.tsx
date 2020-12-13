@@ -69,7 +69,6 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
     if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }
-    debugger
     return <form onSubmit={formik.handleSubmit}>
 
         <Grid container justify="center">

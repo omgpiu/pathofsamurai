@@ -32,9 +32,7 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         let userId: number | null = +this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authorizedUserId;
-            // if(!userId){
-            //     this.props.history.push('/login')}
-            // TODO Support profile page unreachable when user is logged out
+
         }
 
         this.props.getUserProfileTC(userId);

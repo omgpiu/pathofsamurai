@@ -15,11 +15,8 @@ const mapStateToProps = (state: AppRootStateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<dialogsActionsType>) => {
     return {
-        sendMessage: () => {
-            dispatch(dialogsActions.sendMessageCreator());
-        },
-        updateNewMessage: (message: string) => {
-            dispatch(dialogsActions.updateNewMessageCreator(message));
+        sendMessage: (newMessageBody: string) => {
+            dispatch(dialogsActions.sendMessageCreator(newMessageBody));
         },
     };
 

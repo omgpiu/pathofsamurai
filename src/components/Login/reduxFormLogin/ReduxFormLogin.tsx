@@ -20,7 +20,7 @@ export const ReduxLoginForm: React.FC<InjectedFormProps<any, any> & any> = ({han
         </form>
     );
 };
-export const LoginReduxForm = reduxForm<any, any>({'form': 'login'})(ReduxLoginForm);
+export const LoginReduxForm = reduxForm<any, any>({form: 'login'})(ReduxLoginForm);
 
 
 

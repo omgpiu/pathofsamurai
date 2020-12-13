@@ -19,7 +19,7 @@ let initialState = {
         {id: v1(), name: 'Masha'},
         {id: v1(), name: 'Egor'}
     ],
-    newMessageText: ''
+    newMessageBody: ''
 };
 type  InitialStateType = typeof initialState
 export const dialogsReducer = (state: InitialStateType = initialState, action: dialogsActionsType): InitialStateType => {
@@ -27,14 +27,14 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: d
         case UPDATE_NEW_MESSAGE_TEXT:
             return {
                 ...state,
-                newMessageText: action.dialogMessage
+                newMessageBody: action.dialogMessage
             };
         case SEND_NEW_MESSAGE_TEXT:
-            let dialogMessage = state.newMessageText;
+
             return {
                 ...state,
-                newMessageText: '',
-                messageData: [...state.messageData, {id: v1(), message: dialogMessage}]
+                newMessageBody: '',
+                messageData: [...state.messageData, {id: v1(), message: action.newMessageBody}]
             };
         default:
             return state;
@@ -42,7 +42,7 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: d
 };
 
 export const dialogsActions = {
-    sendMessageCreator: () => ({type: SEND_NEW_MESSAGE_TEXT} as const),
+    sendMessageCreator: (newMessageBody:any) => ({type: SEND_NEW_MESSAGE_TEXT,newMessageBody} as const),
     updateNewMessageCreator: (text: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text} as const)
 
 };

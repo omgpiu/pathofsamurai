@@ -5,7 +5,6 @@ import {profileAPI} from '../API/profile-api';
 
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const DELETE_POST = 'DELETE_POST';
@@ -33,7 +32,7 @@ const profileReducer = (state: InitialStateType = initialState, action: profileA
             case ADD_POST:
                 const newPost: PostType = {
                     id: v1(),
-                    message: state.newPostText,
+                    message: action.post,
                     likesCount: 0
                 };
                 return {
@@ -41,12 +40,7 @@ const profileReducer = (state: InitialStateType = initialState, action: profileA
                     postData: [...state.postData, newPost],
                     newPostText: ''
                 };
-            case
-            UPDATE_NEW_POST_TEXT:
-                return {
-                    ...state,
-                    newPostText: action.text
-                };
+
             case  SET_USER_PROFILE:
                 return {
                     ...state,
@@ -105,10 +99,9 @@ export const profileActions = {
         type: SAVE_PHOTO_SUCCESS
         , photos
     } as const),
-    addPostActionCreator: () => ({type: ADD_POST} as const),
+    addPostActionCreator: (post: any) => ({type: ADD_POST, post} as const),
     setUserProfile: (profile: NewProfileType) => ({type: SET_USER_PROFILE, profile} as const),
-    updateNewPostTextActionCreator: (text: string) =>
-        ({type: UPDATE_NEW_POST_TEXT, text} as const),
+
     setUserStatus: (status: string) => ({
         type: SET_USER_STATUS,
         status

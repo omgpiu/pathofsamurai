@@ -12,11 +12,9 @@ let mapStateToProps = (state: AppRootStateType) => {
 };
 let mapDispatchToProps = (dispatch: (action: profileActionsType) => void) => {
     return {
-        updateNewPostText: (text: string) => {
-            dispatch(profileActions.updateNewPostTextActionCreator(text));
-        },
-        addPost: () => {
-            dispatch(profileActions.addPostActionCreator());
+
+        addPost: (post:any) => {
+            dispatch(profileActions.addPostActionCreator(post));
 
         },
     };
