@@ -24,17 +24,17 @@ let initialState = {
 type  InitialStateType = typeof initialState
 export const dialogsReducer = (state: InitialStateType = initialState, action: dialogsActionsType): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMessageBody: action.dialogMessage
-            };
+        // case UPDATE_NEW_MESSAGE_TEXT:
+        //     return {
+        //         ...state,
+        //         newMessageBody: action.dialogMessage
+        //     };
         case SEND_NEW_MESSAGE_TEXT:
 
             return {
                 ...state,
                 newMessageBody: '',
-                messageData: [...state.messageData, {id: v1(), message: action.newMessageBody}]
+                messageData: [...state.messageData, {id: v1(), message: action.newMessageBody}],
             };
         default:
             return state;
@@ -42,8 +42,8 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: d
 };
 
 export const dialogsActions = {
-    sendMessageCreator: (newMessageBody:any) => ({type: SEND_NEW_MESSAGE_TEXT,newMessageBody} as const),
-    updateNewMessageCreator: (text: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, dialogMessage: text} as const)
+    sendMessageCreator: (newMessageBody: any) => ({type: SEND_NEW_MESSAGE_TEXT, newMessageBody} as const),
+
 
 };
 export type dialogsActionsType = InferActionsTypes<typeof dialogsActions>

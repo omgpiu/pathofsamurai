@@ -4,6 +4,8 @@ import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import {PostType} from '../../../Types/Types';
 import {Field, reduxForm} from 'redux-form';
+import {maxLengthCreator, required} from '../../../utils/validators/validators';
+import {Textarea} from '../../common/FormControls/FormControls';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
@@ -33,13 +35,16 @@ const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
     );
 });
 
+const maxLength10 = maxLengthCreator(10);
+
+
 const AddPostForm: React.FC<any> = ({newPostElement, handleSubmit, ...props}) => {
     return (
         <form onSubmit={handleSubmit}>
-
             <Field
                 placeholder={'Enter your message'}
-                component={'textarea'} name={'newPostText'}
+                component={Textarea} name={'newPostText'} validate={[required, maxLength10]}
+
             />
             <div onClick={handleSubmit} className={st.body}>
                 <div className={st.button}>
@@ -47,7 +52,6 @@ const AddPostForm: React.FC<any> = ({newPostElement, handleSubmit, ...props}) =>
                     <span className={`${st.button_line} ${st.button_line_right}`}></span>
                     <span className={`${st.button_line} ${st.button_line_bottom}`}></span>
                     <span className={`${st.button_line} ${st.button_line_left}`}></span>
-
                     Add Me
                 </div>
             </div>

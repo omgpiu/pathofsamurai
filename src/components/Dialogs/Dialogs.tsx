@@ -5,6 +5,8 @@ import DialogItem from './DialogItem/DialogItem';
 import {Button} from '@material-ui/core';
 import {DialogItemType, DialogsPageType, MessageType} from '../../Types/Types';
 import {Field, reduxForm} from 'redux-form';
+import {Textarea} from '../common/FormControls/FormControls';
+import {maxLengthCreator, required} from '../../utils/validators/validators';
 
 export type DialogsPropType = {
     sendMessage: (message: string) => void
@@ -42,14 +44,16 @@ const Dialogs: React.FC<DialogsPropType> = (props) => {
     );
 };
 
-
+const maxLength10 = maxLengthCreator(10);
 const AddMessageForm: React.FC<any> = ({onNewMessageChange, newMessageBody, handleSubmit, ...props}) => {
     return (
         <form>
 
             <Field
                 placeholder={'Enter your message'}
-                component={'textarea'} name={'newMessageBody'}
+                component={Textarea} name={'newMessageBody'}
+                validate={[required, maxLength10]}
+
             />
             <div><Button
                 variant="contained"
