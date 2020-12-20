@@ -1,16 +1,6 @@
-import {BaseThunkType, InferActionsTypes, userType} from '../Types/Types';
+import {BaseThunkType, InferActionsTypes, ResultCodesEnum, userType} from '../Types/Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
-
-
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_PAGE = 'SET_PAGE';
-const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
-
 
 const initialState = {
     users: [] as Array<userType>,
@@ -33,7 +23,6 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                     }
                     return user;
                 }),
-
             };
         case 'USERS/UNFOLLOW':
             return {
@@ -63,7 +52,6 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
             return state;
     }
 };
-
 export const usersAction = {
     followUser: (userId: number) => ({type: 'USERS/FOLLOW', userId} as const),
     unfollowUser: (userId: number) => ({type: 'USERS/UNFOLLOW', userId} as const),
@@ -81,7 +69,6 @@ export const usersAction = {
     } as const)
 };
 export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
-
     try {
         dispatch(usersAction.toggleIsFetching(true));
         await dispatch(usersAction.setPage(currentPage));
@@ -98,7 +85,7 @@ const _followUnfollowFlow = async (dispatch: Dispatch<ActionType>, userId: numbe
     try {
         await dispatch(usersAction.toggleFollowingProgress(true, userId));
         const data = await apiMethod(userId);
-        if (data.data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(actionCreator(userId));
         }
         dispatch(usersAction.toggleFollowingProgress(false, userId));

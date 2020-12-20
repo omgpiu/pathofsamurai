@@ -1,5 +1,5 @@
-import {BaseThunkType, InferActionsTypes, LoginParamsType} from '../Types/Types';
-import {AuthAPI, ResultCodeForCaptcha, ResultCodesEnum} from '../API/auth-api';
+import {BaseThunkType, InferActionsTypes, LoginParamsType, ResultCodeForCaptcha, ResultCodesEnum} from '../Types/Types';
+import {AuthAPI} from '../API/auth-api';
 import {securityAPI} from '../API/security-api';
 
 
@@ -74,7 +74,7 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) =>
     }
 
 };
-export const getCaptchaUrl = ():ThunkType  => async (dispatch) => {
+export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     try {
         const captchaData = await securityAPI.getCaptchaUrl();
         const captchaUrl = captchaData.data.url;
@@ -99,7 +99,7 @@ export const logoutTC = (): ThunkType => async (dispatch) => {
 
 type  InitialStateType = typeof initialState
 type ActionsType = InferActionsTypes<typeof authActions>
-type ThunkType  = BaseThunkType<ActionsType>
+type ThunkType = BaseThunkType<ActionsType>
 
 
 export default authReducer;

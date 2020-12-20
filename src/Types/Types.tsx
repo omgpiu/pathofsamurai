@@ -66,16 +66,27 @@ export type isAuthType = {
 }
 
 //API types
-export type ResponseType<D = {}> = {
-    resultCode: number
-    messages: Array<string>
-    data: D
-}
+
 export type LoginParamsType = {
     email?: string | undefined
     password?: string | undefined
     rememberMe?: boolean | undefined
     captcha?: null | string
+}
+export type APIResponseType<D = {}, RC = ResultCodesEnum> = {
+    data: D
+    messages: Array<string>
+    resultCode: RC
+}
+
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1,
+
+}
+
+export enum ResultCodeForCaptcha {
+    CaptchaRequired = 10
 }
 
 
