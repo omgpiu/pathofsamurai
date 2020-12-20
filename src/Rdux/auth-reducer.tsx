@@ -12,9 +12,8 @@ const initialState = {
     isCorrect: true
 
 };
-type  InitialStateType = typeof initialState
-const authReducer = (state: InitialStateType = initialState, action: authActionsType): InitialStateType => {
 
+const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'AUTH/SET_USER_DATA':
             return {
@@ -30,7 +29,6 @@ const authReducer = (state: InitialStateType = initialState, action: authActions
                 ...state,
                 ...action.payload
             };
-
         default:
             return state;
     }
@@ -46,46 +44,62 @@ export const authActions = {
     getCaptchaUrlSuccess: (captchaUrl: string) => (
         {type: 'AUTH/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}} as const)
 };
-
-
-export const getAuthUserDataTC = (): BaseThunkType => async (dispatch) => {
-
-    const meData = await AuthAPI.me();
-    if (meData.resultCode === ResultCodesEnum.Success) {
-        let {id, email, login} = meData.data;
-        dispatch(authActions.setAuthUserData(id, email, login, true));
-    }
-
-};
-export const loginTC = (data: LoginParamsType): BaseThunkType => async (dispatch) => {
-    const response = await AuthAPI.login(data);
-    if (response.data.resultCode === ResultCodesEnum.Success) {
-        dispatch(getAuthUserDataTC());
-        dispatch(authActions.confirmUserData(true));
-    } else {
-        if (response.data.resultCode === ResultCodeForCaptcha.CaptchaRequired) {
-            dispatch(getCaptchaUrl());
+export const getAuthUserDataTC = (): ThunkType => async (dispatch) => {
+    try {
+        const meData = await AuthAPI.me();
+        if (meData.resultCode === ResultCodesEnum.Success) {
+            let {id, email, login} = meData.data;
+            dispatch(authActions.setAuthUserData(id, email, login, true));
         }
-        // dispatch(formikHelpers.setFieldError())
-        dispatch(authActions.confirmUserData(false));
+    } catch (e) {
+        console.log('Some error with getAuthUserDataTC');
+    }
+
+};
+export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) => {
+    try {
+        const loginData = await AuthAPI.login(data);
+        if (loginData.resultCode === ResultCodesEnum.Success) {
+            dispatch(getAuthUserDataTC());
+            dispatch(authActions.confirmUserData(true));
+        } else {
+            if (loginData.resultCode === ResultCodeForCaptcha.CaptchaRequired) {
+                dispatch(getCaptchaUrl());
+            }
+            // dispatch(formikHelpers.setFieldError())
+            dispatch(authActions.confirmUserData(false));
+        }
+    } catch (e) {
+        console.log('Some error with loginTC');
+    }
+
+};
+export const getCaptchaUrl = ():ThunkType  => async (dispatch) => {
+    try {
+        const captchaData = await securityAPI.getCaptchaUrl();
+        const captchaUrl = captchaData.data.url;
+        dispatch(authActions.getCaptchaUrlSuccess(captchaUrl));
+    } catch (e) {
+        console.log('Some error with getCaptchaUrl');
     }
 
 
 };
-export const getCaptchaUrl = (): BaseThunkType => async (dispatch) => {
-    const response = await securityAPI.getCaptchaUrl();
-    const captchaUrl = response.data.url;
-    dispatch(authActions.getCaptchaUrlSuccess(captchaUrl));
-};
-export const logoutTC = (): BaseThunkType => async (dispatch) => {
-    const response = await AuthAPI.logout();
-    if (response.data.resultCode === 0) {
-        dispatch(authActions.setAuthUserData(null, null, null, false));
+export const logoutTC = (): ThunkType => async (dispatch) => {
+    try {
+        const logoutData = await AuthAPI.logout();
+        if (logoutData.resultCode === 0) {
+            dispatch(authActions.setAuthUserData(null, null, null, false));
+        }
+    } catch (e) {
+        console.log('Some error with logoutTC');
     }
+
 };
 
-
-export type authActionsType = InferActionsTypes<typeof authActions>
+type  InitialStateType = typeof initialState
+type ActionsType = InferActionsTypes<typeof authActions>
+type ThunkType  = BaseThunkType<ActionsType>
 
 
 export default authReducer;

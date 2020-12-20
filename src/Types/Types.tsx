@@ -1,13 +1,3 @@
-import {
-    followACType,
-    isFetchingTypeAC,
-    isFollowingProgressAC,
-    setPageACType,
-    setTotalUsersCountACType,
-    setUsersACType,
-    unfollowACType,
-} from '../Rdux/users-reducer';
-import {confirmUserDataType, getCaptchaUrlSuccess, setAuthUserDataType} from '../Rdux/auth-reducer';
 import {ThunkAction} from 'redux-thunk';
 import {AppRootStateType} from '../Rdux/redux-store';
 import {Action} from 'redux';
@@ -87,21 +77,6 @@ export type LoginParamsType = {
     rememberMe?: boolean | undefined
     captcha?: null | string
 }
-
-
-export type ThunkType = ThunkAction<void, AppRootStateType, unknown, ActionType>
-
-export type ActionType =
-    | followACType
-    | unfollowACType
-    | setUsersACType
-    | setPageACType
-    | setTotalUsersCountACType
-    | isFetchingTypeAC
-    | setAuthUserDataType
-    | isFollowingProgressAC
-    | confirmUserDataType
-    | getCaptchaUrlSuccess
 
 
 export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never

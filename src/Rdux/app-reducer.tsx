@@ -5,16 +5,14 @@ import {getAuthUserDataTC} from './auth-reducer';
 const initialState = {
     isInitialized: false
 };
-type  InitialStateType = typeof initialState
-const appReducer = (state: InitialStateType = initialState, action: appActionsType): InitialStateType => {
 
+const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'APP/SET_IS_INITIALIZED':
             return {
                 ...state,
                 isInitialized: true,
             };
-
         default:
             return state;
     }
@@ -24,19 +22,18 @@ export const appActions = {
     setInitialized: () => ({type: 'APP/SET_IS_INITIALIZED'} as const)
 };
 
-
-// export const setInitialized = () => ({type: SET_IS_INITIALIZED} as const);
-
-
-export const setInitializedTC = (): BaseThunkType => (dispatch) => {
-    let promise = dispatch(getAuthUserDataTC());
-    Promise.all([promise]).then(() => {
+export const setInitializedTC = (): ThunkType => async (dispatch) => {
+    try {
+        await dispatch(getAuthUserDataTC());
         dispatch(appActions.setInitialized());
+    } catch (e) {
+        console.log(e);
+        console.log('Some error with setInitializedTC');
+    }
 
-    });
 };
-// export type setInitializedType = ReturnType<typeof setInitialized>
-export type appActionsType = InferActionsTypes<typeof appActions>
-
+type ActionsType = InferActionsTypes<typeof appActions>
+type  InitialStateType = typeof initialState
+type ThunkType = BaseThunkType<ActionsType>
 
 export default appReducer;

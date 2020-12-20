@@ -7,10 +7,10 @@ export const AuthAPI = {
         return instance.get<APIResponseType<MeResponseDataType>>(`auth/me`).then(res => res.data);
     },
     login(data: LoginParamsType) {
-        return instance.post<APIResponseType<LoginResponseDataType, ResultCodesEnum | ResultCodeForCaptcha>>('auth/login', data);
+        return instance.post<APIResponseType<LoginResponseDataType, ResultCodesEnum | ResultCodeForCaptcha>>('auth/login', data).then(res => res.data);
     },
     logout() {
-        return instance.delete<APIResponseType<{ userId: number }>>('auth/login');
+        return instance.delete<APIResponseType<{ userId: number }>>('auth/login').then(res => res.data);
     }
 };
 

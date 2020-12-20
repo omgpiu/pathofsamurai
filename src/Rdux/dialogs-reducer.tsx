@@ -1,9 +1,6 @@
 import {v1} from 'uuid';
 import {InferActionsTypes} from '../Types/Types';
 
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
-const SEND_NEW_MESSAGE_TEXT = 'SEND-NEW-MESSAGE-TEXT';
-
 
 let initialState = {
     messageData: [
@@ -21,16 +18,10 @@ let initialState = {
     ],
     newMessageBody: ''
 };
-type  InitialStateType = typeof initialState
-export const dialogsReducer = (state: InitialStateType = initialState, action: dialogsActionsType): InitialStateType => {
-    switch (action.type) {
-        // case UPDATE_NEW_MESSAGE_TEXT:
-        //     return {
-        //         ...state,
-        //         newMessageBody: action.dialogMessage
-        //     };
-        case SEND_NEW_MESSAGE_TEXT:
 
+export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+    switch (action.type) {
+        case 'DIALOGS/SEND-NEW-MESSAGE-TEXT':
             return {
                 ...state,
                 newMessageBody: '',
@@ -40,13 +31,14 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: d
             return state;
     }
 };
-
 export const dialogsActions = {
-    sendMessageCreator: (newMessageBody: any) => ({type: SEND_NEW_MESSAGE_TEXT, newMessageBody} as const),
-
-
+    sendMessageCreator: (newMessageBody: string) => ({type: 'DIALOGS/SEND-NEW-MESSAGE-TEXT', newMessageBody} as const),
 };
-export type dialogsActionsType = InferActionsTypes<typeof dialogsActions>
+
+
+
+type  InitialStateType = typeof initialState
+export type ActionsType = InferActionsTypes<typeof dialogsActions>
 
 
 export default dialogsReducer;
