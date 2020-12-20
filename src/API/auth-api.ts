@@ -1,5 +1,12 @@
-import {APIResponseType, LoginParamsType, ResultCodeForCaptcha, ResultCodesEnum} from '../Types/Types';
 import {instance} from './instance-api';
+import {
+    APIResponseType,
+    LoginParamsType,
+    LoginResponseDataType,
+    MeResponseDataType,
+    ResultCodeForCaptcha,
+    ResultCodesEnum
+} from './api-types';
 
 
 export const AuthAPI = {
@@ -15,11 +22,3 @@ export const AuthAPI = {
 };
 
 
-type MeResponseDataType = {
-    id: number
-    email: string
-    login: string
-}
-type LoginResponseDataType = {
-    userId: number
-}

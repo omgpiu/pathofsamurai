@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     Button,
     Checkbox,
@@ -14,7 +14,7 @@ import {loginTC} from '../../Rdux/auth-reducer';
 import {connect} from 'react-redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {Redirect} from 'react-router-dom';
-import {LoginParamsType} from '../../Types/Types';
+import {LoginParamsType} from '../../API/api-types';
 
 // TODO сделать проверку правильности пароля
 
@@ -64,7 +64,7 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
     // useEffect(() => {
     //     !isCorrect && formik.setErrors({confirm: 'Incorrect email or password'});
     // }, [isCorrect]);
-debugger
+    debugger
     if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }

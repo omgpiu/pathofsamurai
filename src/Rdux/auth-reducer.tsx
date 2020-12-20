@@ -1,6 +1,7 @@
-import {BaseThunkType, InferActionsTypes, LoginParamsType, ResultCodeForCaptcha, ResultCodesEnum} from '../Types/Types';
+import {BaseThunkType, InferActionsTypes} from '../Types/Types';
 import {AuthAPI} from '../API/auth-api';
 import {securityAPI} from '../API/security-api';
+import {LoginParamsType, ResultCodeForCaptcha, ResultCodesEnum} from '../API/api-types';
 
 
 const initialState = {

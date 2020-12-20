@@ -1,7 +1,8 @@
 import {v1} from 'uuid';
-import {BaseThunkType, InferActionsTypes, NewProfileType, PhotosType, PostType, ResultCodesEnum} from '../Types/Types';
+import {BaseThunkType, InferActionsTypes, NewProfileType, PhotosType, PostType} from '../Types/Types';
 import {profileAPI} from '../API/profile-api';
 import {FormAction, stopSubmit} from 'redux-form';
+import {ResultCodesEnum} from '../API/api-types';
 
 
 let initialState = {

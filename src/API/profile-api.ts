@@ -1,5 +1,6 @@
-import {APIResponseType, NewProfileType, PhotosType} from '../Types/Types';
+import { NewProfileType, PhotosType} from '../Types/Types';
 import {instance} from './instance-api';
+import {APIResponseType} from './api-types';
 
 
 export const profileAPI = {

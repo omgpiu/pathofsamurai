@@ -1,5 +1,6 @@
 import {instance} from './instance-api';
-import {APIResponseType, userType} from '../Types/Types';
+import {userType} from '../Types/Types';
+import {APIResponseType} from './api-types';
 
 
 export const usersAPI = {

@@ -1,35 +1,46 @@
 import React from 'react';
 import st from './FormControls.module.css';
-import {Field} from 'redux-form';
+import {Field, WrappedFieldMetaProps, WrappedFieldProps} from 'redux-form';
+import {FieldValidatorType} from '../../../utils/validators/validators';
 
-const FormControl: React.FC<any> = ({input, meta, child, element, ...props}) => {
-    const hasError = meta.touched && meta.error;
+type FormControlParamsType = {
+    meta: WrappedFieldMetaProps
+
+}
+
+
+const FormControl: React.FC<FormControlParamsType> = ({meta: {touched, error}, children}) => {
+    const hasError = touched && error;
     // <div className={`${st.formControl} ${st.error}`}>
     return <div className={st.formControl + ' ' + (hasError ? st.error : '')}>
         <div>
-            {props.children}
+            {children}
         </div>
-        {hasError && <span>{meta.error}</span>}
+        {hasError && <span>{error}</span>}
 
     </div>;
 };
 
-export const Textarea: React.FC<any> = (props) => {
-    const {input, meta, child, ...restProps} = props;
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
+    const {input, meta, children, ...restProps} = props;
     return <FormControl {...props}>
         <textarea {...input} {...restProps}/>
     </FormControl>;
 };
 
 
-export const MyInput: React.FC<any> = (props) => {
-    const {input, meta, child, ...restProps} = props;
+export const MyInput: React.FC<WrappedFieldProps> = (props) => {
+    const {input, meta, children, ...restProps} = props;
     return <FormControl {...props}>
         <input {...input} {...restProps}/>
     </FormControl>;
 };
 
-export const createField = (placeholder: string, name: string, validators: any, component: any, props = {}, text = '') => (
+export const createField = (placeholder: string | undefined,
+                            name: string,
+                            validators: Array<FieldValidatorType>,
+                            component: React.FC<WrappedFieldProps>,
+                            props = {}, text = '') => (
     <div>
         <Field placeholder={placeholder} name={name} validate={validators} component={component} {...props}
 

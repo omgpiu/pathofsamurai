@@ -1,6 +1,7 @@
-import {BaseThunkType, InferActionsTypes, ResultCodesEnum, userType} from '../Types/Types';
+import {BaseThunkType, InferActionsTypes, userType} from '../Types/Types';
 import {Dispatch} from 'react';
 import {usersAPI} from '../API/users-api';
+import {ResultCodesEnum} from '../API/api-types';
 
 const initialState = {
     users: [] as Array<userType>,
