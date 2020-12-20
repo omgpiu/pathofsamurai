@@ -9,7 +9,6 @@ type ProfileDataFormType = {
     profile: NewProfileType
 
 }
-debugger
 const ProfileDataForm: React.FC<InjectedFormProps<NewProfileType, ProfileDataFormType> & ProfileDataFormType> = ({
                                                                                                                      profile,
                                                                                                                      handleSubmit,

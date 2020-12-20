@@ -76,6 +76,7 @@ export const getUserProfileTC = (userId: number | null): BaseThunkType => async 
 };
 export const getUserStatusTC = (userId: number | null): BaseThunkType => async (dispatch) => {
     const res = await profileAPI.getStatus(userId);
+
     dispatch(profileActions.setUserStatus(res.data));
 
 };
@@ -92,7 +93,7 @@ export const savePhoto = (file: File): BaseThunkType => async (dispatch) => {
         dispatch(profileActions.savePhotoSucces(res.data.data.photos));
     }
 };
-export const saveProfile = (formData: any): BaseThunkType => async (dispatch, getState) => {
+export const saveProfile = (formData: NewProfileType): BaseThunkType => async (dispatch, getState) => {
 
     const userId = getState().auth.userId;
     const res = await profileAPI.saveProfile(formData);

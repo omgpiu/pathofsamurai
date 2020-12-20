@@ -27,10 +27,8 @@ type LoginFormType = {
 
 
 const LoginForm: React.FC<LoginFormType> = (props) => {
-    debugger
     const {isAuth, isCorrect, loginTC, captchaUrl} = props;
 
-    console.log(isCorrect + 'in formik');
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -63,17 +61,15 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
 
         },
     });
-    useEffect(() => {
-        !isCorrect && formik.setErrors({confirm: 'Incorrect email or password'});
-    }, [isCorrect]);
-
+    // useEffect(() => {
+    //     !isCorrect && formik.setErrors({confirm: 'Incorrect email or password'});
+    // }, [isCorrect]);
+debugger
     if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }
     //TODO доделать отправку капчи
     return <form onSubmit={formik.handleSubmit}>
-        {captchaUrl && <img src={captchaUrl}/>}
-        {/*{captchaUrl && {createField('Symbols','')}/>}*/}
 
 
         <Grid container justify="center">

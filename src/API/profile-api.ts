@@ -1,15 +1,11 @@
-import axios from 'axios';
-import {instance} from './auth-api';
-
-
+import {NewProfileType} from '../Types/Types';
+import {instance} from './instance-api';
 
 
 export const profileAPI = {
 
     getProfile(userId: number | null) {
-
-        return instance.get(`profile/` + userId);
-
+        return instance.get<NewProfileType>(`profile/` + userId);
     },
     getStatus(userId: number | null) {
 
@@ -19,7 +15,7 @@ export const profileAPI = {
 
         return instance.put(`profile/status`, {status: status});
     },
-    savePhoto(photoFile: any) {
+    savePhoto(photoFile: File) {
         const formData = new FormData();
         formData.append('image', photoFile);
         return instance.put(`profile/photo`, formData, {
@@ -28,8 +24,7 @@ export const profileAPI = {
             }
         });
     },
-    saveProfile(formData: any) {
-        debugger
+    saveProfile(formData: NewProfileType) {
         return instance.put(`profile`, formData);
     }
 

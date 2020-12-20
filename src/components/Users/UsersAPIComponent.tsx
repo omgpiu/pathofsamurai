@@ -6,11 +6,9 @@ import {userType} from '../../Types/Types';
 
 export type PropsType = {
     users: Array<userType>
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    setPage: (currentPage: number) => void
     isFetching: boolean
     getUsersTC: (currentPage: number, pageSize: number) => void
     followingInProgress: Array<number>

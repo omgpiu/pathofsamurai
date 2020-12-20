@@ -12,11 +12,7 @@ import {ThunkAction} from 'redux-thunk';
 import {AppRootStateType} from '../Rdux/redux-store';
 import {Action} from 'redux';
 
-export type PostDataArray = {
-    id: string
-    message: string
-    like: number
-}
+
 export type ContactsType = {
     facebook: string
     website: string
@@ -89,7 +85,7 @@ export type LoginParamsType = {
     email?: string | undefined
     password?: string | undefined
     rememberMe?: boolean | undefined
-    captcha?: string
+    captcha?: null | string
 }
 
 
@@ -108,18 +104,6 @@ export type ActionType =
     | getCaptchaUrlSuccess
 
 
-export type PropsUsersType = {
-
-    user: userType
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
-    followingInProgress: Array<number>
-    followTC: (userId: number) => void
-    unfollowTC: (userId: number) => void
-}
 export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 export type BaseThunkType<A extends Action = Action, R = any> = ThunkAction<R, AppRootStateType, unknown, A>
 

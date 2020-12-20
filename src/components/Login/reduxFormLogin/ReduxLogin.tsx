@@ -3,7 +3,6 @@ import {LoginReduxForm} from './ReduxFormLogin';
 
 export const ReduxLogin = (props: any) => {
     const onSubmit = (formData: any) => {
-        console.log(formData);
     };
     return (
         <div>

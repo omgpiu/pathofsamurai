@@ -1,7 +1,7 @@
 import UsersAPIComponent from './UsersAPIComponent';
 import {userType} from '../../Types/Types';
 import {connect} from 'react-redux';
-import {followTC, getUsersTC, setPage, toggleFollowingProgress, unfollowTC} from '../../Rdux/users-reducer';
+import {followTC, getUsersTC, unfollowTC} from '../../Rdux/users-reducer';
 import {compose} from 'redux';
 import React from 'react';
 import {AppRootStateType} from '../../Rdux/redux-store';
@@ -25,14 +25,9 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-
-    setPage: (currentPage: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
     followTC: (userId: number) => void
     unfollowTC: (userId: number) => void
-
-
 }
 
 let mapStateToProps = (state: AppRootStateType) => {
@@ -43,18 +38,12 @@ let mapStateToProps = (state: AppRootStateType) => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state)
-
     };
 };
 
-//RootStateType поменял в двух местах
-
-
 export default compose<React.FunctionComponent>(
     connect<MapStatePropsType, MapDispatchPropsType, {}, AppRootStateType>(mapStateToProps, {
-        setPage,
         getUsersTC,
-        toggleFollowingProgress,
         followTC,
         unfollowTC
     })

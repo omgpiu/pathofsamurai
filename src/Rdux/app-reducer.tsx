@@ -2,17 +2,14 @@ import {BaseThunkType, InferActionsTypes} from '../Types/Types';
 import {getAuthUserDataTC} from './auth-reducer';
 
 
-const SET_IS_INITIALIZED = 'SET_IS_INITIALIZED';
-
-
-let initialState = {
+const initialState = {
     isInitialized: false
 };
 type  InitialStateType = typeof initialState
 const appReducer = (state: InitialStateType = initialState, action: appActionsType): InitialStateType => {
 
     switch (action.type) {
-        case SET_IS_INITIALIZED:
+        case 'APP/SET_IS_INITIALIZED':
             return {
                 ...state,
                 isInitialized: true,
@@ -24,7 +21,7 @@ const appReducer = (state: InitialStateType = initialState, action: appActionsTy
 };
 
 export const appActions = {
-    setInitialized: () => ({type: SET_IS_INITIALIZED} as const)
+    setInitialized: () => ({type: 'APP/SET_IS_INITIALIZED'} as const)
 };
 
 
@@ -32,7 +29,6 @@ export const appActions = {
 
 
 export const setInitializedTC = (): BaseThunkType => (dispatch) => {
-
     let promise = dispatch(getAuthUserDataTC());
     Promise.all([promise]).then(() => {
         dispatch(appActions.setInitialized());
