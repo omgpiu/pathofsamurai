@@ -50,7 +50,6 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         if (!userId) {
             userId = this.props.authorizedUserId;
             if (!userId) {
-                // todo: may be replace push with Redirect??
                 this.props.history.push('/login');
             }
         }
