@@ -29,6 +29,13 @@ export const ReduxLoginForm: React.FC<InjectedFormProps> = ({handleSubmit}) => {
         </form>
     );
 };
+export type LoginFormValuesType = {
+    captcha: string
+    rememberMe: boolean
+    password: string
+    email: string
+}
+export type LoginReduxFormTypeKeys = keyof LoginFormValuesType
 export const LoginReduxForm = reduxForm<InjectedFormProps, any>({form: 'login'})(ReduxLoginForm);
 
 

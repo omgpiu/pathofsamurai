@@ -18,10 +18,14 @@ import PreLoader from './components/Users/preLoader';
 import {withSuspense} from './HOC/withSuspense';
 
 const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+    setInitializedTC: () => void
+}
+const SuspendedDialogs = withSuspense(DialogContainer);
 
-
-class App extends React.Component<any, any> {
-    catchAllUnhandledError = (promiseRejectionEvent: any) => {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
+    catchAllUnhandledError = (e: PromiseRejectionEvent) => {
         alert('Some Error');
 
     };
@@ -50,7 +54,7 @@ class App extends React.Component<any, any> {
                     <Switch>
                         <Route exact path='/' render={() =>
                             <Redirect to={'/profile'}/>}/>
-                        <Route path='/dialogs' render={withSuspense(DialogContainer)}/>
+                        <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
                         <Route path='/profile/:userId?' render={() =>
                             <ProfileContentContainerAPI/>}/>
                         <Route path={'/users'} render={() => <UsersContainer/>}/>
@@ -78,11 +82,11 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => ({
 //     withRouter,
 //     connect(mapStateToProps, {setInitializedTC}))(App);
 
-const AppContainer = compose<React.ComponentClass>(
+const AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {setInitializedTC}))(App);
 
-const SamuraiJSApp = () => {
+const SamuraiJSApp: React.FC = () => {
     return <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
             <AppContainer/>

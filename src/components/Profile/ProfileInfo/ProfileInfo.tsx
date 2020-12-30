@@ -13,14 +13,13 @@ type PropsType = {
     isOwner: boolean
     savePhoto: (file: File) => void
     profile: NewProfileType | null
-    saveProfile: (formData: any) => any
+    saveProfile: (profile: NewProfileType) => Promise<any>
 }
 
 // type ProfileTypeKeys = GetStringKeys<PropsType>,
 
 
-const ProfileInfo: React.FC<PropsType> = (props) => {
-    const {isOwner, profile, savePhoto, status, updateStatus, saveProfile} = props;
+const ProfileInfo: React.FC<PropsType> = ({isOwner, profile, savePhoto, status, updateStatus, saveProfile}) => {
     const [editMode, setEditMode] = useState(false);
     const goToEditMode = () => {
         setEditMode(true);
@@ -35,8 +34,9 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
     };
 
 
-    const onSubmit = (formData: any) => {
-        saveProfile(formData).then(() => {
+    const onSubmit = (profile: NewProfileType) => {
+        //todo:remove then
+        saveProfile(profile).then(() => {
             setEditMode(false);
         });
 

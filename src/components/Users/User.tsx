@@ -14,9 +14,7 @@ type UserType = {
 
 }
 
-const User: React.FC<UserType> = (props) => {
-
-    const {user, followingInProgress, followTC, unfollowTC} = props;
+const User: React.FC<UserType> = ({user, followingInProgress, followTC, unfollowTC}) => {
 
 
     return (

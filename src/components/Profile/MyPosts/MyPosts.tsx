@@ -3,20 +3,19 @@ import '../../../App.module.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import {PostType} from '../../../Types/Types';
-import {Field, reduxForm} from 'redux-form';
+import {InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, required} from '../../../utils/validators/validators';
-import {Textarea} from '../../common/FormControls/FormControls';
+import {createField, GetStringKeys, MyInput} from '../../common/FormControls/FormControls';
 
 export type MyPostsTypeOne = {
     postData: Array<PostType>
-    addPost: (post: any) => void
+    addPost: (newPostText: string) => void
 }
 
 
-const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
-    const {addPost} = props;
+const MyPosts: React.FC<MyPostsTypeOne> = React.memo(({addPost, ...rest}) => {
 
-    const postsData = [...props.postData]
+    const postsData = [...rest.postData]
         .reverse()
         .map(post => <Post key={post.id} message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
@@ -35,17 +34,20 @@ const MyPosts: React.FC<MyPostsTypeOne> = React.memo((props) => {
     );
 });
 
-const maxLength10 = maxLengthCreator(30);
+const maxLength = maxLengthCreator(30);
+type AddPostFormValuesType = {
+    newPostText: string
+}
+type PropsType = {}
 
+const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType, PropsType> & PropsType> = ({
 
-const AddPostForm: React.FC<any> = ({newPostElement, handleSubmit, ...props}) => {
+                                                                                                    handleSubmit,
+                                                                                                    ...props
+                                                                                                }) => {
     return (
         <form onSubmit={handleSubmit}>
-            <Field
-                placeholder={'Enter your message'}
-                component={Textarea} name={'newPostText'} validate={[required, maxLength10]}
-
-            />
+            {createField<GetStringKeys<AddPostFormValuesType>>('Your post', 'newPostText', [required, maxLength], MyInput)}
             <div onClick={handleSubmit} className={st.body}>
                 <div className={st.button}>
                     <span className={`${st.button_line} ${st.button_line_top}`}></span>
@@ -59,6 +61,6 @@ const AddPostForm: React.FC<any> = ({newPostElement, handleSubmit, ...props}) =>
     );
 };
 
-const AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddPostForm);
+const AddNewPostFormRedux = reduxForm<AddPostFormValuesType, PropsType>({form: 'ProfileAddNewPostForm'})(AddPostForm);
 
 export default MyPosts;

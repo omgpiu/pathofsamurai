@@ -8,15 +8,14 @@ let initialState = {
         {id: v1(), message: 'My name'},
         {id: v1(), message: 'My name is'},
         {id: v1(), message: 'My name is Sasha'}
-    ],
+    ] as Array<messageDataType>,
     dialogsData: [
         {id: v1(), name: 'Artem'},
         {id: v1(), name: 'Vova'},
         {id: v1(), name: 'Dima'},
         {id: v1(), name: 'Masha'},
         {id: v1(), name: 'Egor'}
-    ],
-    newMessageBody: ''
+    ] as Array<dialogsDataType>
 };
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -24,7 +23,6 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
         case 'DIALOGS/SEND-NEW-MESSAGE-TEXT':
             return {
                 ...state,
-                newMessageBody: '',
                 messageData: [...state.messageData, {id: v1(), message: action.newMessageBody}],
             };
         default:
@@ -32,13 +30,19 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 };
 export const dialogsActions = {
-    sendMessageCreator: (newMessageBody: string) => ({type: 'DIALOGS/SEND-NEW-MESSAGE-TEXT', newMessageBody} as const),
+    sendMessage: (newMessageBody: string) => ({type: 'DIALOGS/SEND-NEW-MESSAGE-TEXT', newMessageBody} as const),
 };
 
 
-
-type  InitialStateType = typeof initialState
+export type  InitialStateType = typeof initialState
 export type ActionsType = InferActionsTypes<typeof dialogsActions>
-
+type messageDataType = {
+    id: string
+    message: string
+}
+type dialogsDataType = {
+    id: string
+    name: string
+}
 
 export default dialogsReducer;

@@ -7,10 +7,9 @@ const Contact: React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
         <b>{contactTitle}</b> : {contactValue}
     </div>);
 };
-const ProfileData: React.FC<ProfileDataType> = (props) => {
+const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, editMode}) => {
 
 
-    const {profile, isOwner, editMode} = props;
     return <div className={st.description}>
         {isOwner && <div>
             <button onClick={editMode}>edit</button>
