@@ -16,7 +16,6 @@ let initialState = {
         {id: v1(), message: 'Hello friend', likesCount: 14},
         {id: v1(), message: 'Hello ', likesCount: 10},
         {id: v1(), message: 'Hello ', likesCount: 10}],
-    newPostText: '',
     profile: null as NewProfileType | null,
     status: ''
 };
@@ -32,7 +31,6 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
             return {
                 ...state,
                 postData: [...state.postData, newPost],
-                newPostText: ''
             };
         case  'PROFILE/SET_USER_PROFILE':
             return {
@@ -121,7 +119,7 @@ export const profileActions = {
         type: 'PROFILE/SAVE_PHOTO_SUCCESS'
         , photos
     } as const),
-    addPostActionCreator: (post: any) => ({type: 'PROFILE/ADD_POST', post} as const),
+    addPostActionCreator: (post: string) => ({type: 'PROFILE/ADD_POST', post} as const),
     setUserProfile: (profile: NewProfileType) => ({type: 'PROFILE/SET_USER_PROFILE', profile} as const),
     setUserStatus: (status: string) => ({
         type: 'PROFILE/SET_USER_STATUS',

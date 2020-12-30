@@ -18,7 +18,7 @@ const Dialogs: React.FC<DialogsPropType> = ({dialogsPage, sendMessage}) => {
                                                                          key={d.id}/>);
 
     const messageElements = dialogsPage.messageData.map(m => <Message message={m.message}
-                                                                      id={m.id}
+
                                                                       key={m.id}/>);
 
     let onNewMessageChange = (values: NewMessageFormValuesType) => {

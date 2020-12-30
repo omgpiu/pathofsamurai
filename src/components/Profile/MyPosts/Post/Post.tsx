@@ -3,7 +3,7 @@ import '../../../../App.module.css';
 import st from './Post.module.css';
 
 
-export type PostTypeOne = {
+type PostType = {
     id: string
     message: string
     likesCount: number
@@ -11,8 +11,7 @@ export type PostTypeOne = {
 }
 
 
-const Post: React.FC<PostTypeOne> = (props) => {
-    const {id, message, likesCount} = props;
+const Post: React.FC<PostType> = ({id, message, likesCount}) => {
     return (
         <div className={`${st.wrapper} ${st.wrapper_i}`}>
 

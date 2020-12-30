@@ -4,8 +4,7 @@ import st from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 
 
-const Header: React.FC<HeaderType> = (props) => {
-    const {isAuth, login, logoutTC} = props;
+const Header: React.FC<HeaderPropsType & DispatchHeaderPropsType> = ({isAuth, login, logoutTC}) => {
 
 
     return (
@@ -23,8 +22,11 @@ const Header: React.FC<HeaderType> = (props) => {
 };
 
 export default Header;
-type HeaderType = {
+export type HeaderPropsType = {
     isAuth: boolean
-    logoutTC: () => void
+
     login: string | null
 }
+export type DispatchHeaderPropsType = {
+    logoutTC: () => void
+};

@@ -1,8 +1,8 @@
 import React from 'react';
-import st from './preLoader.module.css'
+import st from './preLoader.module.css';
 
 
-const PreLoader = ()=>{
+const PreLoader: React.FC = () => {
     return <div className={st.loader}>
         <div className={st.l_main}>
             <div className={st.l_square}><span></span><span></span><span></span></div>
@@ -11,9 +11,9 @@ const PreLoader = ()=>{
             <div className={st.l_square}><span></span><span></span><span></span></div>
 
         </div>
-    </div>
+    </div>;
 
-}
+};
 
 
-export default PreLoader
+export default PreLoader;

@@ -7,13 +7,14 @@ import {InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, required} from '../../../utils/validators/validators';
 import {createField, GetStringKeys, MyInput} from '../../common/FormControls/FormControls';
 
-export type MyPostsTypeOne = {
+export type MapPropsType = {
     postData: Array<PostType>
+}
+export type DispatchPropsType = {
     addPost: (newPostText: string) => void
 }
 
-
-const MyPosts: React.FC<MyPostsTypeOne> = React.memo(({addPost, ...rest}) => {
+const MyPosts: React.FC<MapPropsType & DispatchPropsType> = React.memo(({addPost, ...rest}) => {
 
     const postsData = [...rest.postData]
         .reverse()

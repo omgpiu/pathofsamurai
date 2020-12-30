@@ -8,7 +8,7 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContentContainerAPI from './components/Profile/ProfileContentContainerAPI';
-import HeaderContainerAPI from './components/Header/HeaderContainerAPI';
+import HeaderContainerAPI from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import {connect, Provider} from 'react-redux';
 import {setInitializedTC} from './Rdux/app-reducer';

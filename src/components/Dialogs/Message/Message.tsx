@@ -1,16 +1,14 @@
 import React from 'react';
-import st from './../Dialogs.module.css'
-import {MessageType} from '../../../Types/Types';
+import st from './../Dialogs.module.css';
 
-
-
-
-
-const Message: React.FC<MessageType> = (props) => {
-    return (
-        <div className={st.message}>{props.message}</div>
-    )
+type PropsType = {
+    message: string
 }
+const Message: React.FC<PropsType> = ({message}) => {
+    return (
+        <div className={st.message}>{message}</div>
+    );
+};
 
 
 export default Message;
