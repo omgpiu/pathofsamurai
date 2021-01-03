@@ -125,10 +125,7 @@ export const profileActions = {
         type: 'PROFILE/SET_USER_STATUS',
         status
     } as const),
-    setNewUserProfile: (newProfile: NewProfileType) => ({
-        type: 'PROFILE/SET_NEW_USER_PROFILE',
-        newProfile
-    } as const),
+
 };
 
 type  InitialStateType = typeof initialState

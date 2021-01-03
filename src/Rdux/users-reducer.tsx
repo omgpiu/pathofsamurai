@@ -111,7 +111,7 @@ export const unfollowTC = (userId: number): ThunkType => async (dispatch) => {
     }
 };
 
-type StateProfile = typeof initialState
+export type StateProfile = typeof initialState
 type ActionType = InferActionsTypes<typeof usersAction>
 type ThunkType = BaseThunkType<ActionType>
 
