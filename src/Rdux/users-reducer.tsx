@@ -1,7 +1,8 @@
 import {BaseThunkType, InferActionsTypes, userType} from '../Types/Types';
-import {Dispatch} from 'react';
+import {Dispatch} from 'redux';
 import {usersAPI} from '../API/users-api';
-import {ResultCodesEnum} from '../API/api-types';
+import {APIResponseType, ResultCodesEnum} from '../API/api-types';
+import {updateObjectInArray} from "../utils/object-helpers/object-helpers";
 
 const initialState = {
     users: [] as Array<userType>,
@@ -18,21 +19,12 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
     switch (action.type) {
         case 'USERS/FOLLOW':
             return {
-                ...state, users: state.users.map(user => {
-                    if (user.id === action.userId) {
-                        return {...user, followed: true};
-                    }
-                    return user;
-                }),
+                ...state,
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
             };
         case 'USERS/UNFOLLOW':
             return {
-                ...state, users: state.users.map(user => {
-                    if (user.id === action.userId) {
-                        return {...user, followed: false};
-                    }
-                    return user;
-                }),
+                ...state, users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
             };
         case 'USERS/SET_USERS':
             return {...state, users: action.users};
@@ -82,7 +74,10 @@ export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => 
     }
 };
 
-const _followUnfollowFlow = async (dispatch: Dispatch<ActionType>, userId: number, apiMethod: (userId: number) => Promise<any>, actionCreator: (userId: number) => ActionType) => {
+const _followUnfollowFlow = async (dispatch: Dispatch<ActionType>,
+                                   userId: number,
+                                   apiMethod: (userId: number) => Promise<APIResponseType>,
+                                   actionCreator: (userId: number) => ActionType) => {
     try {
         await dispatch(usersAction.toggleFollowingProgress(true, userId));
         const data = await apiMethod(userId);
@@ -93,7 +88,7 @@ const _followUnfollowFlow = async (dispatch: Dispatch<ActionType>, userId: numbe
     } catch (e) {
         console.log('Error with _followUnfollowFlow ');
     }
-};
+}
 export const followTC = (userId: number): ThunkType => async (dispatch) => {
     try {
         let apiMethod = await usersAPI.startFollowUsers.bind(usersAPI);
