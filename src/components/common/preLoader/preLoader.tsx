@@ -1,3 +1,4 @@
+import {Field, Form, Formik} from 'formik';
 import React from 'react';
 import st from './preLoader.module.css';
 
@@ -14,6 +15,8 @@ const PreLoader: React.FC = () => {
     </div>;
 
 };
+
+
 
 
 export default PreLoader;

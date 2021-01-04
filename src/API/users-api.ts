@@ -7,12 +7,13 @@ export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
         return instance.get<ResponseItemsType>(`users?page=${currentPage}&count=${pageSize}`);
     },
-    startUnfollowUsers(id: number) {
-        return instance.delete(`follow/${id}`) as Promise<APIResponseType>;
+    startFollowUsers(userId: number) {
+        return instance.post<APIResponseType>(`follow/${userId}`).then(res => res.data);
     },
-    startFollowUsers(id: number) {
-        return instance.post<APIResponseType>(`follow/${id}`, {}).then(res => res.data);
-    }
+    startUnfollowUsers(userId: number) {
+        return instance.delete(`follow/${userId}`).then(res => res.data) as Promise<APIResponseType>;
+    },
+
 
 };
 

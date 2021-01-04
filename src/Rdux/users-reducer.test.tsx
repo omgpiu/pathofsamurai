@@ -1,6 +1,4 @@
-import {userType} from "../Types/Types";
-import usersReducer, {StateProfile, usersAction} from "./users-reducer";
-
+import usersReducer, {followTC, StateProfile, usersAction} from "./users-reducer";
 
 let state: StateProfile;
 beforeEach(() => {
@@ -60,16 +58,12 @@ beforeEach(() => {
 })
 
 test('follow users success', () => {
-
     const newState = usersReducer(state, usersAction.followUser(2))
     expect(newState.users[1].followed).toBeTruthy()
     expect(newState.users[2].followed).toBeFalsy()
-
 })
 test('unfollow users success', () => {
-
     const newState = usersReducer(state, usersAction.unfollowUser(1))
     expect(newState.users[0].followed).toBeFalsy()
     expect(newState.users[1].followed).toBeFalsy()
-
 })

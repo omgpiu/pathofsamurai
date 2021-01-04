@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
 import st from './Paginator.module.css';
+import {Field, Form, Formik} from "formik";
+import {isSubmitting} from "redux-form";
 
 
 type PropsType = {
@@ -57,9 +59,41 @@ const Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage,
             {/*    }}*/}
             {/*                 className={props.currentPage === p ? st.selected : st.unselected}>{p}</span>;*/}
             {/*})}*/}
-
+            <UserSearchForm/>
         </div>);
 };
 
+type UsersSearchObjectType = {
+    term:string
+}
+const usersSearchFormValidate = (values: UsersSearchObjectType) => {
+    const errors = {};
+    return errors
+}
+const submit = async (values: UsersSearchObjectType) => {
+    await new Promise((r) => setTimeout(r, 1000));
+    console.log(JSON.stringify(values, null, 2));
+}
+
+const UserSearchForm = () => {
+    return <div>
+        <Formik
+            initialValues={{
+                term: '',
+            }}
+            validate={usersSearchFormValidate}
+            onSubmit={submit}
+        >
+            <Form>
+                <Field
+                    id="term"
+                    name="term"
+                    type="text"
+                />
+                <button type="submit">Submit</button>
+            </Form>
+        </Formik>
+    </div>
+}
 
 export default Paginator;

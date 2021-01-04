@@ -14,7 +14,7 @@ import {connect, Provider} from 'react-redux';
 import {setInitializedTC} from './Rdux/app-reducer';
 import {compose} from 'redux';
 import store, {AppRootStateType} from './Rdux/redux-store';
-import PreLoader from './components/Users/preLoader';
+import PreLoader from './components/common/preLoader/preLoader';
 import {withSuspense} from './HOC/withSuspense';
 
 const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));

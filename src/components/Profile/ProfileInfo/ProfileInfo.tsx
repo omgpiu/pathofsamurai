@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import PreLoader from '../../Users/preLoader';
+import PreLoader from '../../common/preLoader/preLoader';
 import {NewProfileType} from '../../../Types/Types';
 import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks';
 import commonLogo from '../../../photo/commonAvatar.png';

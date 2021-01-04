@@ -1,6 +1,6 @@
 import React from 'react';
 import Users from './Users';
-import PreLoader from './preLoader';
+import PreLoader from '../common/preLoader/preLoader';
 import {userType} from '../../Types/Types';
 
 

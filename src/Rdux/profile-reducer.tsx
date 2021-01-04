@@ -100,9 +100,9 @@ export const saveProfile = (formData: NewProfileType): ThunkType => async (dispa
         const userId = getState().auth.userId;
         const saveProfile = await profileAPI.saveProfile(formData);
         if (saveProfile.resultCode === ResultCodesEnum.Success) {
-            dispatch(getUserProfileTC(userId));
+           await dispatch(getUserProfileTC(userId));
         } else {
-            dispatch(stopSubmit('edit-profile', {_error: saveProfile.messages[0]}));
+           await dispatch(stopSubmit('edit-profile', {_error: saveProfile.messages[0]}));
             return Promise.reject(saveProfile.messages[0]);
         }
     } catch (e) {
@@ -128,7 +128,7 @@ export const profileActions = {
 
 };
 
-type  InitialStateType = typeof initialState
+export type  InitialStateType = typeof initialState
 export type ActionsType = InferActionsTypes<typeof profileActions>
 type ThunkType = BaseThunkType<ActionsType | FormAction>
 

@@ -1,44 +1,51 @@
 import {v1} from 'uuid';
-import profileReducer, {profileActions} from './profile-reducer';
+import profileReducer, {InitialStateType, profileActions} from './profile-reducer';
 import {ContactsType, NewProfileType, PhotosType, userType} from "../Types/Types";
 
+let state: InitialStateType
+let MyUser: NewProfileType
 
-let state = {
-    postData: [
-        {
-            id: '1',
-            message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend',
-            likesCount: 14
-        },
-        {id: '2', message: 'Hello friend', likesCount: 14},
-        {id: '3', message: 'Hello friend', likesCount: 14},
-        {id: '4', message: 'Hello ', likesCount: 10},
-        {id: '5', message: 'Hello ', likesCount: 10}],
-    profile: null as NewProfileType | null,
-    status: ''
-};
 
-const MyUser: NewProfileType = {
-    userId: 1079,
-    lookingForAJob: false,
-    lookingForAJobDescription: 'Im looking for a job',
-    aboutMe: 'Im a fun guy',
-    fullName: 'Alex',
-    contacts: {
-        facebook: 'string',
-        website: 'string',
-        vk: 'string',
-        twitter: 'string',
-        instagram: 'string',
-        youtube: 'string',
-        github: 'string',
-        mainLink: 'string',
-    },
-    photos: {
-        small: 'string | null',
-        large: 'string | null'
+beforeEach(() => {
+    state = {
+        postData: [
+            {
+                id: '1',
+                message: 'Hello friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friendlo friend',
+                likesCount: 14
+            },
+            {id: '2', message: 'Hello friend', likesCount: 14},
+            {id: '3', message: 'Hello friend', likesCount: 14},
+            {id: '4', message: 'Hello ', likesCount: 10},
+            {id: '5', message: 'Hello ', likesCount: 10}],
+        profile: null as NewProfileType | null,
+        status: ''
     }
-}
+})
+beforeEach(() => {
+    MyUser = {
+
+        userId: 1079,
+        lookingForAJob: false,
+        lookingForAJobDescription: 'Im looking for a job',
+        aboutMe: 'Im a fun guy',
+        fullName: 'Alex',
+        contacts: {
+            facebook: 'string',
+            website: 'string',
+            vk: 'string',
+            twitter: 'string',
+            instagram: 'string',
+            youtube: 'string',
+            github: 'string',
+            mainLink: 'string',
+        },
+        photos: {
+            small: 'string | null',
+            large: 'string | null'
+        }
+    };
+})
 
 
 it('new post should de added', () => {
