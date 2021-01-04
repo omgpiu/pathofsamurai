@@ -16,13 +16,6 @@ import {ReduxLogin} from '../Login/reduxFormLogin/ReduxLogin';
 import {NewProfileType} from '../../Types/Types';
 
 
-// export type MapStatePropsType = {
-//     profile: NewProfileType | null
-//     status: string
-//     isAuth: boolean
-//     authorizedUserId: number | null
-//
-// }
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     getUserProfileTC: (userId: number | null) => void

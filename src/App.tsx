@@ -6,7 +6,6 @@ import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-d
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import UsersContainer from './components/Users/UsersContainer';
 import ProfileContentContainerAPI from './components/Profile/ProfileContentContainerAPI';
 import HeaderContainerAPI from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -16,6 +15,7 @@ import {compose} from 'redux';
 import store, {AppRootStateType} from './Rdux/redux-store';
 import PreLoader from './components/common/preLoader/preLoader';
 import {withSuspense} from './HOC/withSuspense';
+import {UsersPage} from './components/Users/UsersPage';
 
 const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -57,7 +57,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
                         <Route path='/profile/:userId?' render={() =>
                             <ProfileContentContainerAPI/>}/>
-                        <Route path={'/users'} render={() => <UsersContainer/>}/>
+                        <Route path={'/users'} render={() => <UsersPage/>}/>
                         <Route path={'/news'} component={News}/>
                         <Route path={'/music'} component={Music}/>
                         <Route path={'/settings'} component={Settings}/>
