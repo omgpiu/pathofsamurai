@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import cn from 'classnames';
 import st from './Paginator.module.css';
-import {UserSearchForm} from "../../Users/User/UserSearchForm";
 
 
 type PropsType = {
@@ -10,8 +9,6 @@ type PropsType = {
     onPageChanged: (pageNumber: number) => void
     pageSize: number
     portionSize?: number
-
-
 }
 
 const Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage, onPageChanged}) => {
@@ -25,8 +22,6 @@ const Paginator: React.FC<PropsType> = ({totalUsersCount, pageSize, currentPage,
     let [portionNumber, setPortionNumber] = useState(Math.floor(currentPage / 10) + 1);
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
-
-
     return (
 
         <div className={st.paginator}>
