@@ -1,33 +1,40 @@
 import React from 'react';
 import {userType} from '../../Types/Types';
 import Paginator from '../common/Paginator/Paginator';
-import User from './User';
+import User from './User/User';
+import {FilterType} from '../../Rdux/users-reducer';
+import {UserSearchForm} from './User/UserSearchForm';
 
 
 export type PropsUsersType = {
     users: Array<userType>
-    // followUser: (userId: string) => void
-    // unfollowUser: (userId: string) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    // toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+
     followingInProgress: Array<number>
     followTC: (userId: number) => void
     unfollowTC: (userId: number) => void
+    onFilterChanged: (filter: FilterType) => void
 
 
 }
 
-const Users: React.FC<PropsUsersType> = (props) => {
-
-    const {currentPage, onPageChanged, pageSize, totalUsersCount, unfollowTC, followTC, followingInProgress, users} = props;
-
-
+const Users: React.FC<PropsUsersType> = ({
+                                             currentPage,
+                                             onPageChanged,
+                                             pageSize,
+                                             totalUsersCount,
+                                             unfollowTC,
+                                             followTC,
+                                             followingInProgress,
+                                             users,
+                                             onFilterChanged
+                                         }) => {
     return (
-
         <div>
+            <UserSearchForm onFilterChanged={onFilterChanged}/>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
                        totalUsersCount={totalUsersCount}/>
             {users.map((user: userType) => <User

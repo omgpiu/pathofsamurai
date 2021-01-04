@@ -19,15 +19,14 @@ import {LoginParamsType} from '../../API/api-types';
 // TODO сделать проверку правильности пароля
 
 type LoginFormType = {
-    loginTC: (data: LoginParamsType) => void
+    loginTC: (data: LoginParamsType) => Promise<any>
     isCorrect: boolean
     isAuth: boolean
     captchaUrl: string | null
 }
 
 
-const LoginForm: React.FC<LoginFormType> = (props) => {
-    const {isAuth, isCorrect, loginTC, captchaUrl} = props;
+const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC,captchaUrl}) => {
 
     const formik = useFormik({
         initialValues: {
@@ -56,8 +55,8 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
             return errors;
         },
 
-        onSubmit: (values) => {
-            loginTC(values);
+        onSubmit: async (values) => {
+           await loginTC(values);
 
         },
     });
@@ -70,8 +69,6 @@ const LoginForm: React.FC<LoginFormType> = (props) => {
     }
     //TODO доделать отправку капчи
     return <form onSubmit={formik.handleSubmit}>
-
-
         <Grid container justify="center">
             <Grid item xs={4}>
                 <FormControl>

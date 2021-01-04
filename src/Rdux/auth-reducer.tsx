@@ -61,11 +61,11 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) =>
     try {
         const loginData = await AuthAPI.login(data);
         if (loginData.resultCode === ResultCodesEnum.Success) {
-            dispatch(getAuthUserDataTC());
+            await dispatch(getAuthUserDataTC());
             dispatch(authActions.confirmUserData(true));
         } else {
             if (loginData.resultCode === ResultCodeForCaptcha.CaptchaRequired) {
-                dispatch(getCaptchaUrl());
+                await dispatch(getCaptchaUrl());
             }
             // dispatch(formikHelpers.setFieldError())
             dispatch(authActions.confirmUserData(false));

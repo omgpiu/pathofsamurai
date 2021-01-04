@@ -1,9 +1,9 @@
 import React from 'react';
 
-import st from './Users.module.css';
-import commonAvatar from '../../photo/commonAvatar.png';
+import st from '../Users.module.css';
+import commonAvatar from '../../../photo/commonAvatar.png';
 import {NavLink} from 'react-router-dom';
-import {userType} from '../../Types/Types';
+import {userType} from '../../../Types/Types';
 
 
 type UserType = {

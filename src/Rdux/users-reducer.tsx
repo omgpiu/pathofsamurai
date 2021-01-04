@@ -2,7 +2,7 @@ import {BaseThunkType, InferActionsTypes, userType} from '../Types/Types';
 import {Dispatch} from 'redux';
 import {usersAPI} from '../API/users-api';
 import {APIResponseType, ResultCodesEnum} from '../API/api-types';
-import {updateObjectInArray} from "../utils/object-helpers/object-helpers";
+import {updateObjectInArray} from '../utils/object-helpers/object-helpers';
 
 const initialState = {
     users: [] as Array<userType>,
@@ -10,7 +10,11 @@ const initialState = {
     totalUsersCount: 1,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as Array<number>
+    followingInProgress: [] as Array<number>,
+    filter: {
+        term: '',
+        friend: null as null | boolean
+    }
 };
 
 
@@ -41,6 +45,12 @@ const usersReducer = (state: StateProfile = initialState, action: ActionType): S
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             };
+        case 'USERS/SET_FILTER': {
+            return {
+                ...state,
+                filter: action.payload
+            }
+        }
         default:
             return state;
     }
@@ -50,6 +60,7 @@ export const usersAction = {
     unfollowUser: (userId: number) => ({type: 'USERS/UNFOLLOW', userId} as const),
     setUsers: (users: Array<userType>) => ({type: 'USERS/SET_USERS', users} as const),
     setPage: (currentPage: number) => ({type: 'USERS/SET_PAGE', currentPage} as const),
+    setFilter: (filter: FilterType) => ({type: 'USERS/SET_FILTER', payload: filter} as const),
     setTotalUsersCount: (totalUsersCount: number) => ({
         type: 'USERS/SET_TOTAL_USER_COUNT',
         count: totalUsersCount
@@ -61,11 +72,13 @@ export const usersAction = {
         userId
     } as const)
 };
-export const getUsersTC = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
+export const getUsersTC = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => async (dispatch) => {
     try {
         dispatch(usersAction.toggleIsFetching(true));
-        await dispatch(usersAction.setPage(currentPage));
-        const data = await usersAPI.getUsers(currentPage, pageSize);
+        dispatch(usersAction.setPage(currentPage));
+        dispatch(usersAction.setFilter(filter))
+
+        const data = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
         dispatch(usersAction.toggleIsFetching(false));
         dispatch(usersAction.setUsers(data.data.items));
         dispatch(usersAction.setTotalUsersCount(data.data.totalCount));
@@ -79,8 +92,11 @@ const _followUnfollowFlow = async (dispatch: Dispatch<ActionType>,
                                    apiMethod: (userId: number) => Promise<APIResponseType>,
                                    actionCreator: (userId: number) => ActionType) => {
     try {
-        await dispatch(usersAction.toggleFollowingProgress(true, userId));
+        dispatch(usersAction.toggleFollowingProgress(true, userId));
+        // dispatch(actionCreator(userId))
         const data = await apiMethod(userId);
+
+
         if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(actionCreator(userId));
         }
@@ -91,7 +107,7 @@ const _followUnfollowFlow = async (dispatch: Dispatch<ActionType>,
 }
 export const followTC = (userId: number): ThunkType => async (dispatch) => {
     try {
-        let apiMethod = await usersAPI.startFollowUsers.bind(usersAPI);
+        let apiMethod = usersAPI.startFollowUsers.bind(usersAPI);
         await _followUnfollowFlow(dispatch, userId, apiMethod, usersAction.followUser);
     } catch (e) {
         console.log('Error with followTC');
@@ -99,7 +115,7 @@ export const followTC = (userId: number): ThunkType => async (dispatch) => {
 };
 export const unfollowTC = (userId: number): ThunkType => async (dispatch) => {
     try {
-        let apiMethod = await usersAPI.startUnfollowUsers.bind(usersAPI);
+        let apiMethod = usersAPI.startUnfollowUsers.bind(usersAPI);
         await _followUnfollowFlow(dispatch, userId, apiMethod, usersAction.unfollowUser);
     } catch (e) {
         console.log('Error with unfollowTC');
@@ -109,6 +125,6 @@ export const unfollowTC = (userId: number): ThunkType => async (dispatch) => {
 export type StateProfile = typeof initialState
 type ActionType = InferActionsTypes<typeof usersAction>
 type ThunkType = BaseThunkType<ActionType>
-
+export type FilterType = typeof initialState.filter
 
 export default usersReducer;

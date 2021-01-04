@@ -23,9 +23,14 @@ userAPIMock.startUnfollowUsers.mockReturnValue(Promise.resolve(result))
 
 
 test('thunk followTC', async () => {
-    const thunk = followTC(1079)
 
-    await thunk(dispatchMock, getStateMock, {})
+    try {
+        const thunk = followTC(1079)
+        await thunk(dispatchMock, getStateMock, {})
+    } catch (e) {
+
+    }
+
 
     expect(dispatchMock).toBeCalledTimes(3)
     expect(dispatchMock).toHaveBeenNthCalledWith(1, usersAction.toggleFollowingProgress(true, 1079))

@@ -1,4 +1,4 @@
-import usersReducer, {followTC, StateProfile, usersAction} from "./users-reducer";
+import usersReducer, {followTC, StateProfile, usersAction} from './users-reducer';
 
 let state: StateProfile;
 beforeEach(() => {
@@ -16,7 +16,8 @@ beforeEach(() => {
                 large: null
             },
             photoUrl: 'Url',
-            status: "I'm an engineer"
+            status: 'I\'m an engineer',
+
 
         },
             {
@@ -32,7 +33,7 @@ beforeEach(() => {
                     large: null
                 },
                 photoUrl: 'Url',
-                status: "I'm an english teacher"
+                status: 'I\'m an english teacher'
             },
             {
                 id: 3,
@@ -47,13 +48,17 @@ beforeEach(() => {
                     large: null
                 },
                 photoUrl: 'Url',
-                status: "I'm an engineer"
+                status: 'I\'m an engineer'
             }],
         pageSize: 10,
         totalUsersCount: 1,
         currentPage: 1,
         isFetching: false,
         followingInProgress: [],
+        filter: {
+            term: '',
+            friend: null
+        }
     };
 })
 
