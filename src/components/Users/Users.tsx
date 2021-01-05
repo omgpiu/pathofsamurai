@@ -5,7 +5,6 @@ import User from './User/User';
 import {FilterType, followTC, getUsersTC, unfollowTC} from '../../Rdux/users-reducer';
 import {UserSearchForm} from './User/UserSearchForm';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../Rdux/redux-store';
 import {
     getCurrentPage,
     getFollowingInProgress,
@@ -20,19 +19,21 @@ type PropsType = {}
 
 export const Users: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch();
-    const totalUsersCount = useSelector<AppRootStateType, number>(getTotalUsers);
-    const currentPage = useSelector<AppRootStateType, number>(getCurrentPage);
-    const pageSize = useSelector<AppRootStateType, number>(getPageSize);
-    const followingInProgress = useSelector<AppRootStateType, Array<number>>(getFollowingInProgress);
-    const users = useSelector<AppRootStateType, Array<userType>>(getUsers);
-    const filter = useSelector<AppRootStateType, FilterType>(getUsersFilter);
+    const totalUsersCount = useSelector(getTotalUsers);
+    const currentPage = useSelector(getCurrentPage);
+    const pageSize = useSelector(getPageSize);
+    const followingInProgress = useSelector(getFollowingInProgress);
+    const users = useSelector(getUsers);
+    const filter = useSelector(getUsersFilter);
 
     useEffect(() => {
         dispatch(getUsersTC(currentPage, pageSize, filter));
     }, []);
+
     const onPageChanged = (pageNumber: number) => {
         dispatch(getUsersTC(pageNumber, pageSize, filter));
     };
+
     const onFilterChanged = (filter: FilterType) => {
         dispatch(getUsersTC(1, pageSize, filter));
     };
@@ -41,6 +42,7 @@ export const Users: React.FC<PropsType> = (props) => {
         dispatch(followTC(userId));
 
     };
+
     const unfollow = (userId: number) => {
         dispatch(unfollowTC(userId));
 
