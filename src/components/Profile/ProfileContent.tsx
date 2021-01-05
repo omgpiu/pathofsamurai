@@ -5,18 +5,14 @@ import {NewProfileType} from '../../Types/Types';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
-type PropsType = {
-    profile: NewProfileType | null
-    status: string
-    updateStatus: (status: string) => void
-    isOwner: boolean
-    savePhoto: (file: File) => void
-    saveProfile: (formData: any) => any
-
-}
-
-
-const ProfileContent: React.FC<PropsType> = ({savePhoto, isOwner, profile, status, updateStatus, saveProfile}) => {
+export const Profile: React.FC<PropsType> = React.memo(({
+                                                            savePhoto,
+                                                            isOwner,
+                                                            profile,
+                                                            status,
+                                                            updateStatus,
+                                                            saveProfile
+                                                        }) => {
 
     return (
         <div>
@@ -30,7 +26,14 @@ const ProfileContent: React.FC<PropsType> = ({savePhoto, isOwner, profile, statu
         </div>
     );
 
-};
+});
+type PropsType = {
+    profile: NewProfileType | null
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (file: File) => void
+    saveProfile: (formData: any) => any
 
+}
 
-export default ProfileContent;

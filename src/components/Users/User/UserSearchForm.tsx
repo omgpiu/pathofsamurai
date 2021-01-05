@@ -27,7 +27,6 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}
             term: values.term,
             friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
         }
-        console.log('before')
         onFilterChanged(filter)
 
         setSubmitting(false)

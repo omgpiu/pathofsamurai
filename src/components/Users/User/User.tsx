@@ -14,7 +14,7 @@ type UserType = {
 
 }
 
-const User: React.FC<UserType> = ({user, followingInProgress, followTC, unfollowTC}) => {
+const User: React.FC<UserType> = React.memo( ({user, followingInProgress, followTC, unfollowTC}) => {
 
 
     return (
@@ -49,7 +49,7 @@ const User: React.FC<UserType> = ({user, followingInProgress, followTC, unfollow
                                 </span>
         </div>
     );
-};
+})
 
 
 export default User;

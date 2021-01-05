@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {userType} from '../../Types/Types';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User/User';
@@ -30,23 +30,26 @@ export const Users: React.FC<PropsType> = (props) => {
         dispatch(getUsersTC(currentPage, pageSize, filter));
     }, []);
 
-    const onPageChanged = (pageNumber: number) => {
+    const onPageChanged = useCallback((pageNumber: number) => {
         dispatch(getUsersTC(pageNumber, pageSize, filter));
-    };
+        console.log('onPageChanged')
+    }, [dispatch]);
 
-    const onFilterChanged = (filter: FilterType) => {
+    const onFilterChanged = useCallback((filter: FilterType) => {
         dispatch(getUsersTC(1, pageSize, filter));
-    };
+        console.log('onFilterChanged')
+    }, [dispatch]);
 
-    const follow = (userId: number) => {
+    const follow = useCallback((userId: number) => {
         dispatch(followTC(userId));
+        console.log('follow')
+    }, [dispatch]);
 
-    };
-
-    const unfollow = (userId: number) => {
+    const unfollow = useCallback((userId: number) => {
         dispatch(unfollowTC(userId));
+        console.log('unfollow')
+    }, [dispatch]);
 
-    };
     return (
         <div>
             <UserSearchForm onFilterChanged={onFilterChanged}/>

@@ -26,7 +26,7 @@ type LoginFormType = {
 }
 
 
-const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC,captchaUrl}) => {
+const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captchaUrl}) => {
 
     const formik = useFormik({
         initialValues: {
@@ -56,14 +56,13 @@ const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC,captchaU
         },
 
         onSubmit: async (values) => {
-           await loginTC(values);
+            await loginTC(values);
 
         },
     });
     // useEffect(() => {
     //     !isCorrect && formik.setErrors({confirm: 'Incorrect email or password'});
     // }, [isCorrect]);
-    debugger
     if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }

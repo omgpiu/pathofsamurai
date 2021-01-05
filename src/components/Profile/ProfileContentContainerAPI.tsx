@@ -1,26 +1,20 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import '../../App.module.css';
-import {connect} from 'react-redux';
-import {
-    getUserProfileTC,
-    getUserStatusTC,
-    savePhoto,
-    saveProfile,
-    updateUserStatusTC
-} from '../../Rdux/profile-reducer';
-import Profile from './ProfileContent';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {getUserProfile, getUserStatus, savePhoto, saveProfile, updateUserStatus} from '../../Rdux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
-import {ReduxLogin} from '../Login/reduxFormLogin/ReduxLogin';
 import {NewProfileType} from '../../Types/Types';
+import {Profile} from './ProfileContent';
+import {getIsAuth, getProfile, getStatus, getUserId} from './profile-selectors';
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
-    getUserProfileTC: (userId: number | null) => void
-    getUserStatusTC: (userId: number | null) => void
-    updateUserStatusTC: (status: string) => void
+    getUserProfile: (userId: number | null) => void
+    getUserStatus: (userId: number | null) => void
+    updateUserStatus: (status: string) => void
     savePhoto: (file: File) => void
     saveProfile: (profile: NewProfileType) => Promise<any>
 }
@@ -32,6 +26,45 @@ type PathParamsType = {
 
 
 type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<PathParamsType>;
+
+type HooksType = {}
+const ProfileHooks: React.FC<HooksType> = (props) => {
+
+    const dispatch = useDispatch();
+    const profile = useSelector(getProfile)
+    const status = useSelector(getStatus)
+    const isAuth = useSelector(getIsAuth)
+    const authorizedUserId = useSelector(getUserId)
+
+    const getUserProfile = useCallback((userId: number | null) => {
+        dispatch(getUserProfile(userId))
+    }, [dispatch])
+    const getUserStatus = useCallback((userId: number | null) => {
+        dispatch(getUserStatus(userId))
+    }, [dispatch])
+    const updateUserStatus = useCallback((status: string) => {
+        dispatch(updateUserStatus(status))
+    }, [dispatch])
+    const savePhoto = useCallback((photo: File) => {
+        dispatch(savePhoto(photo))
+    }, [])
+    const saveProfile = useCallback(async (profile: NewProfileType): Promise<any> => {
+        await dispatch(saveProfile(profile))
+    }, [])
+
+
+    useEffect(() => {
+    }, [])
+
+
+    return (
+        <div>
+
+
+        </div>);
+
+}
+
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {
     constructor(props: PropsType) {
@@ -50,8 +83,8 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         if (!userId) {
             console.error('ID should exists in URI params or in state (\'authorizedUserId\')');
         } else {
-            this.props.getUserProfileTC(userId);
-            this.props.getUserStatusTC(userId);
+            this.props.getUserProfile(userId);
+            this.props.getUserStatus(userId);
         }
     }
 
@@ -74,15 +107,12 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
     render() {
         return (
             <div>
-                <div style={{margin: '5px', border: '1px solid white', backgroundColor: 'yellow'}}>
-                    <ReduxLogin/>
-                </div>
-
                 <Profile
                     {...this.props}
                     isOwner={!this.props.match.params.userId}
-                    {...this.props} profile={this.props.profile} status={this.props.status}
-                    updateStatus={this.props.updateUserStatusTC}
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    updateStatus={this.props.updateUserStatus}
                 />
 
             </div>);
@@ -100,7 +130,13 @@ let mapStateToProps = (state: AppRootStateType) => ({
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfileTC, getUserStatusTC, updateUserStatusTC, savePhoto, saveProfile}),
+    connect(mapStateToProps, {
+        getUserProfile,
+        getUserStatus: getUserStatus,
+        updateUserStatus,
+        savePhoto,
+        saveProfile
+    }),
     withRouter,
     // withAuthRedirect
 )(ProfileContentContainerAPI);

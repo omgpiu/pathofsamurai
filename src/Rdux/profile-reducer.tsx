@@ -54,8 +54,9 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
         default :
             return state;
     }
+
 };
-export const getUserProfileTC = (userId: number | null): ThunkType => async (dispatch) => {
+export const getUserProfile = (userId: number | null): ThunkType => async (dispatch) => {
     try {
         const profileData = await profileAPI.getProfile(userId);
         dispatch(profileActions.setUserProfile(profileData));
@@ -65,7 +66,7 @@ export const getUserProfileTC = (userId: number | null): ThunkType => async (dis
 
 
 };
-export const getUserStatusTC = (userId: number | null): ThunkType => async (dispatch) => {
+export const getUserStatus = (userId: number | null): ThunkType => async (dispatch) => {
     try {
         const statusData = await profileAPI.getStatus(userId);
         dispatch(profileActions.setUserStatus(statusData));
@@ -74,7 +75,7 @@ export const getUserStatusTC = (userId: number | null): ThunkType => async (disp
     }
 
 };
-export const updateUserStatusTC = (status: string): ThunkType => async (dispatch) => {
+export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
     try {
         const statusData = await profileAPI.updateStatus(status);
         if (statusData.resultCode === ResultCodesEnum.Success) {
@@ -100,7 +101,7 @@ export const saveProfile = (formData: NewProfileType): ThunkType => async (dispa
         const userId = getState().auth.userId;
         const saveProfile = await profileAPI.saveProfile(formData);
         if (saveProfile.resultCode === ResultCodesEnum.Success) {
-            await dispatch(getUserProfileTC(userId));
+            await dispatch(getUserProfile(userId));
         } else {
             dispatch(stopSubmit('edit-profile', {_error: saveProfile.messages[0]}));
             return Promise.reject(saveProfile.messages[0]);
