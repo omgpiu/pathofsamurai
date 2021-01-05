@@ -1,0 +1,40 @@
+/*.appWrapper {*/
+/*    margin: 0 auto;*/
+/*    width: 1200px;*/
+/*    display: grid;*/
+/*    grid-template-areas:*/
+/*    "head head"*/
+/*    "nav main";*/
+/*    grid-template-rows: 60px 1fr;*/
+/*    grid-template-columns: 1fr 10fr;*/
+/*    grid-gap: 5px;*/
+/*}*/
+
+
+/*.wrapperMainContent {*/
+/*    grid-area: main;*/
+/*    background-color: #333;*/
+
+/*}*/
+@import '~antd/dist/antd.css';
+/*.logo {*/
+/*    height: 32px;*/
+/*    margin: 16px;*/
+/*    background: rgba(255, 255, 255, 0.3);*/
+/*}*/
+
+/*!*.site-layout .site-layout-background {*!*/
+/*!*    background: #fff;*!*/
+/*!*}*!*/
+/*[data-theme="dark"] .site-layout .site-layout-background {*/
+/*    background: #141414;*/
+/*}*/
+ .logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+    background: #fff;
+}

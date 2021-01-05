@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../App.module.css';
+import '../../App.css';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {NewProfileType} from '../../Types/Types';
 import ProfileInfo from './ProfileInfo/ProfileInfo';

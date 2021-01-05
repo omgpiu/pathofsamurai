@@ -1,37 +1,56 @@
 import React from 'react';
-import './App.module.css';
+import './App.css';
 import Nav from './components/Nav/Nav';
-import st from './App.module.css';
-import {BrowserRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
-import News from './components/News/News';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
-import ProfileContentContainerAPI from './components/Profile/ProfileContentContainerAPI';
-import HeaderContainerAPI from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+
+import {BrowserRouter, Redirect, withRouter} from 'react-router-dom';
 import {connect, Provider} from 'react-redux';
 import {setInitializedTC} from './Rdux/app-reducer';
 import {compose} from 'redux';
 import store, {AppRootStateType} from './Rdux/redux-store';
 import PreLoader from './components/common/preLoader/preLoader';
 import {withSuspense} from './HOC/withSuspense';
-import {UsersPage} from './components/Users/UsersPage';
+import 'antd/dist/antd.css';
+
+import {Routes, SIGN_IN_PATH} from './components/common/routes/Routes';
+// import Header from './components/Header/Header';
+import {Layout, Menu, Breadcrumb} from 'antd';
+import {
+    DesktopOutlined,
+    PieChartOutlined,
+    FileOutlined,
+    TeamOutlined,
+    UserOutlined,
+} from '@ant-design/icons';
+import {HeaderM} from './components/Header/Header';
+
+const {SubMenu} = Menu;
+const {Header, Content, Footer, Sider} = Layout;
+
 
 const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     setInitializedTC: () => void
 }
-const SuspendedDialogs = withSuspense(DialogContainer);
+export const SuspendedDialogs = withSuspense(DialogContainer);
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
     catchAllUnhandledError = (e: PromiseRejectionEvent) => {
         alert('Some Error');
 
     };
+    state = {
+        collapsed: false,
+    };
+
+    onCollapse = (collapsed: boolean) => {
+        console.log(collapsed);
+        this.setState({collapsed});
+    };
 
     componentDidMount() {
         this.props.setInitializedTC();
+        if (this.props.isAuth) return <Redirect to={SIGN_IN_PATH}/>
         window.addEventListener('unhandledrejection', this.catchAllUnhandledError);
     }
 
@@ -40,47 +59,88 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
     }
 
     render() {
-        // {this.props.isInitialized && <PreLoader/>}
 
         if (!this.props.isInitialized) {
             return <PreLoader/>;
         }
-        return (
 
-            <div className={st.appWrapper}>
-                <HeaderContainerAPI/>
-                <Nav/>
-                <div className={st.wrapperMainContent}>
-                    <Switch>
-                        <Route exact path='/' render={() =>
-                            <Redirect to={'/profile'}/>}/>
-                        <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
-                        <Route path='/profile/:userId?' render={() =>
-                            <ProfileContentContainerAPI/>}/>
-                        <Route path={'/users'} render={() => <UsersPage/>}/>
-                        <Route path={'/news'} component={News}/>
-                        <Route path={'/music'} component={Music}/>
-                        <Route path={'/settings'} component={Settings}/>
-                        <Route path={'/login'} component={Login}/>
-                        <Route path={'*'} render={() => <h1>404: PAGE NOT FOUND</h1>}/>
+        const {collapsed} = this.state;
 
-                    </Switch>
+
+        return (<div>
+                <div>
+                    <HeaderM/>
+                    <Nav/>
+                    <div>
+                        <Routes/>
+                    </div>
                 </div>
-            </div>
+                <Layout style={{minHeight: '100vh'}}>
+                    <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
+                        <div className="logo"/>
+                        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+                            <Menu.Item key="Main/Profile" icon={<PieChartOutlined/>}>
+                                My Profile
+                            </Menu.Item>
+                            <Menu.Item key="Main/Messages" icon={<DesktopOutlined/>}>
+                                Messages
+                            </Menu.Item>
+                            <Menu.Item key="Main/Friends" icon={<DesktopOutlined/>}>
+                                Friends
+                            </Menu.Item>
+                            <Menu.Item key="Main/People" icon={<DesktopOutlined/>}>
+                                People
+                            </Menu.Item>
+                            <SubMenu key="Music" icon={<UserOutlined/>} title="Music">
+                                <Menu.Item key="Music/New">New music</Menu.Item>
+                                <Menu.Item key="Music/My">My music</Menu.Item>
+                                <Menu.Item key="Music/All">All music</Menu.Item>
+                            </SubMenu>
+                            <SubMenu key="News" icon={<TeamOutlined/>} title="News">
+                                <Menu.Item key="News/Friends">Friends</Menu.Item>
+                                <Menu.Item key="News/World">World</Menu.Item>
+                                <Menu.Item key="News/City">City</Menu.Item>
+                            </SubMenu>
+                            <SubMenu key="Settings" icon={<TeamOutlined/>} title="Settings">
+                                <Menu.Item key="Settings/General">General</Menu.Item>
+                                <Menu.Item key="Settings/Security">Security</Menu.Item>
+                                <Menu.Item key="Settings/Privacy">Privacy</Menu.Item>
+                            </SubMenu>
+                            <Menu.Item key="Files" icon={<FileOutlined/>}>
+                                Files
+                            </Menu.Item>
+                        </Menu>
+                    </Sider>
+                    <Layout className="site-layout">
+                        <Header className="site-layout-background" style={{padding: 0}}/>
+                        <Content style={{margin: '0 16px'}}>
+                            <Breadcrumb style={{margin: '16px 0'}}>
+                                <Breadcrumb.Item>User</Breadcrumb.Item>
+                                <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                                Bill is a cat.
+                            </div>
+                        </Content>
+                        <Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+                    </Layout>
+                </Layout>
 
-        );
+            </div>
+        )
     }
 }
 
 type mapStateToPropsType = {
     isInitialized: boolean
+    isAuth: boolean
+    login: string | null
 }
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => ({
-    isInitialized: state.app.isInitialized
+    isInitialized: state.app.isInitialized,
+    isAuth: state.auth.isAuth,
+    login: state.auth.login
 });
-// export default compose<React.ComponentClass>(
-//     withRouter,
-//     connect(mapStateToProps, {setInitializedTC}))(App);
 
 const AppContainer = compose<React.ComponentType>(
     withRouter,
@@ -92,5 +152,6 @@ const SamuraiJSApp: React.FC = () => {
             <AppContainer/>
         </Provider>
     </BrowserRouter>;
+
 };
 export default SamuraiJSApp;

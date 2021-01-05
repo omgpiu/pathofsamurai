@@ -1,32 +1,32 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import logoNew from '../../photo/logo.png';
 import st from './Header.module.css';
 import {NavLink} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIsAuth} from '../Profile/profile-selectors';
+import {getLogin} from './header-selectors';
+import {logoutTC} from '../../Rdux/auth-reducer';
+import {SIGN_IN_PATH} from '../common/routes/Routes';
 
+type PropsType = {}
+export const HeaderM: React.FC<PropsType> = (props) => {
+    const dispatch = useDispatch()
+    const isAuth = useSelector(getIsAuth)
+    const login = useSelector(getLogin)
 
-const Header: React.FC<HeaderPropsType & DispatchHeaderPropsType> = ({isAuth, login, logoutTC}) => {
-
-
+    const logout = () => {
+        dispatch(logoutTC())
+    }
     return (
-        <header className={st.appHeader}>
-
+        <div className={st.appHeader}>
             <img src={logoNew} alt="newLogo"/>
             <div className={st.loginBlock}>
                 {isAuth
-                    ? <div>{login} - <button onClick={logoutTC}>Log out</button></div>
-                    : <NavLink to={'/login'}>Login</NavLink>}
+                    ? <div>{login} - <button onClick={logout}>Log out</button></div>
+                    : <NavLink to={SIGN_IN_PATH}>Login</NavLink>}
             </div>
-        </header>
+        </div>
     );
 
-};
-
-export default Header;
-export type HeaderPropsType = {
-    isAuth: boolean
-
-    login: string | null
 }
-export type DispatchHeaderPropsType = {
-    logoutTC: () => void
-};
+

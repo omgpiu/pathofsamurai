@@ -1,0 +1,18 @@
+.pnf {
+    margin: 100px auto;
+}
+
+.pnf_error,
+.pnf_descr {
+    text-align: center;
+    color: #2b446e;
+}
+
+.pnf_error {
+    font-size: 98px;
+
+}
+
+.pnf_descr {
+    font-size: 30px;
+}

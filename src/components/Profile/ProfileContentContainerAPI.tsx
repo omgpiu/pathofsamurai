@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
-import '../../App.module.css';
+import '../../App.css';
 import {connect, useDispatch, useSelector} from 'react-redux';
 import {getUserProfile, getUserStatus, savePhoto, saveProfile, updateUserStatus} from '../../Rdux/profile-reducer';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {RouteComponentProps, useParams, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {NewProfileType} from '../../Types/Types';
 import {Profile} from './ProfileContent';
 import {getIsAuth, getProfile, getStatus, getUserId} from './profile-selectors';
+import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -29,7 +30,7 @@ type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<PathPara
 
 type HooksType = {}
 const ProfileHooks: React.FC<HooksType> = (props) => {
-
+    const {id} = useParams<{ id: string }>()
     const dispatch = useDispatch();
     const profile = useSelector(getProfile)
     const status = useSelector(getStatus)
@@ -132,13 +133,13 @@ let mapStateToProps = (state: AppRootStateType) => ({
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         getUserProfile,
-        getUserStatus: getUserStatus,
+        getUserStatus,
         updateUserStatus,
         savePhoto,
         saveProfile
     }),
     withRouter,
-    // withAuthRedirect
+    withAuthRedirect
 )(ProfileContentContainerAPI);
 
 

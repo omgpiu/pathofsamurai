@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../App.module.css';
+import '../../../App.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
 import {PostType} from '../../../Types/Types';

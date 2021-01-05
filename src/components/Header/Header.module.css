@@ -17,6 +17,7 @@
     font-family: Elephant -apple-system;
     color: aliceblue;
 
+
 }
 
 .loginBlock a {
@@ -24,4 +25,8 @@
     font-weight: bold;
     font-size: 40px;
     font-family: Elephant -apple-system;
+
+}
+.loginBlock button {
+    background-color: black;
 }

@@ -1,31 +1,41 @@
 import React from 'react';
-import '../../App.module.css';
+import '../../App.css';
 import st from './Nav.module.css';
 import {NavLink} from 'react-router-dom';
+import {
+    DIALOGS_PATH,
+    MUSIC_PATH,
+    NEWS_PATH,
+    PROFILE_PATH,
+    SETTINGS_PATH,
+    USERS_PATH
+} from '../common/routes/Routes';
 
 function Nav() {
     return (
         <nav className={st.appNav}>
 
             <div className={st.item}>
-                <NavLink to='/profile' activeClassName={st.active}>Profile</NavLink>
+                <NavLink to={PROFILE_PATH} activeClassName={st.active}>Profile</NavLink>
             </div>
             <div className={st.item}>
-                <NavLink to='/dialogs' activeClassName={st.active}>Messages</NavLink>
+                <NavLink to={DIALOGS_PATH} activeClassName={st.active}>Messages</NavLink>
             </div>
             <div className={st.item}>
-                <NavLink to='/news' activeClassName={st.active}>News</NavLink>
+                <NavLink to={NEWS_PATH} activeClassName={st.active}>News</NavLink>
             </div>
             <div className={st.item}>
-                <NavLink to='/music' activeClassName={st.active}>Music</NavLink>
+                <NavLink to={MUSIC_PATH} activeClassName={st.active}>Music</NavLink>
             </div>
             <div className={st.item}>
-                <NavLink to='/settings' activeClassName={st.active}>Settings</NavLink>
+                <NavLink to={SETTINGS_PATH} activeClassName={st.active}>Settings</NavLink>
             </div>
             <div className={st.item}>
-                <NavLink to='/users' activeClassName={st.active}>Users</NavLink>
+                <NavLink to={USERS_PATH} activeClassName={st.active}>Users</NavLink>
             </div>
-
+            {/*<div>*/}
+            {/*    <NavLink to={PAGE_NOT_FOUND_PATH} activeClassName={st.active}>404</NavLink>*/}
+            {/*</div>*/}
 
         </nav>
     );
