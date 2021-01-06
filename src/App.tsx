@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter, Link, Redirect, withRouter} from 'react-router-dom';
+import {BrowserRouter, Redirect, withRouter} from 'react-router-dom';
 import {connect, Provider} from 'react-redux';
 import {setInitializedTC} from './Rdux/app-reducer';
 import {compose} from 'redux';
@@ -9,30 +9,23 @@ import PreLoader from './components/common/preLoader/preLoader';
 import {withSuspense} from './HOC/withSuspense';
 import 'antd/dist/antd.css';
 import logoNew from '../src/photo/samurai.png';
-import {DIALOGS_PATH, PROFILE_PATH, Routes, SIGN_IN_PATH, USERS_PATH} from './components/common/routes/Routes';
-import {Layout, Menu} from 'antd';
-import {
-    CommentOutlined,
-    CustomerServiceOutlined,
-    FileOutlined,
-    SettingOutlined,
-    SoundOutlined,
-    TeamOutlined,
-    UserAddOutlined,
-    UserOutlined,
-} from '@ant-design/icons';
+import {Routes, SIGN_IN_PATH} from './components/common/routes/Routes';
+import {Layout} from 'antd';
 import {HeaderM} from './components/Header/Header';
+import {Nav} from './components/Nav/Nav';
 
-const {SubMenu} = Menu;
+
 const {Header, Content, Footer, Sider} = Layout;
 
 
 const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ChatContainer = React.lazy(() => import('./components/chat/ChatPage'))
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     setInitializedTC: () => void
 }
 export const SuspendedDialogs = withSuspense(DialogContainer);
+export const SuspendedChat = withSuspense(ChatContainer);
 
 class App extends React.Component<MapPropsType & DispatchPropsType> {
     state = {
@@ -67,38 +60,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         return (<Layout style={{minHeight: '100vh'}}>
                 <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
                     <div className="logo"><img src={logoNew} alt="newLogo"/></div>
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        <Menu.Item key="1" icon={<UserOutlined/>}>
-                            <Link to={PROFILE_PATH}>Profile</Link>
-                        </Menu.Item>
-                        <Menu.Item key="Main/Messages" icon={<CommentOutlined/>}>
-                            <Link to={DIALOGS_PATH}>Messages</Link>
-                        </Menu.Item>
-                        <Menu.Item key="Main/Friends" icon={<TeamOutlined/>}>
-                            <Link to={USERS_PATH}>Friends</Link>
-                        </Menu.Item>
-                        <Menu.Item key="Main/People" icon={<UserAddOutlined/>}>
-                            <Link to={USERS_PATH}>People</Link>
-                        </Menu.Item>
-                        <SubMenu key="Music" icon={<CustomerServiceOutlined/>} title="Music">
-                            <Menu.Item key="Music/New">New music</Menu.Item>
-                            <Menu.Item key="Music/My">My music</Menu.Item>
-                            <Menu.Item key="Music/All">All music</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="News" icon={<SoundOutlined/>} title="News">
-                            <Menu.Item key="News/Friends">Friends</Menu.Item>
-                            <Menu.Item key="News/World">World</Menu.Item>
-                            <Menu.Item key="News/City">City</Menu.Item>
-                        </SubMenu>
-                        <SubMenu key="Settings" icon={<SettingOutlined/>} title="Settings">
-                            <Menu.Item key="Settings/General">General</Menu.Item>
-                            <Menu.Item key="Settings/Security">Security</Menu.Item>
-                            <Menu.Item key="Settings/Privacy">Privacy</Menu.Item>
-                        </SubMenu>
-                        <Menu.Item key="Files" icon={<FileOutlined/>}>
-                            Files
-                        </Menu.Item>
-                    </Menu>
+                    <Nav/>
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{padding: 0, backgroundColor: '#1890ff'}}>

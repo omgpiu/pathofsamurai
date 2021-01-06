@@ -1,46 +1,62 @@
 import React from 'react';
 import '../../App.css';
-import st from './Nav.module.css';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {CHAT_PATH, DIALOGS_PATH, PROFILE_PATH, USERS_PATH} from '../common/routes/Routes';
+import {Menu} from 'antd';
 import {
-    DIALOGS_PATH,
-    MUSIC_PATH,
-    NEWS_PATH,
-    PROFILE_PATH,
-    SETTINGS_PATH,
-    USERS_PATH
-} from '../common/routes/Routes';
+    CommentOutlined,
+    CustomerServiceOutlined,
+    FileOutlined,
+    SettingOutlined,
+    SoundOutlined,
+    TeamOutlined,
+    UserAddOutlined,
+    UserOutlined
+} from '@ant-design/icons';
 
-function Nav() {
+const {SubMenu} = Menu;
+type PropsType = {}
+export const Nav: React.FC<PropsType> = () => {
     return (
-        <nav className={st.appNav}>
+        <Menu theme="dark" mode="inline">
+            <Menu.Item key="1" icon={<UserOutlined/>}>
+                <Link to={PROFILE_PATH}>Profile</Link>
+            </Menu.Item>
+            <Menu.Item key="Main/Messages" icon={<CommentOutlined/>}>
+                <Link to={DIALOGS_PATH}>Messages</Link>
+            </Menu.Item>
+            <Menu.Item key="Main/Friends" icon={<TeamOutlined/>}>
+                <Link to={USERS_PATH}>Friends</Link>
+            </Menu.Item>
+            <Menu.Item key="Main/People" icon={<UserAddOutlined/>}>
+                <Link to={USERS_PATH}>People</Link>
+            </Menu.Item>
+            <Menu.Item key="Main/Chat" icon={<UserAddOutlined/>}>
+                <Link to={CHAT_PATH}>Chat</Link>
+            </Menu.Item>
+            <SubMenu key="Music" icon={<CustomerServiceOutlined/>} title="Music">
+                <Menu.Item key="Music/New">New music</Menu.Item>
+                <Menu.Item key="Music/My">My music</Menu.Item>
+                <Menu.Item key="Music/All">All music</Menu.Item>
+            </SubMenu>
+            <SubMenu key="News" icon={<SoundOutlined/>} title="News">
+                <Menu.Item key="News/Friends">Friends</Menu.Item>
+                <Menu.Item key="News/World">World</Menu.Item>
+                <Menu.Item key="News/City">City</Menu.Item>
+            </SubMenu>
+            <SubMenu key="Settings" icon={<SettingOutlined/>} title="Settings">
+                <Menu.Item key="Settings/General">General</Menu.Item>
+                <Menu.Item key="Settings/Security">Security</Menu.Item>
+                <Menu.Item key="Settings/Privacy">Privacy</Menu.Item>
+            </SubMenu>
+            <Menu.Item key="Files" icon={<FileOutlined/>}>
+                Files
+            </Menu.Item>
 
-            <div className={st.item}>
-                <NavLink to={PROFILE_PATH} activeClassName={st.active}>Profile</NavLink>
-            </div>
-            <div className={st.item}>
-                <NavLink to={DIALOGS_PATH} activeClassName={st.active}>Messages</NavLink>
-            </div>
-            <div className={st.item}>
-                <NavLink to={NEWS_PATH} activeClassName={st.active}>News</NavLink>
-            </div>
-            <div className={st.item}>
-                <NavLink to={MUSIC_PATH} activeClassName={st.active}>Music</NavLink>
-            </div>
-            <div className={st.item}>
-                <NavLink to={SETTINGS_PATH} activeClassName={st.active}>Settings</NavLink>
-            </div>
-            <div className={st.item}>
-                <NavLink to={USERS_PATH} activeClassName={st.active}>Users</NavLink>
-            </div>
-            {/*<div>*/}
-            {/*    <NavLink to={PAGE_NOT_FOUND_PATH} activeClassName={st.active}>404</NavLink>*/}
-            {/*</div>*/}
 
-        </nav>
+        </Menu>
     );
 
 }
 
 
-export default Nav;

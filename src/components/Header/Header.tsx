@@ -1,7 +1,6 @@
-import React, {useCallback} from 'react';
-import logoNew from '../../photo/logo.png';
+import React from 'react';
 import st from './Header.module.css';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIsAuth} from '../Profile/profile-selectors';
 import {getLogin} from './header-selectors';
@@ -18,21 +17,12 @@ export const HeaderM: React.FC<PropsType> = (props) => {
     const logout = () => {
         dispatch(logoutTC())
     }
-    // return (
-    //     <div className={st.appHeader}>
-    //         <img src={logoNew} alt="newLogo"/>
-    //         <div className={st.loginBlock}>
-    //             {isAuth
-    //                 ? <div>{login} - <button onClick={logout}>Log out</button></div>
-    //                 : <NavLink to={SIGN_IN_PATH}>Login</NavLink>}
-    //         </div>
-    //     </div>
-    // );
+
     return (
         <div className={st.loginBlock}>
             {isAuth
-                ? <div>{login} - <Button type="primary" onClick={logout}>Log out</Button></div>
-                : <NavLink to={SIGN_IN_PATH}>Login</NavLink>}
+                ? <>{login} - <Button type="default" onClick={logout}>Log out</Button></>
+                : <Link to={SIGN_IN_PATH}>Login</Link>}
         </div>
     );
 
