@@ -11,7 +11,7 @@ import {Page404} from '../Page404/Page404';
 
 export const START_PATH = '/'
 export const SIGN_IN_PATH = '/login';
-export const PROFILE_PATH = '/profile';
+export const PROFILE_PATH = '/profile/:userId?';
 export const DIALOGS_PATH = '/dialogs';
 export const USERS_PATH = '/users';
 export const NEWS_PATH = '/news';
@@ -19,14 +19,15 @@ export const MUSIC_PATH = '/music';
 export const SETTINGS_PATH = '/settings';
 export const PAGE_NOT_FOUND_PATH = '/404';
 
-export const Routes: React.FC<any> = (props) => {
+type PropsType = {}
+export const Routes: React.FC<PropsType> = (props) => {
 
     return <>
         <Switch>
             <Route exact path={SIGN_IN_PATH} render={() => <Login/>}/>
 
             <Route path={DIALOGS_PATH} render={() => <SuspendedDialogs/>}/>
-            <Route path={PROFILE_PATH + '/:userId?'} render={() =>
+            <Route path={PROFILE_PATH} render={() =>
                 <ProfileContentContainerAPI/>}/>
             <Route path={USERS_PATH} render={() => <UsersPage/>}/>
             <Route path={NEWS_PATH} render={() => <News/>}/>
