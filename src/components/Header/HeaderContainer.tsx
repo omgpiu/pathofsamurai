@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {compose} from 'redux';
 import {getIsAuth} from '../Profile/profile-selectors';
-import {getLogin} from './header-selectors';
+import {getLogin} from '../../Rdux/auth-selectors';
 
 //
 // class HeaderContainer extends React.Component<HeaderPropsType & DispatchHeaderPropsType> {
