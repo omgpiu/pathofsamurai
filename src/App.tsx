@@ -19,7 +19,7 @@ const {Header, Content, Footer, Sider} = Layout;
 
 
 const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const ChatContainer = React.lazy(() => import('./components/chat/ChatPage'))
+const ChatContainer = React.lazy(() => import('./components/chat/ChatPage'));
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
     setInitializedTC: () => void
@@ -44,7 +44,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 
     componentDidMount() {
         this.props.setInitializedTC();
-        if (this.props.isAuth) return <Redirect to={SIGN_IN_PATH}/>
+        if (this.props.isAuth) return <Redirect to={SIGN_IN_PATH}/>;
         window.addEventListener('unhandledrejection', this.catchAllUnhandledError);
     }
 
@@ -57,13 +57,13 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             return <PreLoader/>;
         }
         const {collapsed} = this.state;
-        return (<Layout style={{minHeight: '100vh'}}>
+        return (<Layout style={{minHeight: '100vh', backgroundColor:'yellow'}}>
                 <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
                     <div className="logo"><img src={logoNew} alt="newLogo"/></div>
                     <Nav/>
                 </Sider>
                 <Layout className="site-layout">
-                    <Header className="site-layout-background" style={{padding: 0, backgroundColor: '#1890ff'}}>
+                    <Header className="site-layout-background">
                         <HeaderM/>
                     </Header>
                     <Content style={{margin: '0 16px'}}>
@@ -75,7 +75,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             </Layout>
 
 
-        )
+        );
     }
 }
 

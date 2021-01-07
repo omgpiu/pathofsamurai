@@ -21,7 +21,7 @@ export const HeaderM: React.FC<PropsType> = (props) => {
     return (
         <div className={st.loginBlock}>
             {isAuth
-                ? <>{login} - <Button type="default" onClick={logout}>Log out</Button></>
+                ? <>{login} - <Button type="primary"   onClick={logout}>Log out</Button></>
                 : <Link to={SIGN_IN_PATH}>Login</Link>}
         </div>
     );
