@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import SamuraiJSApp from './App';
+import SamuraiJSApp from './SN-1-main/m1-ui/App';
 
 ReactDOM.render(
     <SamuraiJSApp/>,

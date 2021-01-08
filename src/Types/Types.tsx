@@ -1,6 +1,6 @@
 import {ThunkAction} from 'redux-thunk';
-import {AppRootStateType} from '../Rdux/redux-store';
 import {Action} from 'redux';
+import {AppRootStateType} from '../SN-1-main/m2-bll/redux-store';
 
 
 export type ContactsType = {
