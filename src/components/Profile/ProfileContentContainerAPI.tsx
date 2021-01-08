@@ -1,13 +1,12 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import '../../App.css';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import {connect} from 'react-redux';
 import {getUserProfile, getUserStatus, savePhoto, saveProfile, updateUserStatus} from '../../Rdux/profile-reducer';
-import {RouteComponentProps, useParams, withRouter} from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {NewProfileType} from '../../Types/Types';
 import {Profile} from './ProfileContent';
-import {getIsAuth, getProfile, getStatus, getUserId} from './profile-selectors';
 import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 
@@ -27,44 +26,44 @@ type PathParamsType = {
 
 
 type PropsType = MapPropsType & DispatchPropsType & RouteComponentProps<PathParamsType>;
-
-type HooksType = {}
-const ProfileHooks: React.FC<HooksType> = (props) => {
-    const {id} = useParams<{ id: string }>()
-    const dispatch = useDispatch();
-    const profile = useSelector(getProfile)
-    const status = useSelector(getStatus)
-    const isAuth = useSelector(getIsAuth)
-    const authorizedUserId = useSelector(getUserId)
-
-    const getUserProfile = useCallback((userId: number | null) => {
-        dispatch(getUserProfile(userId))
-    }, [dispatch])
-    const getUserStatus = useCallback((userId: number | null) => {
-        dispatch(getUserStatus(userId))
-    }, [dispatch])
-    const updateUserStatus = useCallback((status: string) => {
-        dispatch(updateUserStatus(status))
-    }, [dispatch])
-    const savePhoto = useCallback((photo: File) => {
-        dispatch(savePhoto(photo))
-    }, [])
-    const saveProfile = useCallback(async (profile: NewProfileType): Promise<any> => {
-        await dispatch(saveProfile(profile))
-    }, [])
-
-
-    useEffect(() => {
-    }, [])
-
-
-    return (
-        <div>
-
-
-        </div>);
-
-}
+//
+// type HooksType = {}
+// const ProfileHooks: React.FC<HooksType> = (props) => {
+//     const {id} = useParams<{ id: string }>()
+//     const dispatch = useDispatch();
+//     const profile = useSelector(getProfile)
+//     const status = useSelector(getStatus)
+//     const isAuth = useSelector(getIsAuth)
+//     const authorizedUserId = useSelector(getUserId)
+//
+//     const getUserProfile = useCallback((userId: number | null) => {
+//         dispatch(getUserProfile(userId))
+//     }, [dispatch])
+//     const getUserStatus = useCallback((userId: number | null) => {
+//         dispatch(getUserStatus(userId))
+//     }, [dispatch])
+//     const updateUserStatus = useCallback((status: string) => {
+//         dispatch(updateUserStatus(status))
+//     }, [dispatch])
+//     const savePhoto = useCallback((photo: File) => {
+//         dispatch(savePhoto(photo))
+//     }, [])
+//     const saveProfile = useCallback(async (profile: NewProfileType): Promise<any> => {
+//         await dispatch(saveProfile(profile))
+//     }, [])
+//
+//
+//     useEffect(() => {
+//     }, [])
+//
+//
+//     return (
+//         <div>
+//
+//
+//         </div>);
+//
+// }
 
 
 class ProfileContentContainerAPI extends React.Component<PropsType> {

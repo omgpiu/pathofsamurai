@@ -52,8 +52,6 @@ export const Nav: React.FC<PropsType> = () => {
             <Menu.Item key="Files" icon={<FileOutlined/>}>
                 Files
             </Menu.Item>
-
-
         </Menu>
     );
 
