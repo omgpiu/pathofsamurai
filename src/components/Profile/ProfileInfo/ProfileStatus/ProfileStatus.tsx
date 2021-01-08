@@ -4,15 +4,15 @@ import {getStatus} from '../../../../Rdux/profile-selectors';
 import {updateUserStatus} from '../../../../Rdux/profile-reducer';
 
 
-type PropsType = {}
+type PropsType = {
+    isOwner: boolean
+}
 
-const ProfileStatus: React.FC<PropsType> = () => {
+const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
     const dispatch = useDispatch()
     const status = useSelector(getStatus)
-
     const [editMode, setEditMode] = useState(false);
     const [localStatus, setStatus] = useState(status);
-
 
     useEffect(() => {
         setStatus(status);
@@ -33,11 +33,17 @@ const ProfileStatus: React.FC<PropsType> = () => {
 
     return (
         <div>
-            {!editMode && <div>
+            {/*Cant change another status*/}
+            {!isOwner &&
+            <div><b>Status</b> <span>{status || 'What are you doing?'}</span></div>
+            }
+            {/*---*/}
+            {isOwner && !editMode && <div>
                 <b>Status</b> <span onDoubleClick={activateEditMode}>{status || 'What are you doing?'}</span>
             </div>}
             {editMode && <div><input autoFocus={true} onChange={onStatusChange} onBlur={deactivateEditMode}
                                      value={localStatus}/></div>}
+
         </div>
     )
         ;

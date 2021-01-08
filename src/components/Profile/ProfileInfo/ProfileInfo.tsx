@@ -32,15 +32,11 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, profile, savePhoto, status, 
             savePhoto(e.target.files[0]);
         }
     };
-
-
     const onSubmit = (profile: NewProfileType) => {
         //todo:remove then
         saveProfile(profile).then(() => {
             setEditMode(false);
         });
-
-
     };
 
 
@@ -50,7 +46,7 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, profile, savePhoto, status, 
         </div>
         <img src={profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
 
-        <ProfileStatus/>
+        <ProfileStatus isOwner={isOwner}/>
         {editMode ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/> :
             <ProfileData profile={profile} isOwner={isOwner} editMode={goToEditMode}/>}
 
