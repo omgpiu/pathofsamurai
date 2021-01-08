@@ -1,7 +1,9 @@
-import {AppRootStateType} from '../../Rdux/redux-store';
-import {NewProfileType} from '../../Types/Types';
+import {AppRootStateType} from './redux-store';
+import {NewProfileType, PostType} from '../Types/Types';
 
-
+export const getPostData = (state: AppRootStateType): PostType[] => {
+    return state.profilePage.postData;
+};
 export const getProfile = (state: AppRootStateType): NewProfileType | null => {
     return state.profilePage.profile
 }

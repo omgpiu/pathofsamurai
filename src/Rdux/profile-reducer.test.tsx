@@ -1,6 +1,5 @@
-import {v1} from 'uuid';
 import profileReducer, {InitialStateType, profileActions} from './profile-reducer';
-import {ContactsType, NewProfileType, PhotosType, userType} from "../Types/Types";
+import {NewProfileType} from '../Types/Types';
 
 let state: InitialStateType
 let MyUser: NewProfileType
@@ -50,7 +49,7 @@ beforeEach(() => {
 
 it('new post should de added', () => {
     //test data
-    let action = profileActions.addPostActionCreator('hello');
+    let action = profileActions.addPostAC('hello');
 
     // do something
     let newState = profileReducer(state, action);

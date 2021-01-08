@@ -1,8 +1,7 @@
 import React from 'react';
-import '../../App.css';
-import MyPostsContainer from './MyPosts/MyPostsContainer';
 import {NewProfileType} from '../../Types/Types';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import MyPosts from './MyPosts/MyPosts';
 
 
 export const Profile: React.FC<PropsType> = React.memo(({
@@ -16,13 +15,12 @@ export const Profile: React.FC<PropsType> = React.memo(({
 
     return (
         <div>
-
             <ProfileInfo savePhoto={savePhoto} isOwner={isOwner} profile={profile}
                          status={status} updateStatus={updateStatus}
                          saveProfile={saveProfile}
 
             />
-            <MyPostsContainer/>
+            <MyPosts/>
         </div>
     );
 

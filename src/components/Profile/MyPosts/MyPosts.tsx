@@ -1,33 +1,32 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import '../../../App.css';
 import st from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostType} from '../../../Types/Types';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import {maxLengthCreator, required} from '../../../utils/validators/validators';
 import {createField, GetStringKeys, MyInput} from '../../common/FormControls/FormControls';
+import {useDispatch, useSelector} from 'react-redux';
+import {getPostData} from '../../../Rdux/profile-selectors';
+import {profileActions} from '../../../Rdux/profile-reducer';
 
-export type MapPropsType = {
-    postData: Array<PostType>
-}
-export type DispatchPropsType = {
-    addPost: (newPostText: string) => void
-}
+type PropsPType = {}
 
-const MyPosts: React.FC<MapPropsType & DispatchPropsType> = React.memo(({addPost, ...rest}) => {
+export const MyPosts: React.FC<PropsPType> = React.memo(() => {
 
-    const postsData = [...rest.postData]
+    const dispatch = useDispatch()
+    const postData = useSelector(getPostData)
+
+
+    const postsData = [...postData]
         .reverse()
         .map(post => <Post key={post.id} message={post.message} id={post.id} likesCount={post.likesCount}/>);
 
-    const onAddPost = (values: any) => {
-        addPost(values.newPostText);
-
-    };
+    const onAddPost = useCallback((values: any) => {
+        dispatch(profileActions.addPostAC(values.newPostText))
+    }, [dispatch]);
 
 
     return (
-
         <div className={st.item}> Posts
             <AddNewPostFormRedux onSubmit={onAddPost}/>
             {postsData}

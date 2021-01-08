@@ -2,7 +2,7 @@ import React from 'react';
 import st from './Header.module.css';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {getIsAuth} from '../Profile/profile-selectors';
+import {getIsAuth} from '../../Rdux/profile-selectors';
 import {getLogin} from '../../Rdux/auth-selectors';
 import {logoutTC} from '../../Rdux/auth-reducer';
 import {SIGN_IN_PATH} from '../common/routes/Routes';

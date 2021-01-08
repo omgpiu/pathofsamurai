@@ -120,7 +120,7 @@ export const profileActions = {
         type: 'PROFILE/SAVE_PHOTO_SUCCESS'
         , photos
     } as const),
-    addPostActionCreator: (post: string) => ({type: 'PROFILE/ADD_POST', post} as const),
+    addPostAC: (post: string) => ({type: 'PROFILE/ADD_POST', post} as const),
     setUserProfile: (profile: NewProfileType) => ({type: 'PROFILE/SET_USER_PROFILE', profile} as const),
     setUserStatus: (status: string) => ({
         type: 'PROFILE/SET_USER_STATUS',

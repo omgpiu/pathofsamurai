@@ -61,6 +61,9 @@ const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormValuesType, Props
 const AddMessageFormRedux = reduxForm<NewMessageFormValuesType>({form: 'dialog-add-message-form'})(AddMessageForm);
 
 export default withAuthRedirect(Dialogs)
+
+
+
 type NewMessageFormValuesKeysType = Extract<keyof NewMessageFormValuesType, string>
 type PropsType = {}
 export type NewMessageFormValuesType = {

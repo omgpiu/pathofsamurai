@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import PreLoader from '../../common/preLoader/preLoader';
 import {NewProfileType} from '../../../Types/Types';
-import ProfileStatusHooks from './ProfileStatus/ProfileStatusHooks';
+import ProfileStatus from './ProfileStatus/ProfileStatus';
 import commonLogo from '../../../photo/commonAvatar.png';
 import st from './ProfileData/ProfileData.module.css';
 import ProfileData from './ProfileData/ProfileData';
@@ -50,7 +50,7 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, profile, savePhoto, status, 
         </div>
         <img src={profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
 
-        <ProfileStatusHooks status={status} updateStatus={updateStatus}/>
+        <ProfileStatus/>
         {editMode ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/> :
             <ProfileData profile={profile} isOwner={isOwner} editMode={goToEditMode}/>}
 

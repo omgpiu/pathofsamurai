@@ -1,70 +1,47 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getStatus} from '../../../../Rdux/profile-selectors';
+import {updateUserStatus} from '../../../../Rdux/profile-reducer';
 
 
-type PropsType = {
-    status: string
-    updateStatus: (status: string) => void
-}
-type StateType = {
-    editMode: boolean
-    status: string
-}
+type PropsType = {}
 
-class ProfileStatusClass extends React.Component<PropsType, StateType> {
+const ProfileStatus: React.FC<PropsType> = () => {
+    const dispatch = useDispatch()
+    const status = useSelector(getStatus)
 
-    state = {
-        editMode: false,
-        status: this.props.status
+    const [editMode, setEditMode] = useState(false);
+    const [localStatus, setStatus] = useState(status);
 
 
+    useEffect(() => {
+        setStatus(status);
+    }, [status]);
+
+
+    const activateEditMode = () => {
+        setEditMode(true);
     };
 
-    activateEditMode = () => {
-        this.setState({
-            editMode: true
-        });
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        dispatch(updateUserStatus(localStatus));
+    };
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.currentTarget.value);
     };
 
-    deactivateEditMode = () => {
-        this.setState({
-            editMode: false
-        });
-        this.props.updateStatus(this.state.status);
+    return (
+        <div>
+            {!editMode && <div>
+                <b>Status</b> <span onDoubleClick={activateEditMode}>{status || 'What are you doing?'}</span>
+            </div>}
+            {editMode && <div><input autoFocus={true} onChange={onStatusChange} onBlur={deactivateEditMode}
+                                     value={localStatus}/></div>}
+        </div>
+    )
+        ;
 
-    };
-    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            status: e.currentTarget.value
-        });
+};
 
-    };
-
-
-    componentDidUpdate = (prevProps: PropsType, prevState: StateType) => {
-
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                status: this.props.status
-            });
-        }
-        //     console.log('componentDidUpdate');
-    };
-
-    render() {
-        // console.log('render');
-        return (
-
-
-            <div>
-                {!this.state.editMode ?
-                    <div><span onDoubleClick={this.activateEditMode}>{this.props.status || 'What are you doing?'}</span>
-                    </div>
-                    : <div><input onChange={this.onStatusChange} autoFocus={true} onBlur={this.deactivateEditMode}
-                                  value={this.state.status}/></div>}
-            </div>
-        )
-            ;
-    }
-}
-
-export default ProfileStatusClass;
+export default ProfileStatus;
