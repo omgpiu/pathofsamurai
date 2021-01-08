@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {AppRootStateType} from '../../Rdux/redux-store';
 import {ChatMessageType, sendMessage, startMessagesListening, stopMessagesListening} from '../../Rdux/chat-reducer';
 import {ChatMessageAPIType, StatusType} from '../../API/chat-api';
+import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 const ChatPage: React.FC = () => {
     return <div>
@@ -13,8 +14,6 @@ const ChatPage: React.FC = () => {
 const Chat: React.FC = () => {
 
     const dispatch = useDispatch();
-
-
     const status = useSelector<AppRootStateType, StatusType>(state => state.chat.status);
 
     useEffect(() => {
@@ -77,7 +76,6 @@ const AddMessageForm: React.FC<{}> = () => {
 
     const status = useSelector<AppRootStateType, StatusType>(state => state.chat.status);
 
-
     const sendMessageHandler = () => {
         if (!message) {
             return;
@@ -96,4 +94,4 @@ const AddMessageForm: React.FC<{}> = () => {
     </div>;
 };
 
-export default ChatPage;
+export default withAuthRedirect(ChatPage);

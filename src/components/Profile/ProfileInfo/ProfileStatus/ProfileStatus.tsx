@@ -33,7 +33,7 @@ const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
 
     return (
         <div>
-            {/*Cant change another status*/}
+            {/*Cant change other status*/}
             {!isOwner &&
             <div><b>Status</b> <span>{status || 'What are you doing?'}</span></div>
             }

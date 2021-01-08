@@ -1,13 +1,13 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import ProfileContentContainerAPI from '../../Profile/ProfileContentContainerAPI';
-import {UsersPage} from '../../Users/UsersPage';
 import News from '../../News/News';
 import Music from '../../Music/Music';
 import Settings from '../../Settings/Settings';
 import Login from '../../Login/Login';
 import {SuspendedChat, SuspendedDialogs} from '../../../App';
 import {Page404} from '../Page404/Page404';
+import UsersPage from '../../Users/UsersPage';
 
 
 export const SIGN_IN_PATH = '/login';

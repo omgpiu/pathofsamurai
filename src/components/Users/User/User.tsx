@@ -2,8 +2,9 @@ import React from 'react';
 
 import st from '../Users.module.css';
 import commonAvatar from '../../../photo/commonAvatar.png';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {userType} from '../../../Types/Types';
+import {PROFILE_PATH} from '../../common/routes/Routes';
 
 
 type UserType = {
@@ -14,39 +15,37 @@ type UserType = {
 
 }
 
-const User: React.FC<UserType> = React.memo( ({user, followingInProgress, followTC, unfollowTC}) => {
+const User: React.FC<UserType> = React.memo(({user, followingInProgress, followTC, unfollowTC}) => {
 
-
+    const unfollow = () => {
+        unfollowTC(user.id);
+    }
+    const follow = () => {
+        followTC(user.id);
+    }
     return (
         <div key={user.id}>
                                 <span>
                                     <div>
-                                        <NavLink to={'/profile/' + user.id}>
+                                        <Link to={PROFILE_PATH + '/' + user.id}>
                                         <img src={user.photos.small != null
                                             ? user.photos.small
                                             : commonAvatar} className={st.userAvatar} alt="avatar"/>
-                                            </NavLink>
+                                            </Link>
                                     </div>
                                     <div>
                                         {user.followed ?
                                             <button disabled={followingInProgress.some(id => id === user.id)}
-                                                    onClick={() => {
-                                                        unfollowTC(user.id);
-                                                    }}>Unfollow</button> :
+                                                    onClick={unfollow}>Unfollow</button> :
                                             <button disabled={followingInProgress.some(id => id === user.id)}
-                                                    onClick={() => {
-                                                        followTC(user.id);
-                                                    }}>Follow</button>}
+                                                    onClick={follow}>Follow</button>}
                                     </div>
                                 </span>
             <span>
-                                    <div>{user.name} </div>
-                                    <div>{user.status}</div>
+                                    <div> <b>{user.name}</b></div>
+                <div><b>Status :</b> <span>{user.status || 'What are you doing?'}</span></div>
                                 </span>
-            <span>
-                                    <div>{'u.location.country'}</div>
-                                    <div>{'u.location.city'}</div>
-                                </span>
+
         </div>
     );
 })
