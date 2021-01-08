@@ -11,7 +11,7 @@ import {
     UserAddOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import {CHAT_PATH, DIALOGS_PATH, PROFILE_PATH, USERS_PATH} from '../routes/Routes';
+import {CHAT_PATH, DIALOGS_PATH, NEWS_PATH, PROFILE_PATH, USERS_PATH} from '../routes/Routes';
 
 const {SubMenu} = Menu;
 type PropsType = {}
@@ -48,8 +48,8 @@ export const Nav: React.FC<PropsType> = () => {
                 <Menu.Item key="Settings/Security">Security</Menu.Item>
                 <Menu.Item key="Settings/Privacy">Privacy</Menu.Item>
             </SubMenu>
-            <Menu.Item key="Files" icon={<FileOutlined/>}>
-                Files
+            <Menu.Item key="Login" icon={<FileOutlined/>}>
+                <Link to={NEWS_PATH}>Login</Link>
             </Menu.Item>
         </Menu>
     );

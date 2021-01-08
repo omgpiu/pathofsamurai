@@ -15,6 +15,7 @@ import {Redirect} from 'react-router-dom';
 import {LoginParamsType} from '../../../Types/api-types';
 import {AppRootStateType} from '../../../SN-1-main/m2-bll/redux-store';
 import {loginTC} from '../l2-bll/auth-reducer';
+import LoginAnt from './LoginAnt';
 
 // TODO сделать проверку правильности пароля
 
@@ -27,6 +28,7 @@ type LoginFormType = {
 
 
 const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captchaUrl}) => {
+
 
     const formik = useFormik({
         initialValues: {
@@ -60,9 +62,7 @@ const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captcha
 
         },
     });
-    // useEffect(() => {
-    //     !isCorrect && formik.setErrors({confirm: 'Incorrect email or password'});
-    // }, [isCorrect]);
+
     if (isAuth) {
         return <Redirect to={'/profile'}/>;
     }
@@ -111,7 +111,7 @@ const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captcha
                 </FormControl>
             </Grid>
         </Grid>
-    </form>;
+           </form>;
 
 
 };
