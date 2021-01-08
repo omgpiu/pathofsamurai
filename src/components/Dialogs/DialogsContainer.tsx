@@ -1,9 +1,7 @@
 import Dialogs from './Dialogs';
-import {connect} from 'react-redux';
 import React from 'react';
-import {compose} from 'redux';
 import {AppRootStateType} from '../../Rdux/redux-store';
-import {dialogsActions} from '../../Rdux/dialogs-reducer';
+import {withAuthRedirect} from '../../HOC/WithAuthRedirect';
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {
@@ -17,10 +15,7 @@ const mapStateToProps = (state: AppRootStateType) => {
 //         },
 //     };
 // };
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {...dialogsActions}),
-    // withAuthRedirect
-)(Dialogs);
+// export default compose<React.ComponentType>(withAuthRedirect)(Dialogs);
 
 
 

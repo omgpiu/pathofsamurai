@@ -13,14 +13,13 @@ import {Layout} from 'antd';
 import {HeaderM} from './components/Header/Header';
 import {Nav} from './components/Nav/Nav';
 import {getIsInitialized} from './Rdux/app-selectors';
-import {getIsAuth} from './components/Profile/profile-selectors';
 
 type PropsType = {}
 
 const {Header, Content, Footer, Sider} = Layout;
 
 
-const DialogContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const DialogContainer = React.lazy(() => import('./components/Dialogs/Dialogs'));
 const ChatContainer = React.lazy(() => import('./components/chat/ChatPage'));
 // type MapPropsType = ReturnType<typeof mapStateToProps>
 // type DispatchPropsType = {
@@ -32,7 +31,6 @@ export const AppHooks: React.FC<PropsType> = () => {
     const dispatch = useDispatch()
     const [collapsed, setCollapsed] = useState<boolean>(false)
     const isInitialized = useSelector(getIsInitialized)
-    const isAuth = useSelector(getIsAuth)
 
     useEffect(() => {
         dispatch(setInitializedTC());
