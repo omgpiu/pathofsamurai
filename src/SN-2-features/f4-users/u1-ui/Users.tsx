@@ -16,6 +16,7 @@ import {
 import {FilterType, followTC, getUsersTC, unfollowTC} from '../u2-bll/users-reducer';
 import Paginator from '../../../SN-3-common/Paginator/Paginator';
 import {userType} from '../../../Types/Types';
+import {PaginatorAnt} from '../../../SN-3-common/Paginator/p1-ant/PaginatorAnt';
 
 
 type PropsType = {}
@@ -82,6 +83,10 @@ export const Users: React.FC<PropsType> = (props) => {
             <UserSearchForm onFilterChanged={onFilterChanged}/>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
                        totalUsersCount={totalUsersCount}/>
+            <PaginatorAnt  totalUsersCount={totalUsersCount}
+                           onPageChanged={onPageChanged}
+
+            />
             {users.map((user: userType) => <User
                 unfollowTC={unfollow}
                 followTC={follow}
