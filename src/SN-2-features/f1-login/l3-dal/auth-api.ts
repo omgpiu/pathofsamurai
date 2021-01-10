@@ -2,7 +2,8 @@ import {
     APIResponseType,
     LoginParamsType,
     LoginResponseDataType,
-    MeResponseDataType, ResultCodeForCaptcha,
+    MeResponseDataType,
+    ResultCodeForCaptcha,
     ResultCodesEnum
 } from '../../../Types/api-types';
 import {instance} from '../../../SN-1-main/m3-dal/instance-api';
@@ -14,6 +15,7 @@ export const AuthAPI = {
     },
     login(data: LoginParamsType) {
         return instance.post<APIResponseType<LoginResponseDataType, ResultCodesEnum | ResultCodeForCaptcha>>('auth/login', data).then(res => res.data);
+        // return instance.post<any>('auth/login', data)
     },
     logout() {
         return instance.delete<APIResponseType<LoginResponseDataType>>('auth/login').then(res => res.data);

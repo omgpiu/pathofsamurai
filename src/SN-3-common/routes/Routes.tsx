@@ -1,11 +1,9 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import Login from '../../SN-2-features/f1-login/l1-ui/Login';
 import {SuspendedChat, SuspendedDialogs} from '../../SN-1-main/m1-ui/App';
 import Settings from '../../SN-2-features/f8-settings/n1-ui/Settings';
 import Music from '../../SN-2-features/f6-music/m1-ui/Music';
 import {Page404} from '../Page404/Page404';
-import News from '../../SN-2-features/f7-news/s1-ui/News';
 import UsersPage from '../../SN-2-features/f4-users/u1-ui/UsersPage';
 import ProfileContentContainerAPI from '../../SN-2-features/f2-profile/p1-ui/ProfileContentContainerAPI';
 import LoginAnt from '../../SN-2-features/f1-login/l1-ui/LoginAnt';
@@ -26,7 +24,7 @@ export const Routes: React.FC<PropsType> = (props) => {
 
     return <>
         <Switch>
-            <Route path={SIGN_IN_PATH} render={() => <Login/>}/>
+            <Route path={SIGN_IN_PATH} render={() => <LoginAnt/>}/>
             <Route exact path='/'
                    render={() => <Redirect to={PROFILE_PATH}/>}/>
             <Route path={DIALOGS_PATH} render={() => <SuspendedDialogs/>}/>

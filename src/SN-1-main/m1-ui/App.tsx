@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import {BrowserRouter} from 'react-router-dom';
 import {Provider, useDispatch, useSelector} from 'react-redux';
-import logoNew from '../../photo/logo.png'
+import logoNew from '../../photo/samurai-robot-head-esport-mascot-logo_160921-34-removebg-preview.png'
 import 'antd/dist/antd.css';
 
 import {Layout} from 'antd';
