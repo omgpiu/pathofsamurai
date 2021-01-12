@@ -1,9 +1,9 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {useSelector} from 'react-redux';
-import {AppRootStateType} from '../../../../SN-1-main/m2-bll/redux-store';
-import {createField, MyInput} from '../../../../SN-3-common/FormControls/FormControls';
-import {required} from '../../../../utils/validators/validators';
+import {AppRootStateType} from '../../../../../SN-1-main/m2-bll/redux-store';
+import {createField, MyInput} from '../../../../../SN-3-common/FormControls/FormControls';
+import {required} from '../../../../../utils/validators/validators';
 
 
 export const ReduxLoginForm: React.FC<InjectedFormProps> = ({handleSubmit}) => {

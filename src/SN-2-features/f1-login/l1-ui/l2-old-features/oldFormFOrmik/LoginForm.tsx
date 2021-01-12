@@ -12,9 +12,9 @@ import {
 import {useFormik} from 'formik';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
-import {LoginParamsType} from '../../../Types/api-types';
-import {AppRootStateType} from '../../../SN-1-main/m2-bll/redux-store';
-import {loginTC} from '../l2-bll/auth-reducer';
+import {LoginParamsType} from '../../../../../Types/api-types';
+import {AppRootStateType} from '../../../../../SN-1-main/m2-bll/redux-store';
+import {loginTC} from '../../../l2-bll/auth-reducer';
 
 // TODO сделать проверку правильности пароля
 
