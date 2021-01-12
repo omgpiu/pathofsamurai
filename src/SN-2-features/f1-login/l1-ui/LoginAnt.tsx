@@ -13,8 +13,9 @@ const LoginAnt = () => {
 
     const dispatch = useDispatch();
     const error = useSelector(getError);
-
     const isAuth = useSelector(getIsAuth);
+
+
     if (isAuth) {
         return <Redirect to={PROFILE_PATH}/>;
     }
@@ -71,7 +72,6 @@ const LoginAnt = () => {
                 <Input.Password
                     prefix={<LockOutlined className="site-form-item-icon"/>}
                     placeholder="Password"
-
                     iconRender={visible => (visible ? <EyeTwoTone/> : <EyeInvisibleOutlined/>)}
                 />
             </Form.Item>
