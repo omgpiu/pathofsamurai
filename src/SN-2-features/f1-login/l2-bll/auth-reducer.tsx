@@ -10,7 +10,7 @@ const initialState = {
     login: null as string | null,
     isAuth: false,
     captchaUrl: null as string | null,
-    isCorrect: true
+    error: ''
 
 };
 
@@ -20,10 +20,12 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
             return {
                 ...state, ...action.payload
             };
-        case 'AUTH/CONFIRM_USER_DATA' :
+        case  'AUTH/SET_ERROR' :
+            debugger
             return {
                 ...state,
-                isCorrect: action.isCorrect
+                ...action.payload
+
             };
         case 'AUTH/GET_CAPTCHA_URL_SUCCESS':
             return {
@@ -40,10 +42,11 @@ export const authActions = {
             userId, email, login, isAuth
         }
     } as const),
-    confirmUserData: (isCorrect: boolean) => (
-        {type: 'AUTH/CONFIRM_USER_DATA', isCorrect} as const),
+    setError: (error: string) => (
+        {type: 'AUTH/SET_ERROR', payload: {error}} as const),
     getCaptchaUrlSuccess: (captchaUrl: string) => (
-        {type: 'AUTH/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}} as const)
+        {type: 'AUTH/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}} as const),
+
 };
 export const getAuthUserDataTC = (): ThunkType => async (dispatch) => {
     try {
@@ -58,24 +61,25 @@ export const getAuthUserDataTC = (): ThunkType => async (dispatch) => {
 
 };
 export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) => {
-    debugger
-
     try {
         const loginData = await AuthAPI.login(data);
-        if (loginData.resultCode === ResultCodesEnum.Success) {
-            await dispatch(getAuthUserDataTC());
-            dispatch(authActions.confirmUserData(true));
-        } else {
-            if (loginData.resultCode === ResultCodeForCaptcha.CaptchaRequired) {
+        switch (loginData.resultCode) {
+            case  ResultCodesEnum.Success:
+                await dispatch(getAuthUserDataTC());
+                break;
+            case ResultCodeForCaptcha.CaptchaRequired:
                 await dispatch(getCaptchaUrl());
-            }
+                break;
+            case  ResultCodesEnum.Error:
+                console.log('error');
+                debugger
+                dispatch(authActions.setError(loginData.messages[0]));
+
+
         }
-        debugger
     } catch (error) {
-        debugger
-        console.log(error[0])
-        dispatch(authActions.confirmUserData(false));
-        console.log(error)
+
+        dispatch(authActions.setError(error.message));
     }
 
 };

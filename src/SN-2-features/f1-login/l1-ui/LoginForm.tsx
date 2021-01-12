@@ -15,19 +15,18 @@ import {Redirect} from 'react-router-dom';
 import {LoginParamsType} from '../../../Types/api-types';
 import {AppRootStateType} from '../../../SN-1-main/m2-bll/redux-store';
 import {loginTC} from '../l2-bll/auth-reducer';
-import LoginAnt from './LoginAnt';
 
 // TODO сделать проверку правильности пароля
 
 type LoginFormType = {
     loginTC: (data: LoginParamsType) => Promise<any>
-    isCorrect: boolean
+    // isCorrect: boolean
     isAuth: boolean
     captchaUrl: string | null
 }
 
 
-const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captchaUrl}) => {
+const LoginForm: React.FC<LoginFormType> = ({isAuth, loginTC, captchaUrl}) => {
 
 
     const formik = useFormik({
@@ -35,7 +34,7 @@ const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captcha
             email: '',
             password: '',
             rememberMe: false,
-            isCorrect: isCorrect,
+            // isCorrect: isCorrect,
             confirm: ''
         }, validate(values: FormikType) {
             const errors: FormikType = {};
@@ -111,7 +110,7 @@ const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captcha
                 </FormControl>
             </Grid>
         </Grid>
-           </form>;
+    </form>;
 
 
 };
@@ -119,13 +118,13 @@ const LoginForm: React.FC<LoginFormType> = ({isAuth, isCorrect, loginTC, captcha
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth,
-    isCorrect: state.auth.isCorrect,
+    // isCorrect: state.auth.isCorrect,
     captchaUrl: state.auth.captchaUrl
 
 });
 type MapStatePropsType = {
     isAuth: boolean
-    isCorrect: boolean
+    // isCorrect: boolean
     captchaUrl: string | null
 
 }

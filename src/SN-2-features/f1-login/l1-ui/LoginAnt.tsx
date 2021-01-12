@@ -2,18 +2,19 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginTC} from '../l2-bll/auth-reducer';
 import {Button, Checkbox, Form, Input} from 'antd';
-import st from './LoginAnt.module.css'
+import st from './LoginAnt.module.css';
 import {EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined} from '@ant-design/icons/lib/icons';
 import {getIsAuth} from '../../f2-profile/p2-bll/profile-selectors';
 import {PROFILE_PATH} from '../../../SN-3-common/routes/Routes';
 import {Redirect} from 'react-router-dom';
+import {getError} from '../l2-bll/auth-selectors';
 
 const LoginAnt = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const error = useSelector(getError);
 
-
-    const isAuth = useSelector(getIsAuth)
+    const isAuth = useSelector(getIsAuth);
     if (isAuth) {
         return <Redirect to={PROFILE_PATH}/>;
     }
@@ -21,15 +22,20 @@ const LoginAnt = () => {
         email: string,
         password: string
     }) => {
-        await dispatch(loginTC(values))
+        await dispatch(loginTC(values));
 
-
-    }
+    };
 
     return (<Form onFinish={onSubmit}
-                  className={st.loginForm}>
+                  className={st.loginForm}
+        >
+
             <Form.Item
                 name="email"
+                {...error && {
+                    help: error,
+                    validateStatus: 'error'
+                }}
                 rules={[
                     {
                         type: 'email',
@@ -45,11 +51,15 @@ const LoginAnt = () => {
                        type="email"
                        name="email"
                        placeholder="Email"
-
                 />
             </Form.Item>
+
             <Form.Item
                 name="password"
+                {...error && {
+                    help: error,
+                    validateStatus: 'error'
+                }}
                 rules={[
                     {
                         required: true,
@@ -82,8 +92,8 @@ const LoginAnt = () => {
             </Form.Item>
 
         </Form>
-    )
-}
+    );
+};
 
 
-export default LoginAnt
+export default LoginAnt;
