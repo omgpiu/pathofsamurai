@@ -14,7 +14,6 @@ import {
     getUsersFilter
 } from '../u2-bll/users-selectors';
 import {FilterType, followTC, getUsersTC, unfollowTC} from '../u2-bll/users-reducer';
-import Paginator from '../../../SN-3-common/Paginator/Paginator';
 import {userType} from '../../../Types/Types';
 import {PaginatorAnt} from '../../../SN-3-common/Paginator/p1-ant/PaginatorAnt';
 
@@ -30,41 +29,41 @@ export const Users: React.FC<PropsType> = (props) => {
     const users = useSelector(getUsers);
     const filter = useSelector(getUsersFilter);
 
-    const history = useHistory()
+    const history = useHistory();
     useEffect(() => {
-        const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType
-        let actualPage = currentPage
-        let actualFilter = filter
-        if (!!parsed.page) actualPage = Number(parsed.page)
-        if (!!parsed.term) actualFilter = {...actualFilter, term: parsed.term as string}
+        const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType;
+        let actualPage = currentPage;
+        let actualFilter = filter;
+        if (!!parsed.page) actualPage = Number(parsed.page);
+        if (!!parsed.term) actualFilter = {...actualFilter, term: parsed.term as string};
         switch (parsed.friend) {
             case 'null':
-                actualFilter = {...actualFilter, friend: null}
+                actualFilter = {...actualFilter, friend: null};
                 break;
             case 'true':
-                actualFilter = {...actualFilter, friend: true}
+                actualFilter = {...actualFilter, friend: true};
                 break;
             case 'false':
-                actualFilter = {...actualFilter, friend: false}
+                actualFilter = {...actualFilter, friend: false};
                 break;
         }
 
-        dispatch(getUsersTC(actualPage, pageSize, actualFilter))
-    }, [])
+        dispatch(getUsersTC(actualPage, pageSize, actualFilter));
+    }, []);
     useEffect(() => {
-        const query: QueryParamsType = {}
-        if (!!filter.term) query.term = filter.term
-        if (filter.friend !== null) query.friend = String(filter.friend)
-        if (currentPage !== 1) query.page = String(currentPage)
+        const query: QueryParamsType = {};
+        if (!!filter.term) query.term = filter.term;
+        if (filter.friend !== null) query.friend = String(filter.friend);
+        if (currentPage !== 1) query.page = String(currentPage);
         history.push({
             pathname: '/users',
             search: queryString.stringify(query)
-        })
-    }, [filter, currentPage])
+        });
+    }, [filter, currentPage]);
 
     const onPageChanged = useCallback((pageNumber: number) => {
         dispatch(getUsersTC(pageNumber, pageSize, filter));
-    }, [dispatch]);
+    }, [dispatch, filter]);
 
     const onFilterChanged = useCallback((filter: FilterType) => {
         dispatch(getUsersTC(1, pageSize, filter));
@@ -81,10 +80,12 @@ export const Users: React.FC<PropsType> = (props) => {
     return (
         <div>
             <UserSearchForm onFilterChanged={onFilterChanged}/>
-            <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
-                       totalUsersCount={totalUsersCount}/>
-            <PaginatorAnt  totalUsersCount={totalUsersCount}
-                           onPageChanged={onPageChanged}
+            {/*---old paginator---*/}
+            {/*<Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}*/}
+            {/*totalUsersCount={totalUsersCount}/>*/}
+            <PaginatorAnt totalUsersCount={totalUsersCount}
+                          onPageChanged={onPageChanged}
+                          currentPage={currentPage}
 
             />
             {users.map((user: userType) => <User
