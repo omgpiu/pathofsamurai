@@ -1,3 +1,5 @@
+import {SearchOutlined} from '@ant-design/icons';
+import {Button} from 'antd';
 import {Field, Form, Formik} from 'formik';
 import React from 'react';
 import {useSelector} from 'react-redux';
@@ -28,7 +30,6 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}
             friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
         }
         onFilterChanged(filter)
-
         setSubmitting(false)
     }
     return <div>
@@ -54,6 +55,9 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}
                         <option value="true">Only followed</option>
                         <option value="false">Only unfollowed</option>
                     </Field>
+                    <Button type="primary" disabled={isSubmitting} icon={<SearchOutlined/>}>
+                        Search
+                    </Button>
                     <button type="submit" disabled={isSubmitting}>Submit</button>
                 </Form>)}
         </Formik>
