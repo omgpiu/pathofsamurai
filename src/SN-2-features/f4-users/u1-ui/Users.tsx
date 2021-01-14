@@ -80,9 +80,7 @@ export const Users: React.FC<PropsType> = (props) => {
     return (
         <div>
             <UserSearchForm onFilterChanged={onFilterChanged}/>
-            {/*---old paginator---*/}
-            {/*<Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}*/}
-            {/*totalUsersCount={totalUsersCount}/>*/}
+
             <PaginatorAnt totalUsersCount={totalUsersCount}
                           onPageChanged={onPageChanged}
                           currentPage={currentPage}
@@ -94,6 +92,9 @@ export const Users: React.FC<PropsType> = (props) => {
                 followingInProgress={followingInProgress}
                 user={user}
                 key={user.id}/>)}
+            {/*---old paginator---*/}
+            {/*<Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}*/}
+            {/*totalUsersCount={totalUsersCount}/>*/}
 
         </div>);
 };

@@ -18,20 +18,21 @@ type PropsType = {
 
 const usersSearchFormValidate = (values: any) => {
     const errors = {};
-    return errors
-}
+    return errors;
+};
 
-export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}) => {
 
-    const filter = useSelector(getUsersFilter)
+export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged, ...rest}) => {
+
+    const filter = useSelector(getUsersFilter);
     const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         const filter: FilterType = {
             term: values.term,
             friend: values.friend === 'null' ? null : values.friend === 'true' ? true : false
-        }
-        onFilterChanged(filter)
-        setSubmitting(false)
-    }
+        };
+        onFilterChanged(filter);
+        setSubmitting(false);
+    };
     return <div>
         <Formik
             initialValues={{term: filter.term, friend: String(filter.friend) as FriendFormType}}
@@ -55,12 +56,13 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged}
                         <option value="true">Only followed</option>
                         <option value="false">Only unfollowed</option>
                     </Field>
-                    <Button type="primary" disabled={isSubmitting} icon={<SearchOutlined/>}>
+                    <Button type="primary" htmlType={'submit'} disabled={isSubmitting} icon={<SearchOutlined/>}>
                         Search
                     </Button>
-                    <button type="submit" disabled={isSubmitting}>Submit</button>
+
+
                 </Form>)}
         </Formik>
-    </div>
-})
+    </div>;
+});
 
