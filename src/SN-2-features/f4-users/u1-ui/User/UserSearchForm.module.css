@@ -1,0 +1,41 @@
+.forms_wrapper {
+    display: flex;
+    justify-content: center;
+    max-width: 300px;
+    padding-top: 100px;
+}
+
+.forms_wrapper input {
+    /*display: flex;*/
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    line-height: 1.5715
+}
+
+.forms_wrapper input:hover {
+    border: 2px #1890ff solid;
+    transition: all 0.3s
+}
+
+.field_select {
+    /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+    /*display: inline-block;*/
+    /*position: relative;*/
+    /*font-size: 16px;*/
+    /*color: red;*/
+    /*width: 400px;*/
+    /*height: 50px;*/
+    display: flex;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    line-height: 1.5715
+}
+
+.forms_wrapper .field_select:hover {
+    border: 2px #1890ff solid;
+    transition: all 0.3s
+}

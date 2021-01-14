@@ -2,7 +2,6 @@ import React, {useCallback, useEffect} from 'react';
 import User from './User/User';
 import {UserSearchForm} from './User/UserSearchForm';
 import {useDispatch, useSelector} from 'react-redux';
-
 import {useHistory} from 'react-router-dom';
 import * as queryString from 'querystring';
 import {
@@ -16,6 +15,7 @@ import {
 import {FilterType, followTC, getUsersTC, unfollowTC} from '../u2-bll/users-reducer';
 import {userType} from '../../../Types/Types';
 import {PaginatorAnt} from '../../../SN-3-common/Paginator/p1-ant/PaginatorAnt';
+import st from './Users.module.css'
 
 
 type PropsType = {}
@@ -78,25 +78,27 @@ export const Users: React.FC<PropsType> = (props) => {
     }, [dispatch]);
 
     return (
-        <div>
+        <div className={st.main_wrapper}>
             <UserSearchForm onFilterChanged={onFilterChanged}/>
-
             <PaginatorAnt totalUsersCount={totalUsersCount}
                           onPageChanged={onPageChanged}
                           currentPage={currentPage}
-
             />
-            {users.map((user: userType) => <User
-                unfollowTC={unfollow}
-                followTC={follow}
-                followingInProgress={followingInProgress}
-                user={user}
-                key={user.id}/>)}
+            <div className={st.users_wrapper}>
+                {users.map((user: userType) => <User
+                    unfollowTC={unfollow}
+                    followTC={follow}
+                    followingInProgress={followingInProgress}
+                    user={user}
+                    key={user.id}/>)}
+            </div>
+
+
             {/*---old paginator---*/}
             {/*<Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}*/}
-            {/*totalUsersCount={totalUsersCount}/>*/}
+            {/*           totalUsersCount={totalUsersCount}/>*/}
 
-        </div>);
+        </div>)
 };
 
 

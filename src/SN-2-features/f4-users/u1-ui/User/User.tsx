@@ -1,10 +1,12 @@
 import React from 'react';
 
-import st from '../Users.module.css';
+import st from './User.module.css';
 import commonAvatar from '../../../../photo/commonAvatar.png';
 import {Link} from 'react-router-dom';
 import {userType} from '../../../../Types/Types';
 import {PROFILE_PATH} from '../../../../SN-3-common/routes/Routes';
+import {Button} from 'antd';
+import {MinusCircleOutlined, PlusCircleOutlined} from '@ant-design/icons';
 
 
 type UserType = {
@@ -17,6 +19,7 @@ type UserType = {
 
 const User: React.FC<UserType> = React.memo(({user, followingInProgress, followTC, unfollowTC}) => {
 
+
     const unfollow = () => {
         unfollowTC(user.id);
     }
@@ -25,27 +28,36 @@ const User: React.FC<UserType> = React.memo(({user, followingInProgress, followT
     }
     const disable = followingInProgress.some(id => id === user.id)
     return (
-        <div key={user.id}>
-                                <span>
-                                    <div>
-                                        <Link to={PROFILE_PATH + '/' + user.id}>
-                                        <img src={user.photos.small != null
-                                            ? user.photos.small
-                                            : commonAvatar} className={st.userAvatar} alt="avatar"/>
-                                            </Link>
-                                    </div>
-                                    <div>
-                                        {user.followed ?
-                                            <button disabled={disable}
-                                                    onClick={unfollow}>Unfollow</button> :
-                                            <button disabled={disable}
-                                                    onClick={follow}>Follow</button>}
-                                    </div>
-                                </span>
-            <span>
-                                    <div> <b>{user.name}</b></div>
-                <div><b>Status :</b> <span>{user.status || 'What are you doing?'}</span></div>
-                                </span>
+        <div key={user.id} className={st.wrapper}>
+
+
+            <div>
+                <Link to={PROFILE_PATH + '/' + user.id}>
+                    <img src={user.photos.small != null
+                        ? user.photos.small
+                        : commonAvatar} className={st.userAvatar} alt="avatar"/>
+                </Link>
+            </div>
+
+            <span> <b>Name:</b> {user.name}</span>
+            <div>
+                <b>Status :</b> <span>{user.status || 'What are you doing?'}</span>
+            </div>
+
+            <div>
+                {user.followed ?
+                    <Button type="primary" onClick={unfollow} disabled={disable}
+                            icon={<MinusCircleOutlined/>}>
+                        Unfollow
+                    </Button>
+                    :
+                    <Button type="primary" onClick={follow} disabled={disable}
+                            icon={<PlusCircleOutlined/>}
+                    >
+                        Follow
+                    </Button>
+                }
+            </div>
 
         </div>
     );

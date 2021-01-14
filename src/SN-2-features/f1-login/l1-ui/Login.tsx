@@ -5,8 +5,6 @@ import {Button, Checkbox, Form, Input} from 'antd';
 import st from './Login.module.css';
 import {EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined} from '@ant-design/icons/lib/icons';
 import {getIsAuth} from '../../f2-profile/p2-bll/profile-selectors';
-import {PROFILE_PATH} from '../../../SN-3-common/routes/Routes';
-import {Redirect} from 'react-router-dom';
 import {getError} from '../l2-bll/auth-selectors';
 import {LoginLabel} from './l2-old-features/LoginLabel';
 
@@ -15,9 +13,9 @@ const Login = () => {
     const error = useSelector(getError);
     const isAuth = useSelector(getIsAuth);
 
-    if (isAuth) {
-        return <Redirect to={PROFILE_PATH}/>;
-    }
+    // if (isAuth) {
+    //     return <Redirect to={PROFILE_PATH}/>;
+    // }
     const onSubmit = async (values: {
         email: string,
         password: string

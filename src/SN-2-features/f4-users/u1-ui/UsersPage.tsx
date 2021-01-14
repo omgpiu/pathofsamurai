@@ -9,9 +9,9 @@ type UserPageType = {}
 const UsersPage: React.FC<UserPageType> = () => {
 
     const isFetching = useSelector(getIsFetching);
-    return <div>
+    return <>
         {isFetching ? <PreLoader/> : null}
-        <Users/>;
-    </div>;
+        <Users/>
+    </>
 };
 export default withAuthRedirect(UsersPage)

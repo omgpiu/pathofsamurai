@@ -5,6 +5,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {FilterType} from '../../u2-bll/users-reducer';
 import {getUsersFilter} from '../../u2-bll/users-selectors';
+import st from './UserSearchForm.module.css'
 
 type FriendFormType = 'true' | 'false' | 'null'
 
@@ -33,36 +34,39 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged,
         onFilterChanged(filter);
         setSubmitting(false);
     };
-    return <div>
+    return <>
         <Formik
             initialValues={{term: filter.term, friend: String(filter.friend) as FriendFormType}}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >
             {({isSubmitting}) => (
-                <Form>
-                    <Field
-                        id="term"
-                        name="term"
-                        type="text"
-                    />
-                    <Field
-                        component="select"
-                        id="location"
-                        name="friend"
+                <Form className={st.forms_wrapper}>
+                    <div>
+                        <Field
+                            id="term"
+                            name="term"
+                            type="text"
+                        />
+                    </div>
+                    <div>
+                        <Field
+                            component="select"
+                            id="location"
+                            name="friend"
+                            className={st.field_select}
+                        >
+                            <option value="null">All</option>
+                            <option value="true">Only followed</option>
+                            <option value="false">Only unfollowed</option>
+                        </Field>
+                    </div>
 
-                    >
-                        <option value="null">All</option>
-                        <option value="true">Only followed</option>
-                        <option value="false">Only unfollowed</option>
-                    </Field>
                     <Button type="primary" htmlType={'submit'} disabled={isSubmitting} icon={<SearchOutlined/>}>
                         Search
                     </Button>
-
-
                 </Form>)}
         </Formik>
-    </div>;
+    </>;
 });
 

@@ -21,7 +21,6 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
                 ...state, ...action.payload
             };
         case  'AUTH/SET_ERROR' :
-            debugger
             return {
                 ...state,
                 ...action.payload
@@ -72,7 +71,6 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) =>
                 break;
             case  ResultCodesEnum.Error:
                 console.log('error');
-                debugger
                 dispatch(authActions.setError(loginData.messages[0]));
 
 

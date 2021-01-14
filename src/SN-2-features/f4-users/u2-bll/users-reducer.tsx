@@ -7,7 +7,7 @@ import {APIResponseType, ResultCodesEnum} from '../../../Types/api-types';
 
 const initialState = {
     users: [] as Array<userType>,
-    pageSize: 10,
+    pageSize: 5,
     totalUsersCount: 1,
     currentPage: 1,
     isFetching: false,

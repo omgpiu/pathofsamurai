@@ -11,17 +11,21 @@ type PropsType = {
     onPageChanged?: (pageNumber: number) => void
     pageSize?: number
     portionSize?: number
+
 }
 
-export const PaginatorAnt: React.FC<PropsType> = ({totalUsersCount, onPageChanged, currentPage}) => {
+export const PaginatorAnt: React.FC<PropsType> = ({totalUsersCount, onPageChanged, currentPage, pageSize}) => {
+
+
     return (
-        <div>
-            <Pagination showQuickJumper defaultCurrent={1} total={totalUsersCount} onChange={onPageChanged}
+        <>
+            <Pagination showQuickJumper defaultCurrent={1} defaultPageSize={pageSize} total={totalUsersCount}
+                        onChange={onPageChanged}
                         current={currentPage}/>
-        </div>
+        </>
 
 
-    );
+    )
 
 };
 
