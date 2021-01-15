@@ -6,9 +6,17 @@
     justify-content: center;
     align-items: center;
     color: #2196f3;
+    position: fixed;
+    /*margin: 0 auto;*/
+    left: 30%;
+    top: 25%;
+    right: 20%;
+    bottom: 10%;
+    z-index: 100500;
 }
 
 .loader .l_main {
+
     position: absolute;
     top: 50%;
     left: 50%;

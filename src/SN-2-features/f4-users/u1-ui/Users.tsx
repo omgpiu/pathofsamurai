@@ -83,6 +83,7 @@ export const Users: React.FC<PropsType> = (props) => {
             <PaginatorAnt totalUsersCount={totalUsersCount}
                           onPageChanged={onPageChanged}
                           currentPage={currentPage}
+                          pageSize={pageSize}
             />
             <div className={st.users_wrapper}>
                 {users.map((user: userType) => <User

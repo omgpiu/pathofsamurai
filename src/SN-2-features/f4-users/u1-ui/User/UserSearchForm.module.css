@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     max-width: 300px;
-    padding-top: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .forms_wrapper input {

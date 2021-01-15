@@ -9,7 +9,7 @@ type PropsType = {
     totalUsersCount?: number
     currentPage?: number
     onPageChanged?: (pageNumber: number) => void
-    pageSize?: number
+    pageSize: number
     portionSize?: number
 
 }
@@ -18,11 +18,15 @@ export const PaginatorAnt: React.FC<PropsType> = ({totalUsersCount, onPageChange
 
 
     return (
-        <>
-            <Pagination showQuickJumper defaultCurrent={1} defaultPageSize={pageSize} total={totalUsersCount}
+        <div style={{marginBottom: '10px'}}>
+            <Pagination showQuickJumper defaultCurrent={1} total={totalUsersCount}
                         onChange={onPageChanged}
-                        current={currentPage}/>
-        </>
+                        current={currentPage}
+                        pageSize={pageSize}
+                        showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+
+            />
+        </div>
 
 
     )
