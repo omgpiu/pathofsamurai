@@ -10,14 +10,15 @@ import usersReducer from '../../SN-2-features/f4-users/u2-bll/users-reducer';
 import authReducer from '../../SN-2-features/f1-login/l2-bll/auth-reducer';
 import chatReducer from '../../SN-2-features/f5-chat/c2-bll/chat-reducer';
 
+debugger
 const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    app:appReducer,
+    app: appReducer,
     form: formReducer,
-    chat:chatReducer
+    chat: chatReducer
 });
 // We have to combine reducers, it's like our SN-1-main state
 

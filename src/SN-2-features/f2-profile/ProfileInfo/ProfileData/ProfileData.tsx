@@ -2,13 +2,13 @@ import React from 'react';
 import st from './ProfileData.module.css';
 import {ContactsType, NewProfileType} from '../../../../Types/Types';
 
-const Contact: React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
+const Contact: React.FC<ContactsPropsType> = React.memo(({contactTitle, contactValue}) => {
     return (<div>
         <b>{contactTitle}</b> : {contactValue}
     </div>);
-};
-const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, editMode}) => {
+});
 
+const ProfileData: React.FC<ProfileDataType> = React.memo(({profile, isOwner, editMode}) => {
 
     return <div className={st.description}>
         {isOwner && <div>
@@ -37,7 +37,7 @@ const ProfileData: React.FC<ProfileDataType> = ({profile, isOwner, editMode}) =>
         })}
         </div>
     </div>;
-};
+});
 export default ProfileData;
 
 type ProfileDataType = {

@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import MyPosts from '../MyPosts/MyPosts';
 import {NewProfileType} from '../../../Types/Types';
+import {Col, Row} from 'antd';
 
 
 export const Profile: React.FC<PropsType> = React.memo(({
@@ -14,14 +15,22 @@ export const Profile: React.FC<PropsType> = React.memo(({
                                                         }) => {
 
     return (
-        <div>
-            <ProfileInfo savePhoto={savePhoto} isOwner={isOwner} profile={profile}
-                         status={status} updateStatus={updateStatus}
-                         saveProfile={saveProfile}
+        <>
+            <Row>
+                <Col span={12}>
+                    <ProfileInfo savePhoto={savePhoto}
+                                 isOwner={isOwner}
+                                 profile={profile}
+                                 status={status}
+                                 updateStatus={updateStatus}
+                                 saveProfile={saveProfile}
+                    />
+                </Col>
+                <Col span={12}> <MyPosts/></Col>
+            </Row>
 
-            />
-            <MyPosts/>
-        </div>
+
+        </>
     );
 
 });
