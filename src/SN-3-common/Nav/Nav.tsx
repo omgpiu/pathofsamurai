@@ -7,6 +7,7 @@ import {
     FileOutlined,
     SettingOutlined,
     SoundOutlined,
+    TeamOutlined,
     UserAddOutlined,
     UserOutlined
 } from '@ant-design/icons';
@@ -29,7 +30,7 @@ export const Nav: React.FC<PropsType> = () => {
             <Menu.Item key="Main/Community" icon={<UserAddOutlined/>}>
                 <Link to={USERS_PATH}> Community</Link>
             </Menu.Item>
-            <Menu.Item key="Main/Chat" icon={<UserAddOutlined/>}>
+            <Menu.Item key="Main/Chat" icon={<TeamOutlined/>}>
                 <Link to={CHAT_PATH}>Chat</Link>
             </Menu.Item>
             <SubMenu key="Music" icon={<CustomerServiceOutlined/>} title="Music">

@@ -4,23 +4,28 @@ import {authActions, loginTC} from '../l2-bll/auth-reducer';
 import {Button, Checkbox, Form, Input} from 'antd';
 import st from './Login.module.css';
 import {EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined} from '@ant-design/icons/lib/icons';
-import {getIsAuth} from '../../f2-profile/p2-bll/profile-selectors';
+import {getCaptcha, getIsAuth} from '../../f2-profile/p2-bll/profile-selectors';
 import {getError} from '../l2-bll/auth-selectors';
 import {LoginLabel} from './l2-old-features/LoginLabel';
+import {Link} from 'react-router-dom';
 
 const Login = () => {
     const dispatch = useDispatch();
     const error = useSelector(getError);
     const isAuth = useSelector(getIsAuth);
+    const captchaUrl = useSelector(getCaptcha)
+
 
     // if (isAuth) {
     //     return <Redirect to={PROFILE_PATH}/>;
     // }
     const onSubmit = async (values: {
         email: string,
-        password: string
+        password: string,
+        captcha: string
     }) => {
         await dispatch(loginTC(values));
+
     };
     const resetError = () => {
         dispatch(authActions.setError(''))
@@ -79,18 +84,31 @@ const Login = () => {
                 <Form.Item name="remember" valuePropName="checked" noStyle>
                     <Checkbox>Remember me</Checkbox>
                 </Form.Item>
-                <a target={'_blank'} className={st.loginFormForgot} href="https://social-network.samuraijs.com/login">
+                <Link target={'_blank'} className={st.loginFormForgot} to="https://social-network.samuraijs.com/login">
                     Forgot password
-                </a>
+                </Link>
             </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit" className={st.loginFormButton}
                 >
                     Log in
                 </Button>
-                Or <a target={'_blank'} href="https://social-network.samuraijs.com/signUp">register now!</a>
+                Or <Link target={'_blank'} to="https://social-network.samuraijs.com/signUp">register now!</Link>
+
+
             </Form.Item>
 
+            <img src={captchaUrl ? captchaUrl : undefined} alt=""/>
+            <Form.Item
+                name="captcha"
+            >
+                {captchaUrl && <Input
+                    placeholder="captcha"
+                    onClick={resetError}
+                    style={{width: '100px'}}
+                />}
+
+            </Form.Item>
         </Form>
     );
 };
