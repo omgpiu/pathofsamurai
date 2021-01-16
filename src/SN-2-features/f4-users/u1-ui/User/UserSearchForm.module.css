@@ -31,16 +31,18 @@
     width: 99px;
 }
 
-.forms_wrapper input, .forms_wrapper input:focus, .forms_wrapper input:active, .forms_wrapper input:hover {
+.forms_wrapper input:focus, .forms_wrapper input:active, .forms_wrapper input:hover {
     outline: none;
-    transition: all 0.5s;
+    transition: all 1s;
     border: none;
     border: 1px #1890ff solid;
 }
 
-.forms_wrapper select, .forms_wrapper select:focus, .forms_wrapper select:active, .forms_wrapper option, .forms_wrapper option:focus, .forms_wrapper option:active {
+.forms_wrapper select:focus, .forms_wrapper select:active, .forms_wrapper option, .forms_wrapper option:focus, .forms_wrapper option:active {
     outline: none;
-    transition: all 0.5s;
+    transition: all 1s;
     border: none;
     border: 1px #1890ff solid;
 }
+
+

@@ -20,7 +20,6 @@ const PaginatorAnt: React.FC<PropsType> = React.memo(({
                                                           pageSize,
                                                           style
                                                       }) => {
-    console.log('paginator');
     return (
         <div style={style}>
             <Pagination showQuickJumper defaultCurrent={1} total={totalUsersCount}
@@ -28,8 +27,7 @@ const PaginatorAnt: React.FC<PropsType> = React.memo(({
                         current={currentPage}
                         pageSize={pageSize}
                         showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-
-
+                        pageSizeOptions={['5', '10', '20', '50', '100']}
             />
         </div>
 

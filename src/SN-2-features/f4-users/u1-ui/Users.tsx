@@ -21,7 +21,6 @@ import PaginatorAnt from '../../../SN-3-common/Paginator/p1-ant/PaginatorAnt';
 type PropsType = {}
 type QueryParamsType = { term?: string; page?: string; friend?: string }
 export const Users: React.FC<PropsType> = () => {
-    console.log('users');
     const dispatch = useDispatch();
     const totalUsersCount = useSelector(getTotalUsers);
     const currentPage = useSelector(getCurrentPage);
@@ -70,7 +69,7 @@ export const Users: React.FC<PropsType> = () => {
     const onFilterChanged = useCallback((filter: FilterType) => {
 
         dispatch(getUsersTC(1, filter, pageSize));
-    }, [dispatch]);
+    }, [dispatch,filter]);
 
     const follow = useCallback((userId: number) => {
         dispatch(followTC(userId));

@@ -55,11 +55,10 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged,
                             component="select"
                             id="location"
                             name="friend"
-                            // className={st.field_select}
-                        >
-                            <option value="null">All</option>
-                            <option value="true">Only followed</option>
-                            <option value="false">Only unfollowed</option>
+                         >
+                            <option value="null">All people</option>
+                            <option value="true">Friends</option>
+                            <option value="false">You may know</option>
                         </Field>
 
                     </>
