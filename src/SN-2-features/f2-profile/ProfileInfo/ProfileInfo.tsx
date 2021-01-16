@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {NewProfileType} from '../../../Types/Types';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import commonLogo from '../../../photo/commonAvatar.png';
@@ -6,17 +6,15 @@ import st from './ProfileData/ProfileData.module.css';
 import ProfileData from './ProfileData/ProfileData';
 import ProfileDataForm from './ProfileDataForm/ProfileDataForm';
 import PreLoader from '../../../SN-3-common/preLoader/preLoader';
-import {Button, Col, Row, Upload} from 'antd';
 import {UploadOutlined} from '@ant-design/icons/lib/icons';
-import {UploadChangeParam} from 'antd/es/upload';
-import {UploadFile} from 'antd/es/upload/interface';
-import {RcFile} from 'antd/lib/upload/interface';
+import {Button, Col, Row, Upload} from 'antd';
+import {UploadChangeParam} from 'antd/lib/upload/interface';
 
 type PropsType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: (file: File) => void
+    savePhoto: (file: any) => void
     profile: NewProfileType | null
     saveProfile: (profile: NewProfileType) => Promise<any>
 }
@@ -60,21 +58,34 @@ const ProfileInfo: React.FC<PropsType> = React.memo(({
         return <div><PreLoader/></div>;
     }
 
-    // const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    //     if (e.target.files && e.target.files.length) {
-    //         savePhoto(e.target.files[0]);
-    //     }
-    // };
-    // const onMainPhotoSelected = ( fileList:any ) => {
-    //     debugger
-    //     savePhoto(file)
-    // };
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            savePhoto(e.target.files[0]);
+        }
+    };
+    const onMainPhotoSelecte = (fileList: any) => {
+        debugger
+        savePhoto(fileList)
+    };
 
     const onSubmit = (profile: NewProfileType) => {
         saveProfile(profile).then(() => {
             setEditMode(false);
         });
     };
+    const nChange = (info: UploadChangeParam) => {
+        savePhoto(info.fileList)
+    }
+
+        //TODO FIX THIS SHIT
+    const prop = {
+        name: 'file',
+        action: `https://social-network.samuraijs.com/api/1.0/profile/photo`,
+        withCredentials: true,
+        headers: {
+            'API-KEY': '78abceff-cb7c-4815-8b56-016c67d0625d'
+        },
+       };
 
 
     return <>
@@ -82,27 +93,22 @@ const ProfileInfo: React.FC<PropsType> = React.memo(({
             <Col span={12} offset={6}>
                 <img src={profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
             </Col>
-        </Row>
-        <Row>
             <Col span={12} offset={6}>
                 <ProfileStatus isOwner={isOwner}/>
             </Col>
+            <Col span={12} offset={6}>
+                {isOwner && <Upload {...prop}>
+                    <Button>
+                        <UploadOutlined/> Click to Upload
+                    </Button>
+                </Upload>}
+            </Col>
         </Row>
-        {/*<Row>*/}
-        {/*    <Col span={12} offset={6}>*/}
-        {/*        {isOwner && <Upload onChange={onMainPhotoSelected}>*/}
-        {/*            <Button >*/}
-        {/*                <UploadOutlined/> Click to Upload*/}
-        {/*            </Button>*/}
-        {/*        </Upload>}*/}
-        {/*    </Col>*/}
-
-        {/*</Row>*/}
 
 
         {editMode ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/> :
             <ProfileData profile={profile} isOwner={isOwner} editMode={goToEditMode}/>}
-        {/*{isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}*/}
+        {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
         {/*<ProfileStatusClass status={props.status} updateStatus={props.updateStatus}/>*/}
     </>;
 
