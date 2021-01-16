@@ -11,11 +11,12 @@ import {
     UserAddOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import {CHAT_PATH, DIALOGS_PATH, NEWS_PATH, PROFILE_PATH, USERS_PATH} from '../routes/Routes';
+import {CHAT_PATH, DIALOGS_PATH, EMPTY_PAGE, NEWS_PATH, PROFILE_PATH, USERS_PATH} from '../routes/Routes';
 
 const {SubMenu} = Menu;
 type PropsType = {}
 export const Nav: React.FC<PropsType> = () => {
+    const empty = <Link to={EMPTY_PAGE}></Link>
     return (
         <Menu theme="dark" mode="inline">
             <Menu.Item key="1" icon={<UserOutlined/>}>
@@ -34,19 +35,28 @@ export const Nav: React.FC<PropsType> = () => {
                 <Link to={CHAT_PATH}>Chat</Link>
             </Menu.Item>
             <SubMenu key="Music" icon={<CustomerServiceOutlined/>} title="Music">
-                <Menu.Item key="Music/New">New music</Menu.Item>
-                <Menu.Item key="Music/My">My music</Menu.Item>
-                <Menu.Item key="Music/All">All music</Menu.Item>
+                <Menu.Item key="Music/New">{empty}New music
+                </Menu.Item>
+                <Menu.Item key="Music/My">{empty}My music
+                </Menu.Item>
+                <Menu.Item key="Music/All">{empty}All music
+                </Menu.Item>
             </SubMenu>
             <SubMenu key="News" icon={<SoundOutlined/>} title="News">
-                <Menu.Item key="News/Friends">Friends</Menu.Item>
-                <Menu.Item key="News/World">World</Menu.Item>
-                <Menu.Item key="News/City">City</Menu.Item>
+                <Menu.Item key="News/Friends">{empty}Friends
+                </Menu.Item>
+                <Menu.Item key="News/World">{empty}World
+                </Menu.Item>
+                <Menu.Item key="News/City">{empty}City
+                </Menu.Item>
             </SubMenu>
             <SubMenu key="Settings" icon={<SettingOutlined/>} title="Settings">
-                <Menu.Item key="Settings/General">General</Menu.Item>
-                <Menu.Item key="Settings/Security">Security</Menu.Item>
-                <Menu.Item key="Settings/Privacy">Privacy</Menu.Item>
+                <Menu.Item key="Settings/General">{empty}General
+                </Menu.Item>
+                <Menu.Item key="Settings/Security">{empty}Security
+                </Menu.Item>
+                <Menu.Item key="Settings/Privacy">{empty}Privacy
+                </Menu.Item>
             </SubMenu>
             <Menu.Item key="Login" icon={<FileOutlined/>}>
                 <Link to={NEWS_PATH}>Login</Link>
