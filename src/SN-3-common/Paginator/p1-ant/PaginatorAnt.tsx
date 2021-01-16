@@ -1,36 +1,43 @@
 import {Pagination} from 'antd';
-import React from 'react';
+import React, {CSSProperties} from 'react';
 
-function onChange(pageNumber: any) {
-    console.log('Page: ', pageNumber);
-}
 
 type PropsType = {
     totalUsersCount?: number
     currentPage?: number
-    onPageChanged?: (pageNumber: number) => void
-    pageSize: number
+    onPageChanged: (page: number, pageSize?: number) => void
+    pageSize: number | undefined
     portionSize?: number
+    style: CSSProperties
 
 }
 
-export const PaginatorAnt: React.FC<PropsType> = ({totalUsersCount, onPageChanged, currentPage, pageSize}) => {
 
-
+const PaginatorAnt: React.FC<PropsType> = React.memo(({
+                                                          totalUsersCount,
+                                                          onPageChanged,
+                                                          currentPage,
+                                                          pageSize,
+                                                          style
+                                                      }) => {
+    console.log('paginator');
     return (
-        <div style={{marginBottom: '10px'}}>
+        <div style={style}>
             <Pagination showQuickJumper defaultCurrent={1} total={totalUsersCount}
                         onChange={onPageChanged}
                         current={currentPage}
                         pageSize={pageSize}
                         showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
 
+
             />
         </div>
 
 
-    )
+    );
 
-};
+});
+
+export default PaginatorAnt;
 
 

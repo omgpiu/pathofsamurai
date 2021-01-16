@@ -5,7 +5,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {FilterType} from '../../u2-bll/users-reducer';
 import {getUsersFilter} from '../../u2-bll/users-selectors';
-import st from './UserSearchForm.module.css'
+import st from './UserSearchForm.module.css';
 
 type FriendFormType = 'true' | 'false' | 'null'
 
@@ -24,7 +24,7 @@ const usersSearchFormValidate = (values: any) => {
 
 
 export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged, ...rest}) => {
-
+    console.log('searh form');
     const filter = useSelector(getUsersFilter);
     const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         const filter: FilterType = {
@@ -42,26 +42,27 @@ export const UserSearchForm: React.FC<PropsType> = React.memo(({onFilterChanged,
         >
             {({isSubmitting}) => (
                 <Form className={st.forms_wrapper}>
-                    <div>
+                    <>
                         <Field
                             id="term"
                             name="term"
                             type="text"
+
                         />
-                    </div>
-                    <div>
+                    </>
+                    <>
                         <Field
                             component="select"
                             id="location"
                             name="friend"
-                            className={st.field_select}
+                            // className={st.field_select}
                         >
                             <option value="null">All</option>
                             <option value="true">Only followed</option>
                             <option value="false">Only unfollowed</option>
                         </Field>
-                    </div>
 
+                    </>
                     <Button type="primary" htmlType={'submit'} disabled={isSubmitting} icon={<SearchOutlined/>}>
                         Search
                     </Button>

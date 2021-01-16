@@ -12,15 +12,16 @@ import {
     getUsers,
     getUsersFilter
 } from '../u2-bll/users-selectors';
-import {FilterType, followTC, getUsersTC, unfollowTC} from '../u2-bll/users-reducer';
+import {FilterType, followTC, getUsersTC, unfollowTC, usersAction} from '../u2-bll/users-reducer';
 import {userType} from '../../../Types/Types';
-import {PaginatorAnt} from '../../../SN-3-common/Paginator/p1-ant/PaginatorAnt';
-import st from './Users.module.css'
+import st from './Users.module.css';
+import PaginatorAnt from '../../../SN-3-common/Paginator/p1-ant/PaginatorAnt';
 
 
 type PropsType = {}
 type QueryParamsType = { term?: string; page?: string; friend?: string }
-export const Users: React.FC<PropsType> = (props) => {
+export const Users: React.FC<PropsType> = () => {
+    console.log('users');
     const dispatch = useDispatch();
     const totalUsersCount = useSelector(getTotalUsers);
     const currentPage = useSelector(getCurrentPage);
@@ -48,7 +49,7 @@ export const Users: React.FC<PropsType> = (props) => {
                 break;
         }
 
-        dispatch(getUsersTC(actualPage, pageSize, actualFilter));
+        dispatch(getUsersTC(actualPage, actualFilter, pageSize));
     }, []);
     useEffect(() => {
         const query: QueryParamsType = {};
@@ -61,12 +62,14 @@ export const Users: React.FC<PropsType> = (props) => {
         });
     }, [filter, currentPage]);
 
-    const onPageChanged = useCallback((pageNumber: number) => {
-        dispatch(getUsersTC(pageNumber, pageSize, filter));
-    }, [dispatch, filter]);
+    const onPageChanged = useCallback((pageNumber = 1, pageSize?: number) => {
+        dispatch(usersAction.setPageSize(pageSize));
+        dispatch(getUsersTC(pageNumber, filter, pageSize));
+    }, [dispatch, filter, pageSize]);
 
     const onFilterChanged = useCallback((filter: FilterType) => {
-        dispatch(getUsersTC(1, pageSize, filter));
+
+        dispatch(getUsersTC(1, filter, pageSize));
     }, [dispatch]);
 
     const follow = useCallback((userId: number) => {
@@ -77,6 +80,7 @@ export const Users: React.FC<PropsType> = (props) => {
         dispatch(unfollowTC(userId));
     }, [dispatch]);
 
+
     return (
         <div className={st.main_wrapper}>
             <UserSearchForm onFilterChanged={onFilterChanged}/>
@@ -84,6 +88,7 @@ export const Users: React.FC<PropsType> = (props) => {
                           onPageChanged={onPageChanged}
                           currentPage={currentPage}
                           pageSize={pageSize}
+                          style={{marginBottom: '10px'}}
             />
             <div className={st.users_wrapper}>
                 {users.map((user: userType) => <User
@@ -99,7 +104,7 @@ export const Users: React.FC<PropsType> = (props) => {
             {/*<Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}*/}
             {/*           totalUsersCount={totalUsersCount}/>*/}
 
-        </div>)
+        </div>);
 };
 
 

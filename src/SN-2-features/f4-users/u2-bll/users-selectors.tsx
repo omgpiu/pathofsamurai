@@ -8,11 +8,11 @@ const getUsersSelector = (state: AppRootStateType) => {
     return state.usersPage.users;
 };
 
-export const getUsers = createSelector(getUsersSelector, (users):Array<userType> => {
+export const getUsers = createSelector(getUsersSelector, (users): Array<userType> => {
     return users.filter(u => true);
 }); // пример
 
-export const getPageSize = (state: AppRootStateType): number => {
+export const getPageSize = (state: AppRootStateType): number | undefined => {
     return state.usersPage.pageSize;
 };
 

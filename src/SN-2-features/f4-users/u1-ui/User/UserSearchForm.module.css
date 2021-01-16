@@ -1,42 +1,46 @@
 .forms_wrapper {
     display: flex;
     justify-content: center;
-    max-width: 300px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    max-width: 600px;
+    padding: 20px;
+    flex-wrap: wrap;
+
 }
 
 .forms_wrapper input {
-    /*display: flex;*/
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    line-height: 1.5715
-}
-
-.forms_wrapper input:hover {
-    border: 2px #1890ff solid;
-    transition: all 0.3s
-}
-
-.field_select {
-    /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';*/
-    /*border: none;*/
-    /*cursor: pointer;*/
-    /*display: inline-block;*/
-    /*position: relative;*/
-    /*font-size: 16px;*/
-    /*color: red;*/
-    /*width: 400px;*/
-    /*height: 50px;*/
     display: flex;
-    width: 300px;
+    width: 280px;
     border-radius: 5px;
     border: 1px solid #d9d9d9;
-    line-height: 1.5715
+    line-height: 1.5715;
+    min-width: 30%
 }
 
-.forms_wrapper .field_select:hover {
-    border: 2px #1890ff solid;
-    transition: all 0.3s
+.forms_wrapper select {
+    display: flex;
+    width: 130px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    line-height: 1.5715;
+    margin-right: 6px;
+    margin-left: 6px;
+    min-width: 20%
+}
+
+.forms_wrapper button {
+    width: 99px;
+}
+
+.forms_wrapper input, .forms_wrapper input:focus, .forms_wrapper input:active, .forms_wrapper input:hover {
+    outline: none;
+    transition: all 0.5s;
+    border: none;
+    border: 1px #1890ff solid;
+}
+
+.forms_wrapper select, .forms_wrapper select:focus, .forms_wrapper select:active, .forms_wrapper option, .forms_wrapper option:focus, .forms_wrapper option:active {
+    outline: none;
+    transition: all 0.5s;
+    border: none;
+    border: 1px #1890ff solid;
 }
