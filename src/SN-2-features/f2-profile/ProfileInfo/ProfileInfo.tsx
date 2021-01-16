@@ -19,7 +19,14 @@ type PropsType = {
 // type ProfileTypeKeys = GetStringKeys<PropsType>,
 
 
-const ProfileInfo: React.FC<PropsType> = ({isOwner, profile, savePhoto, status, updateStatus, saveProfile}) => {
+const ProfileInfo: React.FC<PropsType> = React.memo(({
+                                                         isOwner,
+                                                         profile,
+                                                         savePhoto,
+                                                         status,
+                                                         updateStatus,
+                                                         saveProfile
+                                                     }) => {
     const [editMode, setEditMode] = useState(false);
     const goToEditMode = () => {
         setEditMode(true);
@@ -53,7 +60,7 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, profile, savePhoto, status, 
         {/*<ProfileStatusClass status={props.status} updateStatus={props.updateStatus}/>*/}
     </div>;
 
-};
+});
 
 
 export default ProfileInfo;

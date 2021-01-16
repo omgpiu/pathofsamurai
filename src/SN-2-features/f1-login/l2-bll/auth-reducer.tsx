@@ -68,6 +68,7 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) =>
                 break;
             case ResultCodeForCaptcha.CaptchaRequired:
                 await dispatch(getCaptchaUrl());
+                dispatch(authActions.setError(loginData.messages[0]));
                 break;
             case  ResultCodesEnum.Error:
                 console.log('error');
@@ -81,13 +82,14 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) =>
     }
 
 };
+
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     try {
         const captchaData = await securityAPI.getCaptchaUrl();
         const captchaUrl = captchaData.data.url;
         dispatch(authActions.getCaptchaUrlSuccess(captchaUrl));
-    } catch (e) {
-        console.log('Some error with getCaptchaUrl');
+    } catch (error) {
+        dispatch(authActions.setError(error.message));
     }
 
 
@@ -95,11 +97,11 @@ export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
 export const logoutTC = (): ThunkType => async (dispatch) => {
     try {
         const logoutData = await AuthAPI.logout();
-        if (logoutData.resultCode === 0) {
+        if (logoutData.resultCode === ResultCodesEnum.Success) {
             dispatch(authActions.setAuthUserData(null, null, null, false));
         }
-    } catch (e) {
-        console.log('Some error with logoutTC');
+    } catch (error) {
+        dispatch(authActions.setError(error.message));
     }
 
 };
