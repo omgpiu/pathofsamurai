@@ -60,13 +60,13 @@ const ProfileInfo: React.FC<PropsType> = React.memo(({
     // };
     return <>
         <Row>
-            <Col span={12} offset={6}>
+            <Col span={12} offset={12}>
                 <img src={profile.photos.large || commonLogo} alt={'ava'} className={st.thisAva}/>
             </Col>
-            <Col span={12} offset={6}>
+            <Col span={12} offset={12}>
                 <ProfileStatus isOwner={isOwner}/>
             </Col>
-            <Col span={12} offset={6}>
+            <Col span={12} offset={12}>
                 {isOwner && <Upload customRequest={onMainPhotoSelected} {...prop} >
                     <Button type='primary'>
                         <UploadOutlined/> Change photo

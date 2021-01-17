@@ -1,8 +1,9 @@
-import React from 'react';
-import st from './Post.module.css';
+import React, {createElement, useState} from 'react';
 import messageLogo from '../../../../photo/messageLogo-removebg-preview.png'
-import {Col, Row} from 'antd';
-
+import {Avatar, Comment, Tooltip} from 'antd';
+import {DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined} from '@ant-design/icons';
+import st from './Post.module.css'
+import moment from 'moment';
 
 type PostType = {
     id: string
@@ -12,14 +13,59 @@ type PostType = {
 
 
 const Post: React.FC<PostType> = React.memo(({id, message, likesCount}) => {
+    const [likes, setLikes] = useState(0);
+    const [dislikes, setDislikes] = useState(0);
+    const [action, setAction] = useState<null | string>(null);
+
+    const like = () => {
+        setLikes(1);
+        setDislikes(0);
+        setAction('liked');
+    };
+
+    const dislike = () => {
+        setLikes(0);
+        setDislikes(1);
+        setAction('disliked');
+    };
+
+    const actions = [
+        <Tooltip key="comment-basic-like" title="Like">
+      <span onClick={like}>
+        {createElement(action === 'liked' ? LikeFilled : LikeOutlined)}
+          <span className={st.comment_action}>{likesCount}</span>
+      </span>
+        </Tooltip>,
+        <Tooltip key="comment-basic-dislike" title="Dislike">
+      <span onClick={dislike}>
+        {React.createElement(action === 'disliked' ? DislikeFilled : DislikeOutlined)}
+          <span className={st.comment_action}>{dislikes}</span>
+      </span>
+        </Tooltip>,
+        <span key="comment-basic-reply-to">Reply to</span>,
+    ];
+
     return (
-            <Row style={{border: '1px solid black'}}>
-                <Col flex={1} className={`${st.item} ${st.img}`}><img src={messageLogo} alt={'avatar'}/></Col>
-                <Col flex={3}>{message}</Col>
-                <Col flex={3}>{likesCount}</Col>
-            </Row>
+        <Comment
+            actions={actions}
+            author={<a>Omgpiu</a>}
+            avatar={
+                <Avatar
+                    src={messageLogo}
+                    alt="Logo"
+                />
+            }
+            content={
+                <p>
+                    {message}
+                </p>
+            }
+            datetime={
+                <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                    <span>{moment().fromNow()}</span>
+                </Tooltip>
+            }
+        />
     );
-});
-
-
+})
 export default Post;

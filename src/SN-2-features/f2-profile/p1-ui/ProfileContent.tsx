@@ -17,16 +17,19 @@ export const Profile: React.FC<PropsType> = React.memo(({
     return (
         <>
             <Row>
-                <Col span={12}>
-                    <ProfileInfo savePhoto={savePhoto}
-                                 isOwner={isOwner}
-                                 profile={profile}
-                                 status={status}
-                                 updateStatus={updateStatus}
-                                 saveProfile={saveProfile}
-                    />
-                </Col>
-                <Col span={12}> <MyPosts/></Col>
+                <Row>
+                    <Col span={12}>
+                        <ProfileInfo savePhoto={savePhoto}
+                                     isOwner={isOwner}
+                                     profile={profile}
+                                     status={status}
+                                     updateStatus={updateStatus}
+                                     saveProfile={saveProfile}
+                        />
+                    </Col>
+                </Row>
+
+                <Col span={9}> <MyPosts/></Col>
             </Row>
 
 
