@@ -1,6 +1,7 @@
 import React from 'react';
 import st from './Post.module.css';
 import messageLogo from '../../../../photo/messageLogo-removebg-preview.png'
+import {Col, Row} from 'antd';
 
 
 type PostType = {
@@ -12,20 +13,12 @@ type PostType = {
 
 const Post: React.FC<PostType> = React.memo(({id, message, likesCount}) => {
     return (
-        <div className={`${st.wrapper} ${st.wrapper_i}`}>
-            <div className={`${st.item} ${st.img}`}>
-                <img src={messageLogo} alt={'avatar'}/>
-            </div>
-            <div key={id} className={`${st.items} ${st.messageBox}`}>
-                {message}
-            </div>
-            <div className={`${st.items} ${st.likes}`}>{likesCount}</div>
-
-        </div>
-
-
+            <Row style={{border: '1px solid black'}}>
+                <Col flex={1} className={`${st.item} ${st.img}`}><img src={messageLogo} alt={'avatar'}/></Col>
+                <Col flex={3}>{message}</Col>
+                <Col flex={3}>{likesCount}</Col>
+            </Row>
     );
-
 });
 
 

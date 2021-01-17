@@ -10,7 +10,6 @@ import usersReducer from '../../SN-2-features/f4-users/u2-bll/users-reducer';
 import authReducer from '../../SN-2-features/f1-login/l2-bll/auth-reducer';
 import chatReducer from '../../SN-2-features/f5-chat/c2-bll/chat-reducer';
 
-debugger
 const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,

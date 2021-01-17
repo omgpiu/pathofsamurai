@@ -3,6 +3,7 @@ import {NewProfileType} from '../../../../Types/Types';
 import st from '../ProfileData/ProfileData.module.css';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import {createField, MyInput, Textarea} from '../../../../SN-3-common/FormControls/FormControls';
+import {Button} from 'antd';
 
 type PropsType = {
     profile: NewProfileType
@@ -14,10 +15,10 @@ const ProfileDataForm: React.FC<InjectedFormProps<NewProfileType, PropsType> & P
                                                                                                  error
 
                                                                                              }) => {
-    return <form onSubmit={handleSubmit}>
+    return <form>
         <div className={st.description}>
             <div>
-                <button>Save</button>
+                <Button onClick={handleSubmit} type='primary'>Save</Button>
                 {error && <div>{error}</div>}
             </div>
             <div>
@@ -35,7 +36,7 @@ const ProfileDataForm: React.FC<InjectedFormProps<NewProfileType, PropsType> & P
                 <b>About me</b> :{createField('About me', 'aboutMe', [], Textarea)}
             </div>
             <div>
-                <b>Contacts</b> : {Object.keys(profile.contacts).map(key => {
+                <b>You can find me there</b> : {Object.keys(profile.contacts).map(key => {
                 return <div key={key}>
                     <b>{key}:</b> {createField(key, 'contacts.' + key, [], MyInput)}
 

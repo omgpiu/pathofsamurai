@@ -14,7 +14,7 @@ type DispatchPropsType = {
     getUserProfile: (userId: number | null) => void
     getUserStatus: (userId: number | null) => void
     updateUserStatus: (status: string) => void
-    savePhoto: (file: File) => void
+    savePhoto: (file: File) => Promise<any>
     saveProfile: (profile: NewProfileType) => Promise<any>
 }
 
@@ -89,7 +89,6 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
 
 
     componentDidMount() {
-
         this.refreshProfile();
     }
 
@@ -97,7 +96,6 @@ class ProfileContentContainerAPI extends React.Component<PropsType> {
         if (this.props.match.params.userId != prevProps.match.params.userId) {
             this.refreshProfile();
         }
-
     }
 
     componentWillUnmount(): void {

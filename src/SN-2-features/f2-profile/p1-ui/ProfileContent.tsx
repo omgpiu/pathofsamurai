@@ -39,7 +39,7 @@ type PropsType = {
     status: string
     updateStatus: (status: string) => void
     isOwner: boolean
-    savePhoto: (file: File) => void
+    savePhoto: (file: File) => Promise<any>
     saveProfile: (formData: any) => any
 
 }
