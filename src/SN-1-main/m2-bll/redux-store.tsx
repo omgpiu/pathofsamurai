@@ -15,9 +15,9 @@ const reducers = combineReducers({
     dialogsPage: dialogsReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    app:appReducer,
+    app: appReducer,
     form: formReducer,
-    chat:chatReducer
+    chat: chatReducer
 });
 // We have to combine reducers, it's like our SN-1-main state
 

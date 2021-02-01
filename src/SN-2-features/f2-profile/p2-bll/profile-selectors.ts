@@ -17,3 +17,6 @@ export const getIsAuth = (state: AppRootStateType): boolean => {
 export const getUserId = (state: AppRootStateType): number | null => {
     return state.auth.userId
 }
+export const getCaptcha = (state: AppRootStateType): string | null => {
+    return state.auth.captchaUrl
+}

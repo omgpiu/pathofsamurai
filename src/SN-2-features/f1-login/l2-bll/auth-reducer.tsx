@@ -65,6 +65,7 @@ export const loginTC = (data: LoginParamsType): ThunkType => async (dispatch) =>
         switch (loginData.resultCode) {
             case  ResultCodesEnum.Success:
                 await dispatch(getAuthUserDataTC());
+                dispatch(authActions.getCaptchaUrlSuccess(''))
                 break;
             case ResultCodeForCaptcha.CaptchaRequired:
                 await dispatch(getCaptchaUrl());

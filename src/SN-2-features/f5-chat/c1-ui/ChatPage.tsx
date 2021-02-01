@@ -4,6 +4,7 @@ import {ChatMessageAPIType, StatusType} from '../c3-dal/chat-api';
 import {AppRootStateType} from '../../../SN-1-main/m2-bll/redux-store';
 import {ChatMessageType, sendMessage, startMessagesListening, stopMessagesListening} from '../c2-bll/chat-reducer';
 import {withAuthRedirect} from '../../../HOC/WithAuthRedirect';
+import {Button} from 'antd';
 
 const ChatPage: React.FC = () => {
     return <div>
@@ -50,7 +51,7 @@ const Messages: React.FC<{}> = ({}) => {
         if (isAutoScroll) {
             messagesAnchorRef.current?.scrollIntoView({behavior: 'smooth'});
         }
-    }, [messages,isAutoScroll]);
+    }, [messages, isAutoScroll]);
 
     return <div style={{height: '400px', overflowY: 'auto'}} onScroll={scrollHandler}>
         {messages.map((m, index) => <Message key={m.id} message={m}/>)}
@@ -89,7 +90,7 @@ const AddMessageForm: React.FC<{}> = () => {
             <textarea onChange={(e) => setMessage(e.currentTarget.value)} value={message}/>
         </div>
         <div>
-            <button disabled={status !== 'ready'} onClick={sendMessageHandler}>Send</button>
+            <Button onClick={sendMessageHandler} disabled={status !== 'ready'} type='primary'>Send</Button>
         </div>
     </div>;
 };

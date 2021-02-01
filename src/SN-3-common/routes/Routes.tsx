@@ -7,6 +7,7 @@ import {Page404} from '../Page404/Page404';
 import UsersPage from '../../SN-2-features/f4-users/u1-ui/UsersPage';
 import ProfileContentContainerAPI from '../../SN-2-features/f2-profile/p1-ui/ProfileContentContainerAPI';
 import Login from '../../SN-2-features/f1-login/l1-ui/Login';
+import {EmptyPage} from '../emptyPage/emptyPage';
 
 
 export const SIGN_IN_PATH = '/login';
@@ -18,6 +19,7 @@ export const NEWS_PATH = '/news';
 export const MUSIC_PATH = '/music';
 export const SETTINGS_PATH = '/settings';
 export const PAGE_NOT_FOUND_PATH = '/404';
+export const EMPTY_PAGE = '/empty_page'
 
 type PropsType = {}
 export const Routes: React.FC<PropsType> = (props) => {
@@ -36,6 +38,7 @@ export const Routes: React.FC<PropsType> = (props) => {
             <Route path={MUSIC_PATH} render={() => <Music/>}/>
             <Route path={SETTINGS_PATH} render={() => <Settings/>}/>
             <Route path={CHAT_PATH} render={() => <SuspendedChat/>}/>
+            <Route path={EMPTY_PAGE} render={() => <EmptyPage/>}/>
             <Redirect from={'*'} to={PAGE_NOT_FOUND_PATH}/>
         </Switch>
 
