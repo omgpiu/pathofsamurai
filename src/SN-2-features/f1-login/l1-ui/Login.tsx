@@ -7,13 +7,14 @@ import {EyeInvisibleOutlined, EyeTwoTone, LockOutlined, UserOutlined} from '@ant
 import {getCaptcha, getIsAuth} from '../../f2-profile/p2-bll/profile-selectors';
 import {getError} from '../l2-bll/auth-selectors';
 import {LoginLabel} from './l2-old-features/LoginLabel';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import {PROFILE_PATH} from '../../../SN-3-common/routes/Routes';
 
 const Login = () => {
     const dispatch = useDispatch();
     const error = useSelector(getError);
     const isAuth = useSelector(getIsAuth);
-    const captchaUrl = useSelector(getCaptcha)
+    const captchaUrl = useSelector(getCaptcha);
 
 
     if (isAuth) {
@@ -28,8 +29,8 @@ const Login = () => {
 
     };
     const resetError = () => {
-        dispatch(authActions.setError(''))
-    }
+        dispatch(authActions.setError(''));
+    };
     return (<Form onFinish={onSubmit}
                   className={st.loginForm}
         >
