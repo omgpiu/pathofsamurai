@@ -13,9 +13,9 @@ const Login = () => {
     const error = useSelector(getError);
     const isAuth = useSelector(getIsAuth);
 
-    // if (isAuth) {
-    //     return <Redirect to={PROFILE_PATH}/>;
-    // }
+    if (isAuth) {
+        return <Redirect to={PROFILE_PATH}/>;
+    }
     const onSubmit = async (values: {
         email: string,
         password: string
@@ -35,7 +35,6 @@ const Login = () => {
                     help: error,
                     validateStatus: 'error',
                 }}
-
                 rules={[
                     {
                         type: 'email',
