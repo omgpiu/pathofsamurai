@@ -6,8 +6,8 @@ import Music from '../../SN-2-features/f6-music/m1-ui/Music';
 import {Page404} from '../Page404/Page404';
 import UsersPage from '../../SN-2-features/f4-users/u1-ui/UsersPage';
 import ProfileContentContainerAPI from '../../SN-2-features/f2-profile/p1-ui/ProfileContentContainerAPI';
-import Login from '../../SN-2-features/f1-login/l1-ui/Login';
 import {EmptyPage} from '../emptyPage/emptyPage';
+import {Login} from '../../SN-2-features/f1-login/l1-ui/Login';
 
 
 export const SIGN_IN_PATH = '/login';

@@ -1,8 +1,8 @@
 import React, {createElement, useState} from 'react';
-import messageLogo from '../../../../photo/messageLogo-removebg-preview.png'
+import messageLogo from '../../../../photo/commonAvatar.png';
 import {Avatar, Comment, Tooltip} from 'antd';
 import {DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined} from '@ant-design/icons';
-import st from './Post.module.css'
+import st from './Post.module.css';
 import moment from 'moment';
 
 type PostType = {
@@ -67,5 +67,5 @@ const Post: React.FC<PostType> = React.memo(({id, message, likesCount}) => {
             }
         />
     );
-})
+});
 export default Post;
